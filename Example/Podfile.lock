@@ -1,0 +1,22 @@
+PODS:
+  - KeychainSwift (10.0.0)
+  - Prototype (0.1)
+  - Prototyper (1.0):
+    - KeychainSwift
+    - Prototype
+
+DEPENDENCIES:
+  - Prototyper (from `../`)
+
+EXTERNAL SOURCES:
+  Prototyper:
+    :path: ../
+
+SPEC CHECKSUMS:
+  KeychainSwift: f9f7910449a0c0fd2cabc889121530dd2c477c33
+  Prototype: 6c91d73cfb98969f61cefa4f00ff0caea75f3d2f
+  Prototyper: 1ba43d18644fb8af1913c407b700260d22c77d3e
+
+PODFILE CHECKSUM: 70c1fb0714ee18c29cbbfa305582eeb59752c7cb
+
+COCOAPODS: 1.3.1

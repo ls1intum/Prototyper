@@ -1,0 +1,12 @@
+# references:
+# * https://docs.travis-ci.com/user/languages/objective-c/
+
+osx_image: xcode9.0
+language: objective-c
+xcode_workspace: Example/Prototyper Example.xcworkspace
+xcode_scheme: Prototyper Example
+podfile: Example/Podfile
+
+before_install:
+    - gem install cocoapods # Since Travis is not always on latest version
+    - pod install --project-directory=Example
