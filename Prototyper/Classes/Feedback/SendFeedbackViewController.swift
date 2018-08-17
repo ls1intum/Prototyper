@@ -33,7 +33,7 @@ class SendFeedbackViewController: UIViewController {
             self.activityIndicator.stopAnimating()
             let alertController = UIAlertController(title: "Error",
                                                     message: "Could not send feedback to server.",
-                                                    preferredStyle: UIAlertControllerStyle.alert)
+                                                    preferredStyle: UIAlertController.Style.alert)
             let defaultAction = UIAlertAction(title: "Ok",
                                               style: .default,
                                               handler: { _ in

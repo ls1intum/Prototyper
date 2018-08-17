@@ -18,11 +18,11 @@ extension KeyboardReactable {
     public func setupKeyboardListener() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow(notification:)),
-                                               name: .UIKeyboardWillShow,
+                                               name: UIResponder.keyboardWillShowNotification,
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillHide(notification:)),
-                                               name: .UIKeyboardWillHide,
+                                               name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
     }
     
@@ -42,13 +42,13 @@ extension KeyboardReactable {
         }
     }
     
-    private func keyboardParameterFrom(notification: NSNotification) -> (keyboardHeight: CGFloat, duration: Double, animatorOption: UIViewAnimationOptions)? {
-        guard  let keyboardSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect,
-            let animationTime = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber,
-            let animationCurve = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber else {
+    private func keyboardParameterFrom(notification: NSNotification) -> (keyboardHeight: CGFloat, duration: Double, animatorOption: UIView.AnimationOptions)? {
+        guard  let keyboardSize = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+            let animationTime = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber,
+            let animationCurve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber else {
                 return nil
         }
-        let animationOptions = UIViewAnimationOptions(rawValue: UInt(animationCurve.intValue<<16))
+        let animationOptions = UIView.AnimationOptions(rawValue: UInt(animationCurve.intValue<<16))
         return (keyboardSize.height, animationTime.doubleValue, animationOptions)
     }
 }

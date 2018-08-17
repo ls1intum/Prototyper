@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Prototyper'
-  s.version          = '1.0'
+  s.version          = '1.0.1'
   s.summary          = 'Framework that allows you to integrate prototypes into an iOS application and receive feedback using the Prototyper service.'
 
   s.description      = <<-DESC
@@ -15,11 +15,12 @@ The Prototyper Framework allows you to integrate prototypes into an iOS applicat
   s.source           = { :git => 'https://github.com/ls1intum/prototyper.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/PSchmiedmayer'
 
-  s.ios.deployment_target = '10.0'
+  s.swift_version = '4.2'
+  s.ios.deployment_target = '11.0'
 
   s.source_files = 'Prototyper/Classes/**/*'
   s.resources = 'Prototyper/Assets/*'
 
-  s.dependency 'KeychainSwift'
-  s.dependency 'Prototype'
+  s.dependency 'KeychainSwift', '11.0.0'
+  s.dependency 'Prototype', '0.3.1'
 end

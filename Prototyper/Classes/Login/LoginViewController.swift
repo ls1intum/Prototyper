@@ -123,7 +123,7 @@ class LoginViewController: UIViewController {
     private func showErrorAlert() {
         let alertController = UIAlertController(title: Constants.errorAlert.title,
                                                 message: Constants.errorAlert.message,
-                                                preferredStyle: UIAlertControllerStyle.alert)
+                                                preferredStyle: UIAlertController.Style.alert)
         let defaultAction = UIAlertAction(title: Constants.errorAlert.ok,
                                           style: .default,
                                           handler: nil)

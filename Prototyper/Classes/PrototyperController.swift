@@ -32,7 +32,7 @@ open class PrototyperController: NSObject {
     
     // MARK: Computed Properties
     
-    open static var showFeedbackButton: Bool = false {
+    public static var showFeedbackButton: Bool = false {
         didSet {
             if showFeedbackButton {
                 isFeedbackButtonHidden = false

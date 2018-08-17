@@ -28,12 +28,17 @@ Your users can use the feedback button to give feedback and share the applicatio
 
     ```swift
     post_install do |installer|
-        installer.pods_project.targets.each do |target|
-            target.new_shell_script_build_phase.shell_script = "mkdir -p $PODS_CONFIGURATION_BUILD_DIR/#{target.name}"
-            target.build_configurations.each do |config|
-                config.build_settings['CONFIGURATION_BUILD_DIR'] = '$PODS_CONFIGURATION_BUILD_DIR'
-            end
+      installer.pods_project.targets.each do |target|
+        target.new_shell_script_build_phase.shell_script = "mkdir -p $PODS_CONFIGURATION_BUILD_DIR/#{target.name}"
+        target.build_configurations.each do |config|
+          config.build_settings['CONFIGURATION_BUILD_DIR'] = '$PODS_CONFIGURATION_BUILD_DIR'
         end
+      end
+
+      installer.pods_project.build_configurations.each do |config|
+        config.build_settings.delete('CODE_SIGNING_ALLOWED')
+        config.build_settings.delete('CODE_SIGNING_REQUIRED')
+      end
     end
     ```
 2. Display the feedback button in the `applicationDidFinishLaunchingWithOptions` method of your `AppDelegate`. Don't forget to import the Prototyper framework.
