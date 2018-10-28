@@ -9,13 +9,13 @@
 import Foundation
 
 open class PrototyperController: NSObject {
-    struct Constants {
-        struct feedbackHideAlertSheet {
+    enum Constants {
+        enum FeedbackHideAlertSheet {
             static let title = "To unhide the feedback button just close and open the app again."
             static let ok = "OK"
         }
         
-        struct feedbackActionSheet {
+        enum FeedbackActionSheet {
             static let title: String? = nil
             static let text: String? = nil
             static let writeFeedback = "Give feedback"
@@ -27,7 +27,7 @@ open class PrototyperController: NSObject {
     
     // MARK: Stored Properties
     
-    fileprivate static var feedbackBubble: FeedbackBubble!
+    fileprivate static var feedbackBubble: FeedbackBubble?
     
     
     // MARK: Computed Properties
@@ -72,25 +72,25 @@ open class PrototyperController: NSObject {
     // MARK: Show Feedback
     
     @objc private static func feedbackBubbleTouched() {
-        let actionSheet = UIAlertController(title: Constants.feedbackActionSheet.title,
-                                            message: Constants.feedbackActionSheet.text,
+        let actionSheet = UIAlertController(title: Constants.FeedbackActionSheet.title,
+                                            message: Constants.FeedbackActionSheet.text,
                                             preferredStyle: .actionSheet)
         actionSheet.popoverPresentationController?.sourceView = feedbackBubble
-        actionSheet.popoverPresentationController?.sourceRect = feedbackBubble.bounds
+        actionSheet.popoverPresentationController?.sourceRect = feedbackBubble?.bounds ?? .zero
         
-        actionSheet.addAction(UIAlertAction(title: Constants.feedbackActionSheet.writeFeedback,
+        actionSheet.addAction(UIAlertAction(title: Constants.FeedbackActionSheet.writeFeedback,
                                             style: .default) { _ in
             showFeedbackView()
         })
-        actionSheet.addAction(UIAlertAction(title: Constants.feedbackActionSheet.shareApp,
+        actionSheet.addAction(UIAlertAction(title: Constants.FeedbackActionSheet.shareApp,
                                             style: .default) { _ in
             shareApp()
         })
-        actionSheet.addAction(UIAlertAction(title: Constants.feedbackActionSheet.hideFeedbackBubble,
+        actionSheet.addAction(UIAlertAction(title: Constants.FeedbackActionSheet.hideFeedbackBubble,
                                             style: .default) { _ in
             hideFeedbackButton()
         })
-        actionSheet.addAction(UIAlertAction(title: Constants.feedbackActionSheet.cancel,
+        actionSheet.addAction(UIAlertAction(title: Constants.FeedbackActionSheet.cancel,
                                             style: .cancel,
                                             handler: nil))
         
@@ -121,22 +121,26 @@ open class PrototyperController: NSObject {
         let keyWindow = UIApplication.shared.keyWindow ?? UIApplication.shared.windows.first
         feedbackBubble = feedbackBubble == nil ? FeedbackBubble(target: self,
                                                                 action: #selector(feedbackBubbleTouched)) : feedbackBubble
-        feedbackBubble.layer.zPosition = 100
+        feedbackBubble?.layer.zPosition = 100
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            keyWindow?.addSubview(self.feedbackBubble)
+            guard let feedbackBubble = self.feedbackBubble else {
+                return
+            }
+            keyWindow?.addSubview(feedbackBubble)
         }
     }
     
     private static func hideFeedbackButton() {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.3,
+                       animations: {
             feedbackBubble?.alpha = 0.0
-        }) { _ in
+        }, completion: { _ in
             showFeedbackButton = false
             feedbackBubble?.alpha = 1.0
             
             showInfoAlertAfterHiding()
-        }
+        })
     }
     
     // MARK: Share App
@@ -154,12 +158,14 @@ open class PrototyperController: NSObject {
     // MARK: Helper
     
     private static func showInfoAlertAfterHiding() {
-        guard let rootViewController = topViewController else { return }
+        guard let rootViewController = topViewController else {
+            return
+        }
         
-        let alertController = UIAlertController(title: Constants.feedbackHideAlertSheet.title,
+        let alertController = UIAlertController(title: Constants.FeedbackHideAlertSheet.title,
                                                 message: nil,
                                                 preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: Constants.feedbackHideAlertSheet.ok,
+        alertController.addAction(UIAlertAction(title: Constants.FeedbackHideAlertSheet.ok,
                                                 style: .default,
                                                 handler: nil))
         rootViewController.present(alertController,

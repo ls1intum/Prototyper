@@ -1,9 +1,9 @@
 PODS:
-  - KeychainSwift (11.0.0)
-  - Prototype (0.3.1)
-  - Prototyper (1.0.1):
-    - KeychainSwift (= 11.0.0)
-    - Prototype (= 0.3.1)
+  - KeychainSwift (13.0.0)
+  - Prototype (0.3.3)
+  - Prototyper (1.1):
+    - KeychainSwift (= 13.0.0)
+    - Prototype (= 0.3.3)
 
 DEPENDENCIES:
   - Prototyper (from `../`)
@@ -18,10 +18,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  KeychainSwift: bea6bd9f98af7b8d7ca4aa79fe105c00fab532db
-  Prototype: cac1f63df1595a2c42352138175f21c82c418c25
-  Prototyper: af98cfa4a9e45ab2ff0c8f956668ef06645ec803
+  KeychainSwift: 23d6c16cbc33f20fafa30c3d783241b4b87d998c
+  Prototype: 2009eb25fccdcbe5339d1cbe4f116eb6e68466aa
+  Prototyper: 09bf1e15d619a7cd6ae358beaa58dc2e0955fa16
 
 PODFILE CHECKSUM: 2df3c83946f306d4dbca2f29a7db0e425f82a67b
 
-COCOAPODS: 1.6.0.beta.1
+COCOAPODS: 1.6.0.beta.2

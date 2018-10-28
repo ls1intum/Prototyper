@@ -15,4 +15,3 @@ struct Feedback {
 }
 
 extension Feedback: CustomStringConvertible {}
-

@@ -9,32 +9,32 @@
 import UIKit
 
 class FeedbackViewController: UIViewController {
-    struct Constants {
+    enum Constants {
         static let descriptionPlaceholder = "Add your feedback here..."
         static let imageInsert: CGFloat = 16.0
         static let characterLimit = 2500
         
-        struct segues {
+        enum Segues {
             static let send = "sendFeedback"
             static let annotate = "annotateSceenshot"
             static let signIn = "signIn"
         }
     }
 
-    @IBOutlet weak var descriptionTextView: UITextView!
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var annotateButton: UIButton!
-    @IBOutlet weak var removeImageButton: UIButton!
-    @IBOutlet weak var bottomTextFieldConstraint: NSLayoutConstraint!
-    @IBOutlet weak var sendFeedbackBarButtonItem: UIBarButtonItem!
+    @IBOutlet private weak var descriptionTextView: UITextView!
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var annotateButton: UIButton!
+    @IBOutlet private weak var removeImageButton: UIButton!
+    @IBOutlet private weak var bottomTextFieldConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var sendFeedbackBarButtonItem: UIBarButtonItem!
     
     var screenshot: UIImage?
     var currentFeedback: Feedback {
-        let description = descriptionTextView.text == Constants.descriptionPlaceholder ? "" : descriptionTextView.text!
+        let description = descriptionTextView.text == Constants.descriptionPlaceholder ? "" : (descriptionTextView.text ?? "")
         
         var creatorName: String?
         if !APIHandler.sharedAPIHandler.isLoggedIn {
-            creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.Username)
+            creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.username)
         }
         
         return Feedback(description: description,
@@ -79,23 +79,17 @@ class FeedbackViewController: UIViewController {
             return
         }
         
-        switch identifier {
-        case Constants.segues.send:
-            guard let sendFeedbackViewController = segue.destination as? SendFeedbackViewController else {
-                return
-            }
+        switch (identifier, segue.destination) {
+        case (Constants.Segues.send, let sendFeedbackViewController as SendFeedbackViewController):
             sendFeedbackViewController.feedback = currentFeedback
-        case Constants.segues.signIn:
-            guard let navigationController = segue.destination as? UINavigationController,
-                  let loginViewController = navigationController.topViewController as? LoginViewController else {
+        case (Constants.Segues.signIn, let navigationController as UINavigationController):
+            guard let loginViewController = navigationController.topViewController as? LoginViewController else {
                 return
             }
             loginViewController.delegate = self
-            break
-        case Constants.segues.annotate:
-            guard let navigationController = segue.destination as? UINavigationController,
-                let markupViewController = navigationController.topViewController as? MarkupViewController else {
-                    return
+        case (Constants.Segues.annotate, let navigationController as UINavigationController):
+            guard let markupViewController = navigationController.topViewController as? MarkupViewController else {
+                return
             }
             markupViewController.delegate = self
             markupViewController.image = screenshot
@@ -106,7 +100,7 @@ class FeedbackViewController: UIViewController {
     
     // MARK: - Actions
     
-    @IBAction func removeImageButtonPressed(_ sender: UIButton) {
+    @IBAction private func removeImageButtonPressed(_ sender: UIButton) {
         screenshot = nil
         annotateButton.isHidden = true
         removeImageButton.isHidden = true
@@ -114,15 +108,15 @@ class FeedbackViewController: UIViewController {
         descriptionTextView.textContainer.exclusionPaths = []
     }
     
-    @IBAction func sendButtonPressed(_ sender: Any) {
+    @IBAction private func sendButtonPressed(_ sender: Any) {
         if APIHandler.sharedAPIHandler.isLoggedIn {
-            performSegue(withIdentifier: Constants.segues.send, sender: self)
+            performSegue(withIdentifier: Constants.Segues.send, sender: self)
         } else {
-            performSegue(withIdentifier: Constants.segues.signIn, sender: self)
+            performSegue(withIdentifier: Constants.Segues.signIn, sender: self)
         }
     }
     
-    @IBAction func cancelButtonPressed(_ sender: Any) {
+    @IBAction private func cancelButtonPressed(_ sender: Any) {
         self.navigationController?.dismiss(animated: true, completion: {
             PrototyperController.isFeedbackButtonHidden = false
         })
@@ -171,9 +165,9 @@ extension FeedbackViewController: KeyboardReactable {
 // MARK: - LoginViewControllerDelegate
 
 extension FeedbackViewController: LoginViewControllerDelegate {
-    func LoginViewControllerDidDismiss(withState: LoginState) {
+    func loginViewControllerDidDismiss(withState: LoginState) {
         if withState != LoginState.didNotLogIn {
-            performSegue(withIdentifier: Constants.segues.send, sender: self)
+            performSegue(withIdentifier: Constants.Segues.send, sender: self)
         }
     }
 }

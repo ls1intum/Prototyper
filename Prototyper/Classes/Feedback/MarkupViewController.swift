@@ -8,17 +8,19 @@
 
 import UIKit
 
-protocol MarkupViewControllerDelegate {
+protocol MarkupViewControllerDelegate: class {
     func didMarkup(image: UIImage)
 }
 
 class MarkupViewController: UIViewController {
 
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var markupView: MarkupView!
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var markupView: MarkupView!
     
-    var image: UIImage!
-    var delegate: MarkupViewControllerDelegate?
+    // The contract of the `MarkupViewController` requests that a background image for the `MarkupViewController`
+    // should be provided after initializing an instance of `MarkupViewController` and before `viewDidLoad()` is called.
+    var image: UIImage! // swiftlint:disable:this implicitly_unwrapped_optional
+    weak var delegate: MarkupViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,11 +29,11 @@ class MarkupViewController: UIViewController {
     }
     
     // MARK: - Actions
-    @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
+    @IBAction private func cancelButtonPressed(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
+    @IBAction private func saveButtonPressed(_ sender: UIBarButtonItem) {
         delegate?.didMarkup(image: markupView.drawContent(onImage: image))
         self.dismiss(animated: true, completion: nil)
     }

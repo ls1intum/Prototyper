@@ -9,9 +9,11 @@
 import UIKit
 
 class SendShareRequestViewController: UIViewController {
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
-    var shareRequest: ShareRequest!
+    // The contract of the `SendShareRequestViewController` requests that a share request for the `SendShareRequestViewController`
+    // should be provided after initializing an instance of `SendShareRequestViewController` and before `viewDidLoad()` is called.
+    var shareRequest: ShareRequest! // swiftlint:disable:this implicitly_unwrapped_optional
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,15 +22,17 @@ class SendShareRequestViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationItem.hidesBackButton = true
     }
     
     private func sendShareRequest() {
-        APIHandler.send(shareRequest: shareRequest, success: {
+        APIHandler.send(shareRequest: shareRequest,
+                        success: {
             print("Successfully sent share request to server")
             PrototyperController.isFeedbackButtonHidden = false
             self.dismiss(animated: true, completion: nil)
-        }, failure: { error in
+        }, failure: { _ in
             self.activityIndicator.stopAnimating()
             let alertController = UIAlertController(title: "Error",
                                                     message: "Could not send feedback to server.",

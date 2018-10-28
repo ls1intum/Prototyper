@@ -6,6 +6,8 @@
 //  Copyright © 2018 Paul Schmiedmayer. All rights reserved.
 //
 
+// swiftlint:disable force_unwrapping
+
 import UIKit
 
 extension UIWindow {

@@ -9,6 +9,12 @@
 import Foundation
 import UIKit
 
+private struct KeyboardReactableParameters {
+    let keyboardHeight: CGFloat
+    let duration: Double
+    let animatorOption: UIView.AnimationOptions
+}
+
 @objc public protocol KeyboardReactable: class {
     @objc func keyboardWillShow(notification: NSNotification)
     @objc func keyboardWillHide(notification: NSNotification)
@@ -26,30 +32,32 @@ extension KeyboardReactable {
                                                object: nil)
     }
     
-    public func animateKeyboardWillShow(_ notification: NSNotification, animation: @escaping (CGFloat) -> ()) {
+    public func animateKeyboardWillShow(_ notification: NSNotification, animation: @escaping (CGFloat) -> Void) {
         if let parameter = keyboardParameterFrom(notification: notification) {
-            UIView.animate(withDuration: parameter.duration, delay: 0.0, options: parameter.animatorOption , animations: {
+            UIView.animate(withDuration: parameter.duration, delay: 0.0, options: parameter.animatorOption, animations: {
                 animation(parameter.keyboardHeight)
             })
         }
     }
     
-    public func animateKeyboardWillHide(_ notification: NSNotification, animation: @escaping () -> ()) {
+    public func animateKeyboardWillHide(_ notification: NSNotification, animation: @escaping () -> Void) {
         if let parameter = keyboardParameterFrom(notification: notification) {
-            UIView.animate(withDuration: parameter.duration, delay: 0.0, options: parameter.animatorOption , animations: {
+            UIView.animate(withDuration: parameter.duration, delay: 0.0, options: parameter.animatorOption, animations: {
                 animation()
             })
         }
     }
     
-    private func keyboardParameterFrom(notification: NSNotification) -> (keyboardHeight: CGFloat, duration: Double, animatorOption: UIView.AnimationOptions)? {
+    private func keyboardParameterFrom(notification: NSNotification) -> KeyboardReactableParameters? {
         guard  let keyboardSize = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
             let animationTime = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber,
             let animationCurve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber else {
                 return nil
         }
-        let animationOptions = UIView.AnimationOptions(rawValue: UInt(animationCurve.intValue<<16))
-        return (keyboardSize.height, animationTime.doubleValue, animationOptions)
+        let animationOptions = UIView.AnimationOptions(rawValue: UInt(animationCurve.intValue << 16))
+        return KeyboardReactableParameters(keyboardHeight: keyboardSize.height,
+                                           duration: animationTime.doubleValue,
+                                           animatorOption: animationOptions)
     }
 }
 

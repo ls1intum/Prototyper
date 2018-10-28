@@ -10,9 +10,11 @@ import UIKit
 
 class SendFeedbackViewController: UIViewController {
     
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
-    var feedback: Feedback!
+    // The contract of the `SendFeedbackViewController` requests that a `Feedback` instance should be provided after
+    // initializing an instance of `SendFeedbackViewController` and before `viewDidLoad()` is called.
+    var feedback: Feedback! // swiftlint:disable:this implicitly_unwrapped_optional
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,15 +23,17 @@ class SendFeedbackViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationItem.hidesBackButton = true
     }
     
     private func sendFeedback() {
-        APIHandler.send(feedback: feedback, success: {
+        APIHandler.send(feedback: feedback,
+                        success: {
             print("Successfully sent feedback to server")
             PrototyperController.isFeedbackButtonHidden = false
             self.dismiss(animated: true, completion: nil)
-        }, failure: { (error) in
+        }, failure: { _ in
             self.activityIndicator.stopAnimating()
             let alertController = UIAlertController(title: "Error",
                                                     message: "Could not send feedback to server.",
@@ -44,4 +48,3 @@ class SendFeedbackViewController: UIViewController {
         })
     }
 }
-

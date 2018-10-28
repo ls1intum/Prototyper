@@ -38,7 +38,7 @@ struct StrokeSample {
     let location: CGPoint
     let coalescedSample: Bool
     
-    init(point: CGPoint, coalesced : Bool = false) {
+    init(point: CGPoint, coalesced: Bool = false) {
         location = point
         coalescedSample = coalesced
     }
@@ -46,7 +46,7 @@ struct StrokeSample {
 
 class StrokeCollection {
     var strokes = [Stroke]()
-    var activeStroke: Stroke? = nil
+    var activeStroke: Stroke?
     
     func acceptActiveStroke() {
         if let stroke = activeStroke {
@@ -81,19 +81,19 @@ class MarkupView: UIView {
         let newStroke = Stroke()
         strokeCollection.activeStroke = newStroke
         
-        if let coalesced = event?.coalescedTouches(for: touches.first!) {
+        if let firstTouch = touches.first, let coalesced = event?.coalescedTouches(for: firstTouch) {
             addSamples(for: coalesced)
         }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let coalesced = event?.coalescedTouches(for: touches.first!) {
+        if let firstTouch = touches.first, let coalesced = event?.coalescedTouches(for: firstTouch) {
             addSamples(for: coalesced)
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let coalesced = event?.coalescedTouches(for: touches.first!) {
+        if let firstTouch = touches.first, let coalesced = event?.coalescedTouches(for: firstTouch) {
             addSamples(for: coalesced)
         }
         
@@ -112,7 +112,7 @@ class MarkupView: UIView {
                                                UIScreen.main.scale)
         image.draw(at: .zero)
         
-        let context = UIGraphicsGetCurrentContext()!
+        let context = UIGraphicsGetCurrentContext()! // swiftlint:disable:this force_unwrapping
         
         let scaleFactor = image.size.height / self.frame.size.height
         context.translateBy(x: (image.size.width - self.frame.size.width * scaleFactor) / 2, y: 0)
@@ -120,7 +120,7 @@ class MarkupView: UIView {
         
         draw(.zero)
         
-        let image = UIGraphicsGetImageFromCurrentImageContext()!
+        let image = UIGraphicsGetImageFromCurrentImageContext()! // swiftlint:disable:this force_unwrapping
         UIGraphicsEndImageContext()
         return image
     }

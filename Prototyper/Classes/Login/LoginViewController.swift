@@ -15,13 +15,13 @@ enum LoginState {
 }
 
 extension LoginState: Equatable {
-    static func ==(lhs: LoginState, rhs: LoginState) -> Bool {
+    static func == (lhs: LoginState, rhs: LoginState) -> Bool {
         switch (lhs, rhs) {
-        case (.didNotLogIn,.didNotLogIn):
+        case (.didNotLogIn, .didNotLogIn):
             return true
-        case (.logInSuccessful,.logInSuccessful):
+        case (.logInSuccessful, .logInSuccessful):
             return true
-        case let (.onlyName(lname),.onlyName(rName)):
+        case let (.onlyName(lname), .onlyName(rName)):
             return lname == rName
         default:
             return false
@@ -29,33 +29,33 @@ extension LoginState: Equatable {
     }
 }
 
-protocol LoginViewControllerDelegate {
-    func LoginViewControllerDidDismiss(withState: LoginState)
+protocol LoginViewControllerDelegate: class {
+    func loginViewControllerDidDismiss(withState: LoginState)
 }
 
 class LoginViewController: UIViewController {
     
-    struct Constants {
+    enum Constants {
         static let unwindSegue = "unwindToFeedbackViewController"
         
-        struct stateYourNameAlertSheet {
+        enum StateYourNameAlertSheet {
             static let title = "Please enter your name"
             static let placeholder = "Anonymous"
             static let save = "Save"
         }
         
-        struct errorAlert {
+        enum ErrorAlert {
             static let title = "Error"
             static let message = "Could not log in! Please check your login credentials and try again."
             static let ok = "OK"
         }
     }
 
-    @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var idTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet private weak var loginButton: UIButton!
+    @IBOutlet private weak var idTextField: UITextField!
+    @IBOutlet private weak var passwordTextField: UITextField!
     
-    var delegate: LoginViewControllerDelegate?
+    weak var delegate: LoginViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,43 +74,45 @@ class LoginViewController: UIViewController {
     
     // MARK: - Actions
     
-    @IBAction func loginButtonPressed(_ sender: UIButton) {
+    @IBAction private func loginButtonPressed(_ sender: UIButton) {
         let id = idTextField.text ?? ""
         let password = passwordTextField.text ?? ""
         
-        APIHandler.sharedAPIHandler.login(id, password: password, success: {
+        APIHandler.sharedAPIHandler.login(id,
+                                          password: password,
+                                          success: {
             self.navigationController?.dismiss(animated: true, completion: {
-                self.delegate?.LoginViewControllerDidDismiss(withState: .logInSuccessful)
+                self.delegate?.loginViewControllerDidDismiss(withState: .logInSuccessful)
             })
-        }) { (error) in
+        }, failure: { _ in
             self.showErrorAlert()
-        }
+        })
     }
     
-    @IBAction func noLoginButtonPressed(_ sender: UIButton) {
-        let alertController = UIAlertController(title: Constants.stateYourNameAlertSheet.title, message: nil, preferredStyle: .alert)
+    @IBAction private func noLoginButtonPressed(_ sender: UIButton) {
+        let alertController = UIAlertController(title: Constants.StateYourNameAlertSheet.title, message: nil, preferredStyle: .alert)
         alertController.addTextField { textField in
-            textField.placeholder = Constants.stateYourNameAlertSheet.placeholder
-            textField.text = UserDefaults.standard.string(forKey: UserDefaultKeys.Username)
+            textField.placeholder = Constants.StateYourNameAlertSheet.placeholder
+            textField.text = UserDefaults.standard.string(forKey: UserDefaultKeys.username)
         }
-        alertController.addAction(UIAlertAction(title: Constants.stateYourNameAlertSheet.save, style: .default, handler: { _ in
+        alertController.addAction(UIAlertAction(title: Constants.StateYourNameAlertSheet.save, style: .default, handler: { _ in
             let name = alertController.textFields?.first?.text ?? ""
-            UserDefaults.standard.set(name, forKey: UserDefaultKeys.Username)
+            UserDefaults.standard.set(name, forKey: UserDefaultKeys.username)
             
             self.navigationController?.dismiss(animated: true, completion: {
-                self.delegate?.LoginViewControllerDidDismiss(withState: .onlyName(userName: name))
+                self.delegate?.loginViewControllerDidDismiss(withState: .onlyName(userName: name))
             })
         }))
         self.present(alertController, animated: true, completion: nil)
     }
     
-    @IBAction func cancelButtonPressed(_ sender: Any) {
+    @IBAction private func cancelButtonPressed(_ sender: Any) {
         self.navigationController?.dismiss(animated: true, completion: {
-            self.delegate?.LoginViewControllerDidDismiss(withState: .didNotLogIn)
+            self.delegate?.loginViewControllerDidDismiss(withState: .didNotLogIn)
         })
     }
     
-    @IBAction func editChanged(_ sender: Any) {
+    @IBAction private func editChanged(_ sender: Any) {
         let id = idTextField.text ?? ""
         let password = passwordTextField.text ?? ""
         
@@ -121,10 +123,10 @@ class LoginViewController: UIViewController {
     // MARK: Helper
     
     private func showErrorAlert() {
-        let alertController = UIAlertController(title: Constants.errorAlert.title,
-                                                message: Constants.errorAlert.message,
+        let alertController = UIAlertController(title: Constants.ErrorAlert.title,
+                                                message: Constants.ErrorAlert.message,
                                                 preferredStyle: UIAlertController.Style.alert)
-        let defaultAction = UIAlertAction(title: Constants.errorAlert.ok,
+        let defaultAction = UIAlertAction(title: Constants.ErrorAlert.ok,
                                           style: .default,
                                           handler: nil)
         alertController.addAction(defaultAction)

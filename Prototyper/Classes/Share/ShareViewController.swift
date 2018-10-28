@@ -9,28 +9,28 @@
 import UIKit
 
 class ShareViewController: UIViewController {
-    struct Constants {
+    enum Constants {
         static let contentPlaceholder = "This is the content of the invitation..."
         
-        struct segues {
+        enum Segues {
             static let signIn = "signIn"
             static let send = "sendShareRequest"
         }
     }
     
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var contentTextView: UITextView!
-    @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet private weak var emailTextField: UITextField!
+    @IBOutlet private weak var contentTextView: UITextView!
+    @IBOutlet private weak var shareButton: UIButton!
     
     var currentShareRequest: ShareRequest {
-        let content = contentTextView.text == Constants.contentPlaceholder ? "" : contentTextView.text!
+        let content = contentTextView.text == Constants.contentPlaceholder ? "" : (contentTextView.text ?? "")
         
         var creatorName: String?
         if !APIHandler.sharedAPIHandler.isLoggedIn {
-            creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.Username)
+            creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.username)
         }
         
-        return ShareRequest(email: emailTextField.text!,
+        return ShareRequest(email: emailTextField.text ?? "",
                             content: content,
                             creatorName: creatorName)
     }
@@ -60,13 +60,13 @@ class ShareViewController: UIViewController {
         }
         
         switch identifier {
-        case Constants.segues.signIn:
+        case Constants.Segues.signIn:
             guard let navigationController = segue.destination as? UINavigationController,
                 let loginViewController = navigationController.topViewController as? LoginViewController else {
                     return
             }
             loginViewController.delegate = self
-        case Constants.segues.send:
+        case Constants.Segues.send:
             guard let sendShareRequestViewController = segue.destination as? SendShareRequestViewController else {
                 return
             }
@@ -76,20 +76,20 @@ class ShareViewController: UIViewController {
         }
     }
     
-    @IBAction func cancelButtonPressed(_ sender: Any) {
+    @IBAction private func cancelButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
         PrototyperController.isFeedbackButtonHidden = false
     }
     
-    @IBAction func shareButtonPressed(_ sender: Any) {
+    @IBAction private func shareButtonPressed(_ sender: Any) {
         if APIHandler.sharedAPIHandler.isLoggedIn {
-            performSegue(withIdentifier: Constants.segues.send, sender: self)
+            performSegue(withIdentifier: Constants.Segues.send, sender: self)
         } else {
-            performSegue(withIdentifier: Constants.segues.signIn, sender: self)
+            performSegue(withIdentifier: Constants.Segues.signIn, sender: self)
         }
     }
     
-    @IBAction func editChanged(_ sender: UITextField) {
+    @IBAction private func editChanged(_ sender: UITextField) {
         guard let email = emailTextField.text else {
             return
         }
@@ -133,9 +133,9 @@ extension ShareViewController: KeyboardReactable {
 // MARK: - UITextViewDelegate
 
 extension ShareViewController: LoginViewControllerDelegate {
-    func LoginViewControllerDidDismiss(withState state: LoginState) {
+    func loginViewControllerDidDismiss(withState state: LoginState) {
         if state != .didNotLogIn {
-            performSegue(withIdentifier: Constants.segues.send, sender: self)
+            performSegue(withIdentifier: Constants.Segues.send, sender: self)
         }
     }
 }
