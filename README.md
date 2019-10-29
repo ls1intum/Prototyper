@@ -41,18 +41,27 @@ Your users can use the feedback button to give feedback and share the applicatio
       end
     end
     ```
-2. Display the feedback button in the `applicationDidFinishLaunchingWithOptions` method of your `AppDelegate`. Don't forget to import the Prototyper framework.
+2. Display the feedback button in the `scene(: UIScene, willConnectTo: UISceneSession, options: UIScene.ConnectionOptions)` method of your `SceneDelegate`. Don't forget to import the Prototyper framework.
 
     ```swift
     import Prototyper
     ```
 
     ```swift
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func scene(_ scene: UIScene,
+               willConnectTo session: UISceneSession,
+               options connectionOptions: UIScene.ConnectionOptions) {
+        let contentView = ContentView()
 
-        PrototyperController.showFeedbackButton = true
-
-        return true
+        if let windowScene = scene as? UIWindowScene {
+            let window = UIWindow(windowScene: windowScene)
+            window.rootViewController = UIHostingController(rootView: contentView)
+            self.window = window
+            
+            PrototyperController.showFeedbackButton = true
+            
+            window.makeKeyAndVisible()
+        }
     }
     ```
 3. Deploy your application using the [Prototyper service](https://prototyper-bruegge.in.tum.de)
