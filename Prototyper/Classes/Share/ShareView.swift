@@ -72,6 +72,8 @@ struct ShareView: View {
             model.viewStatus = .sendInviteView
         } else {
             print("SignIn screen")
+            PrototyperController.currentShareRequest = currentShareRequest
+            model.viewStatus = .loginView
         }
     }
 }
