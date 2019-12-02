@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 open class PrototyperController: NSObject {
     enum Constants {
@@ -23,11 +24,20 @@ open class PrototyperController: NSObject {
             static let hideFeedbackBubble = "Hide this button"
             static let cancel = "Cancel"
         }
+        
+        enum ViewStatus: String {
+            case shareView
+            case sendInviteView
+            case loginView
+        }
+
     }
     
     // MARK: Stored Properties
     
     fileprivate static var feedbackBubble: FeedbackBubble?
+    
+    static var currentShareRequest: ShareRequest?
     
     
     // MARK: Computed Properties
@@ -144,15 +154,22 @@ open class PrototyperController: NSObject {
     }
     
     // MARK: Share App
-    
     private static func shareApp() {
+        /*
         guard let instantiatedViewController = UIStoryboard(name: "Share",
                                                             bundle: Bundle(for: ShareViewController.self)).instantiateInitialViewController() else {
             return
-        }
+        }*/
+        let instantiatedViewController = UIHostingController(rootView: MainView().environmentObject(Model()))
+        instantiatedViewController.isModalInPresentation = true
+        self.isFeedbackButtonHidden = true
         topViewController?.present(instantiatedViewController,
                                    animated: true,
                                    completion: nil)
+    }
+    
+    static func dismissView() {
+        topViewController?.dismiss(animated: true, completion: nil)
     }
     
     // MARK: Helper

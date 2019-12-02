@@ -13,7 +13,8 @@ struct ContentView: View {
     @State var prototypeName: String
     
     var body: some View {
-        PrototypeContainer(prototypeName: $prototypeName)
+        //PrototypeContainer(prototypeName: $prototypeName)
+        Text("Hello World")
     }
 }
 
