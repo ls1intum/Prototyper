@@ -24,8 +24,8 @@ struct SendInviteView: View {
                 Alert(title: Text("Error"), message: Text("Could not send feedback to server."), dismissButton: .default(Text("OK"), action: {
                     self.model.viewStatus = .shareView
                 }))
-            }
-        }.navigationBarTitle("Sending Invitation")
+            }.navigationBarTitle("Sending Invitation")
+        }
     }
     
     private func sendShareRequest() {

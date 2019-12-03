@@ -20,7 +20,6 @@ struct ShareView: View {
                     TextField("email@example.com", text: $inviteList)
                     Text("Invitation Text:")
                     TextField("This is the content of the invitation...", text: $inviteText)
-                        .fixedSize(horizontal: false, vertical: true)
                 }
                 Spacer()
                 VStack {
