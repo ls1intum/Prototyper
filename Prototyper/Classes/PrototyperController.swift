@@ -24,13 +24,6 @@ open class PrototyperController: NSObject {
             static let hideFeedbackBubble = "Hide this button"
             static let cancel = "Cancel"
         }
-        
-        enum ViewStatus: String {
-            case shareView
-            case sendInviteView
-            case loginView
-        }
-
     }
     
     // MARK: Stored Properties
