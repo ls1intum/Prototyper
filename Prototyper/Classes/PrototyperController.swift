@@ -155,11 +155,6 @@ open class PrototyperController: NSObject {
     
     // MARK: Share App
     private static func shareApp() {
-        /*
-        guard let instantiatedViewController = UIStoryboard(name: "Share",
-                                                            bundle: Bundle(for: ShareViewController.self)).instantiateInitialViewController() else {
-            return
-        }*/
         let instantiatedViewController = UIHostingController(rootView: ShareView().environmentObject(Model()))
         instantiatedViewController.isModalInPresentation = true
         self.isFeedbackButtonHidden = true
