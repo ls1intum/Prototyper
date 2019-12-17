@@ -14,7 +14,6 @@ struct SendInviteView: View {
     @State var shareRequest: ShareRequest = PrototyperController.currentShareRequest
     
     var body: some View {
-        NavigationView {
             VStack {
                 ActivityIndicator(isAnimating: self.$shouldAnimate)
                     .onAppear { self.sendShareRequest() }
@@ -22,10 +21,9 @@ struct SendInviteView: View {
             }
             .alert(isPresented: $showingAlert) {
                 Alert(title: Text("Error"), message: Text("Could not send feedback to server."), dismissButton: .default(Text("OK"), action: {
-                    self.model.viewStatus = .shareView
+                    self.model.showSendInviteView = false
                 }))
             }.navigationBarTitle("Sending Invitation")
-        }
     }
     
     private func sendShareRequest() {

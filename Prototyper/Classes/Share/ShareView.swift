@@ -19,22 +19,26 @@ struct ShareView: View {
                     Text("Send the invitation to test the app to:")
                     TextField("email@example.com", text: $inviteList)
                     Text("Invitation Text:")
-                    TextField("This is the content of the invitation...", text: $inviteText)
+                    ZStack (alignment: .leading) {
+                        MultilineTextView(text: $inviteText)
+                        .frame(maxHeight: .infinity)
+                        if inviteText.isEmpty {
+                            Text("This is the content of the invitation...").foregroundColor(.gray).opacity(0.75).onTapGesture {
+                                self.inviteText = " "
+                            }
+                        }
+                    }
+                    NavigationLink(destination: LoginView(), isActive: $model.showLoginView) {
+                        Text("")
+                    }
+                    NavigationLink(destination: SendInviteView(), isActive: $model.showSendInviteView) {
+                        Text("")
+                    }
                 }
                 Spacer()
-                VStack {
-                    Button(action: share) {
-                        Text("Share").bold()
-                        .foregroundColor(.white)
-                        .padding(8)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                            .background(buttonColor)
-                        .cornerRadius(10)
-                    }.disabled(inviteList.isEmpty || !inviteList.isValidEmail)
-                }
             }.padding(20)
             .navigationBarTitle("Share App")
-            .navigationBarItems(trailing: cancelButton)
+            .navigationBarItems(leading: cancelButton, trailing: shareButton)
         }
     }
     
@@ -59,6 +63,12 @@ struct ShareView: View {
         }
     }
     
+    private var shareButton : some View {
+        Button(action: share) {
+            Text("Share").bold()
+        }.disabled(inviteList.isEmpty || !inviteList.isValidEmail)
+    }
+    
     private func cancel() {
         PrototyperController.dismissView()
         PrototyperController.isFeedbackButtonHidden = false
@@ -68,12 +78,16 @@ struct ShareView: View {
         if APIHandler.sharedAPIHandler.isLoggedIn {
             print("Send screen")
             PrototyperController.currentShareRequest = currentShareRequest
-            model.viewStatus = .sendInviteView
+            self.model.showSendInviteView = true
         } else {
             print("SignIn screen")
             PrototyperController.currentShareRequest = currentShareRequest
-            model.viewStatus = .loginView
+            self.model.showLoginView = true
         }
+    }
+    
+    private func performSegueToSendInviteView() {
+        print("performSegueToSendInviteView")
     }
 }
 

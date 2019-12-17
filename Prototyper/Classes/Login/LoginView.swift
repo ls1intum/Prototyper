@@ -9,12 +9,28 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject var model: Model
+    @Environment(\.presentationMode) var presentationMode
     @State var userid: String = ""
     @State var password: String = ""
     @State var showingAlert: Bool = false
+    @State var continueWithoutLoginState: Bool = false
+    @State var alertText: String = "Could not log in! Please check your login credentials and try again."
+    @State var userNamePlaceHolder = LoginViewConstants.userNamePlaceHolder.withoutLoginText
+    @State var subButtonText = LoginViewConstants.subButtonText.withoutLoginText
+    
+    enum LoginViewConstants {
+        enum userNamePlaceHolder {
+            static let withoutLoginText = "TUM-ID/E-Mail"
+            static let withLoginText = "Enter your name"
+        }
+        
+        enum subButtonText {
+            static let withoutLoginText = "Continue without login"
+            static let withLoginText = "Continue with login"
+        }
+    }
     
     var body: some View {
-        NavigationView {
             VStack {
                 VStack (alignment: .leading) {
                     Text("Please log in using your Prototyper/TUM credentials to send feedback")
@@ -22,8 +38,10 @@ struct LoginView: View {
                 }.padding()
                     
                 VStack (spacing: 25) {
-                    TextField("TUM-ID/E-Mail", text: $userid)
-                    SecureField("Password", text: $password)
+                    TextField(userNamePlaceHolder, text: $userid)
+                    if !continueWithoutLoginState {
+                        SecureField("Password", text: $password)
+                    }
                     Button(action: login) {
                         Text("Login").bold()
                         .foregroundColor(.white)
@@ -32,51 +50,74 @@ struct LoginView: View {
                             .background(buttonColor)
                         .cornerRadius(10)
                     }.disabled(userid.isEmpty || password.isEmpty)
-                    Button(action: continueWithoutLogin) {
-                        Text("Continue without login").bold()
+                    Button(action: loginSubButton) {
+                        Text(subButtonText).bold()
                     }.alert(isPresented: $showingAlert) {
-                        Alert(title: Text("Error"), message: Text("Could not log in! Please check your login credentials and try again."), dismissButton: .default(Text("OK"), action: {
-                            self.model.viewStatus = .shareView
-                        }))
+                        Alert(title: Text("Error"), message: Text(alertText), dismissButton: .default(Text("OK")))
                     }
                     Spacer()
                 }.padding()
             }
             .navigationBarTitle("Sign In")
-            .navigationBarItems(trailing: cancelButton)
-        }
-    }
-    
-    private var cancelButton : some View {
-        Button(action: cancel) {
-            Text("Cancel").bold()
-        }
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: backButton)
     }
     
     var buttonColor: Color {
         return userid.isEmpty || password.isEmpty ? .gray : .blue
     }
     
+    private var backButton : some View {
+        Button(action: goBack) {
+            Text("Cancel").bold()
+        }
+    }
+    
+    private func goBack() {
+        self.model.showLoginView = false
+    }
+    
     private func login() {
-        APIHandler.sharedAPIHandler.login(userid,
-                                          password: password,
-                                          success: {
-            self.model.viewStatus = .sendInviteView
-        }, failure: { _ in
-            self.showErrorAlert()
-        })
+        if continueWithoutLoginState {
+            UserDefaults.standard.set(userid, forKey: UserDefaultKeys.username)
+            self.model.showLoginView = false
+            self.presentationMode.wrappedValue.dismiss()
+            self.model.showSendInviteView = true
+        } else {
+            APIHandler.sharedAPIHandler.login(userid,
+                                              password: password,
+                                              success: {
+                                                self.model.showLoginView = false
+                                                self.presentationMode.wrappedValue.dismiss()
+                                                self.model.showSendInviteView = true
+            }, failure: { _ in
+                self.showErrorAlert()
+            })
+        }
+    }
+    
+    private func loginSubButton() {
+        continueWithoutLoginState ? continueWithLogin() : continueWithoutLogin()
+    }
+    
+    private func continueWithLogin() {
+        continueWithoutLoginState = false
+        userNamePlaceHolder =  LoginViewConstants.userNamePlaceHolder.withoutLoginText
+        subButtonText = LoginViewConstants.subButtonText.withoutLoginText
+        userid = ""
+        password = ""
     }
     
     private func continueWithoutLogin() {
-        print("continueWithoutLogin")
+        continueWithoutLoginState = true
+        userNamePlaceHolder = LoginViewConstants.userNamePlaceHolder.withLoginText
+        subButtonText = LoginViewConstants.subButtonText.withLoginText
+        userid = UserDefaults.standard.string(forKey: UserDefaultKeys.username) ?? ""
+        password = "*"
     }
     
     private func showErrorAlert() {
         showingAlert = true
-    }
-    
-    private func cancel() {
-        model.viewStatus = .shareView
     }
 }
 

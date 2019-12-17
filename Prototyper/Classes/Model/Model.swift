@@ -8,5 +8,6 @@
 import Foundation
 
 class Model: ObservableObject {
-    @Published var viewStatus: PrototyperController.Constants.ViewStatus = .shareView
+    @Published var showLoginView: Bool = false
+    @Published var showSendInviteView: Bool = false
 }

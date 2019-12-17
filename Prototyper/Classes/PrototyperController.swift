@@ -160,7 +160,7 @@ open class PrototyperController: NSObject {
                                                             bundle: Bundle(for: ShareViewController.self)).instantiateInitialViewController() else {
             return
         }*/
-        let instantiatedViewController = UIHostingController(rootView: MainView().environmentObject(Model()))
+        let instantiatedViewController = UIHostingController(rootView: ShareView().environmentObject(Model()))
         instantiatedViewController.isModalInPresentation = true
         self.isFeedbackButtonHidden = true
         topViewController?.present(instantiatedViewController,
