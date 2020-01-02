@@ -10,6 +10,7 @@ import SwiftUI
 
 struct MultilineTextView: UIViewRepresentable {
     @Binding var text: String
+    var placeholderText: String
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -17,17 +18,27 @@ struct MultilineTextView: UIViewRepresentable {
 
     func makeUIView(context: Context) -> UITextView {
         let myTextView = UITextView()
-        myTextView.delegate = context.coordinator
-        myTextView.font = UIFont(name: "HelveticaNeue", size: 18)
-        myTextView.isScrollEnabled = false
-        myTextView.isEditable = true
-        myTextView.isUserInteractionEnabled = true
-        //myTextView.backgroundColor = UIColor(white: 0.0, alpha: 0.05)
+        myTextView.textContainer.lineFragmentPadding = 0
+        myTextView.textContainerInset = .zero
+        myTextView.font = UIFont.systemFont(ofSize: 17)
+        
+        myTextView.text = placeholderText
+        myTextView.textColor = .placeholderText
+        
         return myTextView
     }
 
     func updateUIView(_ uiView: UITextView, context: Context) {
-        uiView.text = text
+        uiView.delegate = context.coordinator
+        if !text.isEmpty {
+            uiView.text = text
+            uiView.textColor = .label
+        }
+    }
+    
+    func frame(numLines: CGFloat) -> some View {
+        let height = UIFont.systemFont(ofSize: 17).lineHeight * numLines
+        return self.frame(height: height)
     }
 }
 
@@ -45,5 +56,19 @@ class Coordinator : NSObject, UITextViewDelegate {
 
     func textViewDidChange(_ textView: UITextView) {
         self.parent.text = textView.text
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == .placeholderText {
+            textView.text = ""
+            textView.textColor = .label
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = parent.placeholderText
+            textView.textColor = .placeholderText
+        }
     }
 }
