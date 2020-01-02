@@ -31,7 +31,7 @@ open class PrototyperController: NSObject {
     fileprivate static var feedbackBubble: FeedbackBubble?
     
     static var currentShareRequest: ShareRequest?
-    
+    static var feedback: Feedback?
     
     // MARK: Computed Properties
     

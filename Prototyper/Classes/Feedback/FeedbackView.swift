@@ -11,16 +11,10 @@ struct FeedbackView: View {
     @EnvironmentObject var model: Model
     @State var descriptionText: String = ""
     
-    enum Constants {
-        static let descriptionPlaceholder = "Add your feedback here..."
-        static let imageInsert: CGFloat = 16.0
-        static let characterLimit = 2500
-    }
-    
     var body: some View {
         NavigationView {
             VStack {
-                HStack {
+                HStack (alignment: .top) {
                     ZStack {
                         Image(uiImage: model.screenshot)
                             .resizable()
@@ -31,19 +25,14 @@ struct FeedbackView: View {
                             .onTapGesture {
                                 self.editImage()
                         }
-                    }
-                    VStack {
-                        ZStack {
-                            MultilineTextView(text: $descriptionText)
-                            .frame(maxHeight: .infinity)
-                            if descriptionText.isEmpty {
-                                Text("Enter your feedback here...").foregroundColor(.gray)
-                                    .opacity(0.75).onTapGesture {
-                                    self.descriptionText = " "
-                                }
-                            }
+                        NavigationLink(destination: LoginView(), isActive: $model.showLoginView) {
+                            Text("")
+                        }
+                        NavigationLink(destination: SendFeedbackView(), isActive: $model.showSendInviteView) {
+                            Text("")
                         }
                     }
+                    MultilineTextView(text: $descriptionText, placeholderText: "Add your feedback here...").frame(numLines: 15)
                 }
                 Spacer()
             }.padding()
@@ -83,12 +72,12 @@ struct FeedbackView: View {
     private func share() {
         if APIHandler.sharedAPIHandler.isLoggedIn {
             print("Send screen")
-            //PrototyperController.currentShareRequest = currentShareRequest
-            //self.model.showSendInviteView = true
+            PrototyperController.feedback = currentFeedback
+            self.model.showSendInviteView = true
         } else {
             print("SignIn screen")
-            //PrototyperController.currentShareRequest = currentShareRequest
-            //self.model.showLoginView = true
+            PrototyperController.feedback = currentFeedback
+            self.model.showLoginView = true
         }
     }
     
