@@ -103,7 +103,7 @@ open class PrototyperController: NSObject {
     }
     
     private static func showFeedbackView() {
-        let instantiatedViewController = UIStoryboard(name: "Feedback",
+        /*let instantiatedViewController = UIStoryboard(name: "Feedback",
                                                       bundle: Bundle(for: FeedbackViewController.self)).instantiateInitialViewController()
         guard let navigationViewController = instantiatedViewController as? UINavigationController,
               let feedbackViewController = navigationViewController.topViewController as? FeedbackViewController else {
@@ -114,7 +114,11 @@ open class PrototyperController: NSObject {
         feedbackViewController.screenshot = UIApplication.shared.keyWindow?.screenshot
         isFeedbackButtonHidden = false
         
-        topViewController?.present(navigationViewController, animated: true, completion: nil)
+        topViewController?.present(navigationViewController, animated: true, completion: nil) */
+        let instantiatedViewController = UIHostingController(rootView: FeedbackView().environmentObject(Model()))
+        instantiatedViewController.isModalInPresentation = true
+        isFeedbackButtonHidden = true
+        topViewController?.present(instantiatedViewController, animated: true, completion: nil)
     }
     
     
@@ -150,7 +154,7 @@ open class PrototyperController: NSObject {
     private static func shareApp() {
         let instantiatedViewController = UIHostingController(rootView: ShareView().environmentObject(Model()))
         instantiatedViewController.isModalInPresentation = true
-        self.isFeedbackButtonHidden = true
+        isFeedbackButtonHidden = true
         topViewController?.present(instantiatedViewController,
                                    animated: true,
                                    completion: nil)
