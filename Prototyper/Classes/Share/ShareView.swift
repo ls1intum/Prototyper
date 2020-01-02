@@ -19,15 +19,7 @@ struct ShareView: View {
                     Text("Send the invitation to test the app to:")
                     TextField("email@example.com", text: $inviteList)
                     Text("Invitation Text:")
-                    ZStack (alignment: .leading) {
-                        MultilineTextView(text: $inviteText)
-                        .frame(maxHeight: .infinity)
-                        if inviteText.isEmpty {
-                            Text("This is the content of the invitation...").foregroundColor(.gray).opacity(0.75).onTapGesture {
-                                self.inviteText = " "
-                            }
-                        }
-                    }
+                    MultilineTextView(text: $inviteText, placeholderText: "This is the content of the invitation...").frame(numLines: 10)
                     NavigationLink(destination: LoginView(), isActive: $model.showLoginView) {
                         Text("")
                     }
