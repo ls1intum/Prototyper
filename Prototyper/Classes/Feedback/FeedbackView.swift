@@ -37,12 +37,11 @@ struct FeedbackView: View {
                 }
                 Spacer()
             }.padding()
-            .navigationBarTitle("Write Feedback")
+                .navigationBarTitle("Write Feedback")
                 .navigationBarItems(leading: cancelButton, trailing: shareButton)
-            .sheet(isPresented: $showMarkupView) {
-                NavigationView {
-                    EditScreenshotView()
-                }.environmentObject(self.model)
+                .sheet(isPresented: $showMarkupView) {
+                    NavigationView {
+                        EditScreenshotView()           }.environmentObject(self.model)
             }
         }
     }
