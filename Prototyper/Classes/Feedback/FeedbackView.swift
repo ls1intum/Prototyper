@@ -10,6 +10,7 @@ import SwiftUI
 struct FeedbackView: View {
     @EnvironmentObject var model: Model
     @State var descriptionText: String = ""
+    @State var showMarkupView: Bool = false
     
     var body: some View {
         NavigationView {
@@ -38,6 +39,11 @@ struct FeedbackView: View {
             }.padding()
             .navigationBarTitle("Write Feedback")
                 .navigationBarItems(leading: cancelButton, trailing: shareButton)
+            .sheet(isPresented: $showMarkupView) {
+                NavigationView {
+                    EditScreenshotView()
+                }.environmentObject(self.model)
+            }
         }
     }
     
@@ -82,8 +88,7 @@ struct FeedbackView: View {
     }
     
     private func editImage() {
-        PrototyperController.dismissView()
-        PrototyperController.isFeedbackButtonHidden = false
+        showMarkupView = true
     }
 }
 
