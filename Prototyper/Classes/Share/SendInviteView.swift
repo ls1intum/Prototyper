@@ -11,7 +11,8 @@ struct SendInviteView: View {
     @EnvironmentObject var model: Model
     @State private var shouldAnimate = true
     @State private var showingAlert = false
-    @State var shareRequest: ShareRequest = PrototyperController.currentShareRequest
+    @Binding var showSendInviteView: Bool
+    @Binding var shareRequest: ShareRequest?
     
     var body: some View {
             VStack {
@@ -21,7 +22,7 @@ struct SendInviteView: View {
             }
             .alert(isPresented: $showingAlert) {
                 Alert(title: Text("Error"), message: Text("Could not send feedback to server."), dismissButton: .default(Text("OK"), action: {
-                    self.model.showSendInviteView = false
+                    self.showSendInviteView = false
                 }))
             }.navigationBarTitle("Sending Invitation")
     }
@@ -30,7 +31,7 @@ struct SendInviteView: View {
         guard let shareRequest = shareRequest else {
             return
         }
-    
+        print(shareRequest)
         APIHandler.send(shareRequest: shareRequest,
                         success: {
             print("Successfully sent share request to server")
@@ -40,12 +41,5 @@ struct SendInviteView: View {
             self.shouldAnimate = false
             self.showingAlert = true
         })
-    }
- 
-}
-
-struct ShareInvite_Previews: PreviewProvider {
-    static var previews: some View {
-        SendInviteView()
     }
 }

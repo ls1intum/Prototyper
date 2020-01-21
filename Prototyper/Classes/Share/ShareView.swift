@@ -11,6 +11,9 @@ struct ShareView: View {
     @EnvironmentObject var model: Model
     @State var inviteList: String = ""
     @State var inviteText: String = ""
+    @State var showLoginView: Bool = false
+    @State var showSendInviteView: Bool = false
+    @State var shareRequest: ShareRequest?
     
     var body: some View {
         NavigationView {
@@ -20,10 +23,7 @@ struct ShareView: View {
                     TextField("email@example.com", text: $inviteList)
                     Text("Invitation Text:")
                     MultilineTextView(text: $inviteText, placeholderText: "This is the content of the invitation...").frame(numLines: 10)
-                    NavigationLink(destination: LoginView(), isActive: $model.showLoginView) {
-                        Text("")
-                    }
-                    NavigationLink(destination: SendInviteView(), isActive: $model.showSendInviteView) {
+                    NavigationLink(destination: SendInviteView(showSendInviteView: $showSendInviteView, shareRequest: $shareRequest), isActive: $showSendInviteView) {
                         Text("")
                     }
                 }
@@ -31,6 +31,11 @@ struct ShareView: View {
             }.padding(20)
             .navigationBarTitle("Share App")
             .navigationBarItems(leading: cancelButton, trailing: shareButton)
+                .sheet(isPresented: $showLoginView) {
+                NavigationView {
+                    LoginView(finishLoggingIn: self.$showSendInviteView)
+                }
+            }
         }
     }
     
@@ -67,19 +72,13 @@ struct ShareView: View {
     }
     
     private func share() {
-        if APIHandler.sharedAPIHandler.isLoggedIn {
-            print("Send screen")
-            PrototyperController.currentShareRequest = currentShareRequest
-            self.model.showSendInviteView = true
+        shareRequest = currentShareRequest
+        if APIHandler.sharedAPIHandler.isLoggedIn || PrototyperController.continueWithoutLogin {
+            PrototyperController.continueWithoutLogin = false
+            self.showSendInviteView = true
         } else {
-            print("SignIn screen")
-            PrototyperController.currentShareRequest = currentShareRequest
-            self.model.showLoginView = true
+            self.showLoginView = true
         }
-    }
-    
-    private func performSegueToSendInviteView() {
-        print("performSegueToSendInviteView")
     }
 }
 

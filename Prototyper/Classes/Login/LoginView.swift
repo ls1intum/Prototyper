@@ -1,6 +1,6 @@
 //
 //  LoginView.swift
-//  KeychainSwift
+//  Prototyper
 //
 //  Created by Raymond Pinto on 01.12.19.
 //
@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject var model: Model
     @Environment(\.presentationMode) var presentationMode
     @State var userid: String = ""
     @State var password: String = ""
     @State var showLoginErrorAlert: Bool = false
     @State var continueWithoutLogin: Bool = false
+    @Binding var finishLoggingIn: Bool 
     
     enum LoginViewConstants {
         enum userNamePlaceHolder {
@@ -89,22 +89,19 @@ struct LoginView: View {
     }
     
     private func goBack() {
-        self.model.showLoginView = false
+        self.presentationMode.wrappedValue.dismiss()
     }
     
     private func login() {
         if continueWithoutLogin {
             UserDefaults.standard.set(userid, forKey: UserDefaultKeys.username)
-            self.model.showLoginView = false
+            PrototyperController.continueWithoutLogin = true
+            self.finishLoggingIn = true
             self.presentationMode.wrappedValue.dismiss()
-            self.model.showSendInviteView = true
         } else {
             APIHandler.sharedAPIHandler.login(userid,
                                               password: password,
-                                              success: {
-                                                self.model.showLoginView = false
-                                                self.presentationMode.wrappedValue.dismiss()
-                                                self.model.showSendInviteView = true
+                                              success: { self.presentationMode.wrappedValue.dismiss()
             }, failure: { _ in
                 self.showingLoginErrorAlert()
             })
@@ -129,11 +126,5 @@ struct LoginView: View {
     
     private func showingLoginErrorAlert() {
         showLoginErrorAlert = true
-    }
-}
-
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView()
     }
 }
