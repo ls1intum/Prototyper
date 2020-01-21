@@ -22,20 +22,7 @@ struct EditScreenshotView: View {
     @State var colorPickerShown: Bool = false
     
     var body: some View {
-        VStack(alignment: .trailing) {
-            HStack {
-                Button("Pick color") {
-                    self.colorPickerShown.toggle()
-                }
-                Button("Undo") {
-                    if self.drawings.count > 0 {
-                        self.drawings.removeLast()
-                    }
-                }
-                Button("Clear") {
-                    self.drawings = [Drawing]()
-                }
-            }.offset(x: -5)
+        VStack(alignment: .center) {
             GeometryReader { geometry in
                 Path { path in
                     for drawing in self.drawings {
@@ -65,10 +52,30 @@ struct EditScreenshotView: View {
             }.background(RectGetter(rect: $rect))
                 .navigationBarTitle("Markup View")
                 .navigationBarItems(leading: cancelButton, trailing: saveButton)
+            HStack (alignment: .center, spacing: 30) {
+                Image(systemName: "eyedropper.halffull")
+                    .imageScale(.large)
+                    .onTapGesture {
+                        self.colorPickerShown.toggle()
+                }
+                Image(systemName: "arrow.uturn.left")
+                    .imageScale(.large)
+                    .onTapGesture {
+                        if self.drawings.count > 0 {
+                            self.drawings.removeLast()
+                        }
+                }
+                Image(systemName: "xmark")
+                    .imageScale(.large)
+                    .onTapGesture {
+                       self.drawings = [Drawing]()
+                }
+            }
         }.sheet(isPresented: $colorPickerShown) {
             NavigationView {
                 ColorPickerView(color: self.$color, colorPickerShown: self.$colorPickerShown)
                 .navigationBarTitle("Pick Color")
+                    .navigationBarItems(leading: self.cancelButton)
             }.environmentObject(self.model)
         }.onAppear(perform: setColor)
     }
@@ -108,8 +115,12 @@ struct EditScreenshotView: View {
     }
     
     private func cancel() {
-        self.drawings = [Drawing]()
-        self.presentationMode.wrappedValue.dismiss()
+        if colorPickerShown {
+            colorPickerShown = false
+        } else {
+            self.drawings = [Drawing]()
+            self.presentationMode.wrappedValue.dismiss()
+        }
     }
 }
 

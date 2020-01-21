@@ -29,8 +29,8 @@ open class PrototyperController: NSObject {
     // MARK: Stored Properties
     
     fileprivate static var feedbackBubble: FeedbackBubble?
-    
-    static var currentShareRequest: ShareRequest?
+ 
+    static var continueWithoutLogin: Bool = false
     static var feedback: Feedback?
     
     // MARK: Computed Properties

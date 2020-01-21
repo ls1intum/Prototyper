@@ -10,7 +10,14 @@ import SwiftUI
 struct FeedbackView: View {
     @EnvironmentObject var model: Model
     @State var descriptionText: String = ""
-    @State var showMarkupView: Bool = false
+    @State var showSheet: Bool = false
+    @State var activeSheet: ActiveSheet = .loginSheet
+    @State var showSendFeedbackView: Bool = false
+    @State var feedback: Feedback?
+    
+    enum ActiveSheet {
+        case loginSheet, MarkupSheet
+    }
     
     var body: some View {
         NavigationView {
@@ -26,10 +33,7 @@ struct FeedbackView: View {
                             .onTapGesture {
                                 self.editImage()
                         }
-                        NavigationLink(destination: LoginView(), isActive: $model.showLoginView) {
-                            Text("")
-                        }
-                        NavigationLink(destination: SendFeedbackView(), isActive: $model.showSendInviteView) {
+                        NavigationLink(destination: SendFeedbackView(showSendFeedbackView: $showSendFeedbackView, feedback: $feedback), isActive: $showSendFeedbackView) {
                             Text("")
                         }
                     }
@@ -39,9 +43,14 @@ struct FeedbackView: View {
             }.padding()
                 .navigationBarTitle("Write Feedback")
                 .navigationBarItems(leading: cancelButton, trailing: shareButton)
-                .sheet(isPresented: $showMarkupView) {
-                    NavigationView {
-                        EditScreenshotView()           }.environmentObject(self.model)
+                .sheet(isPresented: $showSheet) {
+                    if self.activeSheet == .loginSheet {
+                        NavigationView {
+                            LoginView(finishLoggingIn: self.$showSendFeedbackView)           }
+                    } else  {
+                        NavigationView {
+                            EditScreenshotView()           }.environmentObject(self.model)
+                    }
             }
         }
     }
@@ -75,19 +84,19 @@ struct FeedbackView: View {
     }
     
     private func share() {
-        if APIHandler.sharedAPIHandler.isLoggedIn {
-            print("Send screen")
-            PrototyperController.feedback = currentFeedback
-            self.model.showSendInviteView = true
+        feedback = currentFeedback
+        if APIHandler.sharedAPIHandler.isLoggedIn || PrototyperController.continueWithoutLogin {
+            PrototyperController.continueWithoutLogin = false
+            self.showSendFeedbackView = true
         } else {
-            print("SignIn screen")
-            PrototyperController.feedback = currentFeedback
-            self.model.showLoginView = true
+            activeSheet = .loginSheet
+            self.showSheet = true
         }
     }
     
     private func editImage() {
-        showMarkupView = true
+        activeSheet = .MarkupSheet
+        showSheet = true
     }
 }
 

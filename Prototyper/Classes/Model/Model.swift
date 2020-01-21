@@ -1,6 +1,6 @@
 //
 //  Model.swift
-//  KeychainSwift
+//  Prototyper
 //
 //  Created by Raymond Pinto on 01.12.19.
 //
@@ -9,8 +9,6 @@ import Foundation
 import SwiftUI
 
 class Model: ObservableObject {
-    @Published var showLoginView: Bool = false
-    @Published var showSendInviteView: Bool = false
     @Published var screenshot: UIImage = Model.getScreenShot()
     
     static func getScreenShot() -> UIImage {
@@ -28,5 +26,4 @@ class Model: ObservableObject {
             ColorModel(id: 5, displayName: "Green", color: Color.green),
             ColorModel(id: 6, displayName: "White", color: Color.white)]
     }
-    
 }
