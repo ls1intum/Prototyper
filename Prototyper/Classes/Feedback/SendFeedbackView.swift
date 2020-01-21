@@ -33,13 +33,13 @@ struct SendFeedbackView: View {
         }
         
         APIHandler.send(feedback: feedback,
-                        success: {
-                            print("Successfully sent feedback to server")
-                            PrototyperController.isFeedbackButtonHidden = false
-                            PrototyperController.dismissView()
-        }, failure: { _ in
-            self.shouldAnimate = false
-            self.showingAlert = true
+            success: {
+                print("Successfully sent feedback to server")
+                PrototyperController.isFeedbackButtonHidden = false
+                PrototyperController.dismissView()
+        },  failure: { _ in
+                self.shouldAnimate = false
+                self.showingAlert = true
         })
     }
 }

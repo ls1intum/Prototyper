@@ -29,9 +29,9 @@ struct FeedbackView: View {
                             ZStack {
                                 Image(uiImage: model.screenshot)
                                     .resizable()
-                                    .border(Color(white: 0.75))
+                                    .shadow(color: Color.primary.opacity(0.2), radius: 5.0)
                                     .scaledToFit()
-                                Image(systemName: "hand.draw.fill")
+                                Image(systemName: "pencil.circle.fill")
                                     .imageScale(.large)
                                     .onTapGesture {
                                         self.editImage()
@@ -41,7 +41,7 @@ struct FeedbackView: View {
                                 .imageScale(.large)
                                 .onTapGesture {
                                     self.removeScreenshot()
-                            }
+                            }.offset(x: 5)
                         }
                     }
                     NavigationLink(destination: SendFeedbackView(showSendFeedbackView: $showSendFeedbackView, feedback: $feedback), isActive: $showSendFeedbackView) {
@@ -51,16 +51,18 @@ struct FeedbackView: View {
                 }
                 Spacer()
             }.padding()
-                .navigationBarTitle("Write Feedback")
-                .navigationBarItems(leading: cancelButton, trailing: shareButton)
-                .sheet(isPresented: $showSheet) {
-                    if self.activeSheet == .loginSheet {
-                        NavigationView {
-                            LoginView(finishLoggingIn: self.$showSendFeedbackView)           }
-                    } else  {
-                        NavigationView {
-                            EditScreenshotView()           }.environmentObject(self.model)
-                    }
+            .navigationBarTitle("Give Feedback")
+            .navigationBarItems(leading: cancelButton, trailing: shareButton)
+            .sheet(isPresented: $showSheet) {
+                if self.activeSheet == .loginSheet {
+                    NavigationView {
+                        LoginView(finishLoggingIn: self.$showSendFeedbackView)
+                    }.environmentObject(self.model)
+                } else  {
+                    NavigationView {
+                        EditScreenshotView()
+                    }.environmentObject(self.model)
+                }
             }
         }
     }
@@ -95,8 +97,8 @@ struct FeedbackView: View {
     
     private func share() {
         feedback = currentFeedback
-        if APIHandler.sharedAPIHandler.isLoggedIn || PrototyperController.continueWithoutLogin {
-            PrototyperController.continueWithoutLogin = false
+        if APIHandler.sharedAPIHandler.isLoggedIn || model.continueWithoutLogin {
+            model.continueWithoutLogin = false
             self.showSendFeedbackView = true
         } else {
             activeSheet = .loginSheet

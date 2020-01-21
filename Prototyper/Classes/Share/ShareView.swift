@@ -31,10 +31,10 @@ struct ShareView: View {
             }.padding(20)
             .navigationBarTitle("Share App")
             .navigationBarItems(leading: cancelButton, trailing: shareButton)
-                .sheet(isPresented: $showLoginView) {
+            .sheet(isPresented: $showLoginView) {
                 NavigationView {
                     LoginView(finishLoggingIn: self.$showSendInviteView)
-                }
+                }.environmentObject(self.model)
             }
         }
     }
@@ -73,8 +73,8 @@ struct ShareView: View {
     
     private func share() {
         shareRequest = currentShareRequest
-        if APIHandler.sharedAPIHandler.isLoggedIn || PrototyperController.continueWithoutLogin {
-            PrototyperController.continueWithoutLogin = false
+        if APIHandler.sharedAPIHandler.isLoggedIn || model.continueWithoutLogin {
+            model.continueWithoutLogin = false
             self.showSendInviteView = true
         } else {
             self.showLoginView = true

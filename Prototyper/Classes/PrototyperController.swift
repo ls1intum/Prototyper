@@ -29,9 +29,6 @@ open class PrototyperController: NSObject {
     // MARK: Stored Properties
     
     fileprivate static var feedbackBubble: FeedbackBubble?
- 
-    static var continueWithoutLogin: Bool = false
-    static var feedback: Feedback?
     
     // MARK: Computed Properties
     
@@ -103,18 +100,6 @@ open class PrototyperController: NSObject {
     }
     
     private static func showFeedbackView() {
-        /*let instantiatedViewController = UIStoryboard(name: "Feedback",
-                                                      bundle: Bundle(for: FeedbackViewController.self)).instantiateInitialViewController()
-        guard let navigationViewController = instantiatedViewController as? UINavigationController,
-              let feedbackViewController = navigationViewController.topViewController as? FeedbackViewController else {
-                return
-        }
-        
-        isFeedbackButtonHidden = true
-        feedbackViewController.screenshot = UIApplication.shared.keyWindow?.screenshot
-        isFeedbackButtonHidden = false
-        
-        topViewController?.present(navigationViewController, animated: true, completion: nil) */
         let instantiatedViewController = UIHostingController(rootView: FeedbackView().environmentObject(Model()))
         instantiatedViewController.isModalInPresentation = true
         isFeedbackButtonHidden = true

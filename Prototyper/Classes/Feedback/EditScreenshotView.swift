@@ -18,7 +18,7 @@ struct EditScreenshotView: View {
     @State var currentDrawing: Drawing = Drawing()
     @State var drawings: [Drawing] = [Drawing]()
     @State var rect: CGRect = .zero
-    @State var color: Color = Color.black
+    @State var color: Color = Color.primary
     @State var colorPickerShown: Bool = false
     
     var body: some View {
@@ -29,55 +29,55 @@ struct EditScreenshotView: View {
                         self.add(drawing: drawing, toPath: &path)
                     }
                     self.add(drawing: self.currentDrawing, toPath: &path)
-                }
-                .stroke(self.color, lineWidth: 7)
-                .background(Image(uiImage: self.model.screenshot)
-                .resizable()
-                .scaledToFit())
-                .gesture(
-                    DragGesture(minimumDistance: 0.1)
-                        .onChanged({ (value) in
-                            let currentPoint = value.location
-                            if currentPoint.y >= 0
-                                && currentPoint.y < geometry.size.height {
-                                self.currentDrawing.points.append(currentPoint)
-                            }
-                        })
-                        .onEnded({ (value) in
-                            self.drawings.append(self.currentDrawing)
-                            self.currentDrawing = Drawing()
-                        })
-                )
-                
-            }.background(RectGetter(rect: $rect))
-                .navigationBarTitle("Markup View")
-                .navigationBarItems(leading: cancelButton, trailing: saveButton)
+                }.offsetBy(dx: -15, dy: -self.rect.origin.y)
+                .stroke(self.color, lineWidth: 5)
+                .background(
+                    Image(uiImage: self.model.screenshot)
+                        .resizable()
+                        .scaledToFit()
+                        .background(RectGetter(rect: self.$rect))
+                        .shadow(color: Color.primary.opacity(0.2), radius: 5.0))
+                        .gesture(
+                            DragGesture(minimumDistance: 0.1, coordinateSpace: .global)
+                                .onChanged({ (value) in
+                                    if self.rect.contains(value.location) {
+                                        self.currentDrawing.points.append(value.location)
+                                    }
+                                })
+                                .onEnded({ (value) in
+                                    self.drawings.append(self.currentDrawing)
+                                    self.currentDrawing = Drawing()
+                                })
+                        )
+            }.padding()
             HStack (alignment: .center, spacing: 30) {
                 Image(systemName: "eyedropper.halffull")
                     .imageScale(.large)
                     .onTapGesture {
                         self.colorPickerShown.toggle()
-                }
+                    }
                 Image(systemName: "arrow.uturn.left")
                     .imageScale(.large)
                     .onTapGesture {
                         if self.drawings.count > 0 {
                             self.drawings.removeLast()
                         }
-                }
+                    }
                 Image(systemName: "xmark")
                     .imageScale(.large)
                     .onTapGesture {
                        self.drawings = [Drawing]()
-                }
-            }
-        }.sheet(isPresented: $colorPickerShown) {
+                    }
+            }.frame(height: 32)
+        }
+        .navigationBarTitle("Markup")
+        .navigationBarItems(leading: cancelButton, trailing: saveButton)
+        .sheet(isPresented: $colorPickerShown) {
             NavigationView {
                 ColorPickerView(color: self.$color, colorPickerShown: self.$colorPickerShown)
-                .navigationBarTitle("Pick Color")
                     .navigationBarItems(leading: self.cancelButton)
             }.environmentObject(self.model)
-        }.onAppear(perform: setColor)
+        }
     }
     
     private func add(drawing: Drawing, toPath path: inout Path) {
@@ -102,10 +102,6 @@ struct EditScreenshotView: View {
         Button(action: save) {
             Text("Save").bold()
         }
-    }
-    
-    private func setColor() {
-        color = colorScheme == .light ? Color.black : Color.white
     }
     
     private func save() {

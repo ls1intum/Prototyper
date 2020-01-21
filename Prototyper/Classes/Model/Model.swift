@@ -10,6 +10,7 @@ import SwiftUI
 
 class Model: ObservableObject {
     @Published var screenshot: UIImage = Model.getScreenShot()
+    @Published var continueWithoutLogin: Bool = false
     
     static func getScreenShot() -> UIImage {
         PrototyperController.isFeedbackButtonHidden = true
@@ -18,12 +19,12 @@ class Model: ObservableObject {
         return screenshot
     }
     
-    static func markupColors() -> [ColorModel] {
+    static var markupColors: [ColorModel] {
         return [ColorModel(id: 1, displayName: "Black", color: Color.black),
                 ColorModel(id: 2, displayName: "Red", color: Color.red),
                 ColorModel(id: 3, displayName: "Blue", color: Color.blue),
                 ColorModel(id: 4, displayName: "Yellow", color: Color.yellow),
-            ColorModel(id: 5, displayName: "Green", color: Color.green),
-            ColorModel(id: 6, displayName: "White", color: Color.white)]
+                ColorModel(id: 5, displayName: "Green", color: Color.green),
+                ColorModel(id: 6, displayName: "White", color: Color.white)]
     }
 }
