@@ -12,11 +12,8 @@ struct LoginView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var userid: String = ""
     @State var password: String = ""
-    @State var showingAlert: Bool = false
-    @State var continueWithoutLoginState: Bool = false
-    @State var alertText: String = "Could not log in! Please check your login credentials and try again."
-    @State var userNamePlaceHolder = LoginViewConstants.userNamePlaceHolder.withoutLoginText
-    @State var subButtonText = LoginViewConstants.subButtonText.withoutLoginText
+    @State var showLoginErrorAlert: Bool = false
+    @State var continueWithoutLogin: Bool = false
     
     enum LoginViewConstants {
         enum userNamePlaceHolder {
@@ -27,6 +24,24 @@ struct LoginView: View {
         enum subButtonText {
             static let withoutLoginText = "Continue without login"
             static let withLoginText = "Continue with login"
+        }
+        
+        static let alertText = "Could not log in! Please check your login credentials and try again."
+    }
+    
+    var userNamePlaceHolder: String {
+        if continueWithoutLogin {
+              return LoginViewConstants.userNamePlaceHolder.withLoginText
+        } else {
+              return LoginViewConstants.userNamePlaceHolder.withoutLoginText
+        }
+    }
+    
+    var subButtonText: String {
+        if continueWithoutLogin {
+              return LoginViewConstants.subButtonText.withLoginText
+        } else {
+              return LoginViewConstants.subButtonText.withoutLoginText
         }
     }
     
@@ -39,7 +54,7 @@ struct LoginView: View {
                     
                 VStack (spacing: 25) {
                     TextField(userNamePlaceHolder, text: $userid)
-                    if !continueWithoutLoginState {
+                    if !continueWithoutLogin {
                         SecureField("Password", text: $password)
                     }
                     Button(action: login) {
@@ -52,8 +67,8 @@ struct LoginView: View {
                     }.disabled(userid.isEmpty || password.isEmpty)
                     Button(action: loginSubButton) {
                         Text(subButtonText).bold()
-                    }.alert(isPresented: $showingAlert) {
-                        Alert(title: Text("Error"), message: Text(alertText), dismissButton: .default(Text("OK")))
+                    }.alert(isPresented: $showLoginErrorAlert) {
+                        Alert(title: Text("Error"), message: Text(LoginViewConstants.alertText), dismissButton: .default(Text("OK")))
                     }
                     Spacer()
                 }.padding()
@@ -78,7 +93,7 @@ struct LoginView: View {
     }
     
     private func login() {
-        if continueWithoutLoginState {
+        if continueWithoutLogin {
             UserDefaults.standard.set(userid, forKey: UserDefaultKeys.username)
             self.model.showLoginView = false
             self.presentationMode.wrappedValue.dismiss()
@@ -91,33 +106,29 @@ struct LoginView: View {
                                                 self.presentationMode.wrappedValue.dismiss()
                                                 self.model.showSendInviteView = true
             }, failure: { _ in
-                self.showErrorAlert()
+                self.showingLoginErrorAlert()
             })
         }
     }
     
     private func loginSubButton() {
-        continueWithoutLoginState ? continueWithLogin() : continueWithoutLogin()
+        continueWithoutLogin ? proceedWithLogin() : proceedWithoutLogin()
     }
     
-    private func continueWithLogin() {
-        continueWithoutLoginState = false
-        userNamePlaceHolder =  LoginViewConstants.userNamePlaceHolder.withoutLoginText
-        subButtonText = LoginViewConstants.subButtonText.withoutLoginText
+    private func proceedWithLogin() {
+        continueWithoutLogin = false
         userid = ""
         password = ""
     }
     
-    private func continueWithoutLogin() {
-        continueWithoutLoginState = true
-        userNamePlaceHolder = LoginViewConstants.userNamePlaceHolder.withLoginText
-        subButtonText = LoginViewConstants.subButtonText.withLoginText
+    private func proceedWithoutLogin() {
+        continueWithoutLogin = true
         userid = UserDefaults.standard.string(forKey: UserDefaultKeys.username) ?? ""
         password = "*"
     }
     
-    private func showErrorAlert() {
-        showingAlert = true
+    private func showingLoginErrorAlert() {
+        showLoginErrorAlert = true
     }
 }
 

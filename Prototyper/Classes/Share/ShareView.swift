@@ -46,19 +46,19 @@ struct ShareView: View {
     }
     
     var buttonColor: Color {
-        return inviteList.isEmpty || !inviteList.isValidEmail ? .gray : .blue
+        return !inviteList.isValidEmail ? .gray : .blue
     }
     
     private var cancelButton : some View {
         Button(action: cancel) {
-            Text("Cancel").bold()
+            Text("Cancel")
         }
     }
     
     private var shareButton : some View {
         Button(action: share) {
             Text("Share").bold()
-        }.disabled(inviteList.isEmpty || !inviteList.isValidEmail)
+        }.disabled(!inviteList.isValidEmail)
     }
     
     private func cancel() {
