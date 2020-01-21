@@ -11,6 +11,7 @@ struct FeedbackView: View {
     @EnvironmentObject var model: Model
     @State var descriptionText: String = ""
     @State var showSheet: Bool = false
+    @State var showScreenshot: Bool = true
     @State var activeSheet: ActiveSheet = .loginSheet
     @State var showSendFeedbackView: Bool = false
     @State var feedback: Feedback?
@@ -23,19 +24,28 @@ struct FeedbackView: View {
         NavigationView {
             VStack {
                 HStack (alignment: .top) {
-                    ZStack {
-                        Image(uiImage: model.screenshot)
-                            .resizable()
-                            .border(Color(white: 0.75))
-                            .scaledToFit()
-                        Image(systemName: "hand.draw")
-                            .imageScale(.large)
-                            .onTapGesture {
-                                self.editImage()
+                    if showScreenshot {
+                        ZStack (alignment: .topTrailing) {
+                            ZStack {
+                                Image(uiImage: model.screenshot)
+                                    .resizable()
+                                    .border(Color(white: 0.75))
+                                    .scaledToFit()
+                                Image(systemName: "hand.draw.fill")
+                                    .imageScale(.large)
+                                    .onTapGesture {
+                                        self.editImage()
+                                }
+                            }
+                            Image(systemName: "xmark.circle.fill")
+                                .imageScale(.large)
+                                .onTapGesture {
+                                    self.removeScreenshot()
+                            }
                         }
-                        NavigationLink(destination: SendFeedbackView(showSendFeedbackView: $showSendFeedbackView, feedback: $feedback), isActive: $showSendFeedbackView) {
-                            Text("")
-                        }
+                    }
+                    NavigationLink(destination: SendFeedbackView(showSendFeedbackView: $showSendFeedbackView, feedback: $feedback), isActive: $showSendFeedbackView) {
+                        Text("")
                     }
                     MultilineTextView(text: $descriptionText, placeholderText: "Add your feedback here...").frame(numLines: 15)
                 }
@@ -97,6 +107,10 @@ struct FeedbackView: View {
     private func editImage() {
         activeSheet = .MarkupSheet
         showSheet = true
+    }
+    
+    private func removeScreenshot() {
+        showScreenshot = false
     }
 }
 
