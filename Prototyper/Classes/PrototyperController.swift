@@ -59,7 +59,7 @@ open class PrototyperController: NSObject {
     }
     
     private static var topViewController: UIViewController? {
-        guard let rootViewController = UIApplication.shared.keyWindow?.rootViewController else {
+        guard let rootViewController = UIApplication.shared.windows.first?.rootViewController else {
             return nil
         }
         
@@ -125,7 +125,7 @@ open class PrototyperController: NSObject {
     // MARK: Feedback Button Interaction
     
     private static func addFeedbackButton() {
-        let keyWindow = UIApplication.shared.keyWindow ?? UIApplication.shared.windows.first
+        let keyWindow = UIApplication.shared.windows.filter{ $0.isKeyWindow }.first ?? UIApplication.shared.windows.first
         feedbackBubble = feedbackBubble == nil ? FeedbackBubble(target: self,
                                                                 action: #selector(feedbackBubbleTouched)) : feedbackBubble
         feedbackBubble?.layer.zPosition = 100

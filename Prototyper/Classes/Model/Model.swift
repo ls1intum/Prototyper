@@ -13,7 +13,7 @@ class Model: ObservableObject {
     
     static func getScreenShot() -> UIImage {
         PrototyperController.isFeedbackButtonHidden = true
-        let screenshot =  UIApplication.shared.keyWindow?.screenshot ?? UIImage()
+        let screenshot =  UIApplication.shared.windows.filter{ $0.isKeyWindow }.first?.screenshot ?? UIImage()
         PrototyperController.isFeedbackButtonHidden = false
         return screenshot
     }
