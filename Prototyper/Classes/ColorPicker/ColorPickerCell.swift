@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct ColorPickerCell: View {
-    let colorInfo: ColorModel
+    let colorInfo: MarkupColor
     
     var body: some View {
         HStack {
             Circle()
                 .fill(colorInfo.color)
                 .frame(width: 40, height: 40)
-                .padding(.all)
+                .shadow(radius: 4.0)
+                .padding()
             Text(colorInfo.displayName)
         }
     }
