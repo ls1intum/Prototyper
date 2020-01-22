@@ -13,14 +13,11 @@ struct ColorPickerView: View {
     @Binding var colorPickerShown: Bool
     
     var body: some View {
-        List {
-            ForEach(Model.markupColors) { color in
-                ColorPickerCell(colorInfo: color).onTapGesture {
-                    self.color = color.color
-                    self.colorPickerShown = false
-                }
+        List(Model.markupColors) { color in
+            ColorPickerCell(colorInfo: color).onTapGesture {
+                self.color = color.color
+                self.colorPickerShown = false
             }
-        }.padding()
-        .navigationBarTitle("Color Picker")
+        }.navigationBarTitle("Color Picker")
     }
 }
