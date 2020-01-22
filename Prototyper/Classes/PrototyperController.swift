@@ -30,9 +30,6 @@ open class PrototyperController: NSObject {
     
     fileprivate static var feedbackBubble: FeedbackBubble?
     
-    static var continueWithoutLogin: Bool = false
-    
-    
     // MARK: Computed Properties
     
     public static var showFeedbackButton: Bool = false {
@@ -59,7 +56,7 @@ open class PrototyperController: NSObject {
     }
     
     private static var topViewController: UIViewController? {
-        guard let rootViewController = UIApplication.shared.keyWindow?.rootViewController else {
+        guard let rootViewController = UIApplication.shared.windows.first?.rootViewController else {
             return nil
         }
         
@@ -103,25 +100,17 @@ open class PrototyperController: NSObject {
     }
     
     private static func showFeedbackView() {
-        let instantiatedViewController = UIStoryboard(name: "Feedback",
-                                                      bundle: Bundle(for: FeedbackViewController.self)).instantiateInitialViewController()
-        guard let navigationViewController = instantiatedViewController as? UINavigationController,
-              let feedbackViewController = navigationViewController.topViewController as? FeedbackViewController else {
-                return
-        }
-        
+        let instantiatedViewController = UIHostingController(rootView: FeedbackView().environmentObject(Model()))
+        instantiatedViewController.isModalInPresentation = true
         isFeedbackButtonHidden = true
-        feedbackViewController.screenshot = UIApplication.shared.keyWindow?.screenshot
-        isFeedbackButtonHidden = false
-        
-        topViewController?.present(navigationViewController, animated: true, completion: nil)
+        topViewController?.present(instantiatedViewController, animated: true, completion: nil)
     }
     
     
     // MARK: Feedback Button Interaction
     
     private static func addFeedbackButton() {
-        let keyWindow = UIApplication.shared.keyWindow ?? UIApplication.shared.windows.first
+        let keyWindow = UIApplication.shared.windows.filter{ $0.isKeyWindow }.first ?? UIApplication.shared.windows.first
         feedbackBubble = feedbackBubble == nil ? FeedbackBubble(target: self,
                                                                 action: #selector(feedbackBubbleTouched)) : feedbackBubble
         feedbackBubble?.layer.zPosition = 100
@@ -150,7 +139,7 @@ open class PrototyperController: NSObject {
     private static func shareApp() {
         let instantiatedViewController = UIHostingController(rootView: ShareView().environmentObject(Model()))
         instantiatedViewController.isModalInPresentation = true
-        self.isFeedbackButtonHidden = true
+        isFeedbackButtonHidden = true
         topViewController?.present(instantiatedViewController,
                                    animated: true,
                                    completion: nil)

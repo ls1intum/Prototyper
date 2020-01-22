@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject var model: Model
     @Environment(\.presentationMode) var presentationMode
     @State var userid: String = ""
     @State var password: String = ""
@@ -95,7 +96,7 @@ struct LoginView: View {
     private func login() {
         if continueWithoutLogin {
             UserDefaults.standard.set(userid, forKey: UserDefaultKeys.username)
-            PrototyperController.continueWithoutLogin = true
+            model.continueWithoutLogin = true
             self.finishLoggingIn = true
             self.presentationMode.wrappedValue.dismiss()
         } else {
