@@ -14,8 +14,7 @@ struct Drawing {
 struct EditScreenshotView: View {
     @EnvironmentObject var model: Model
     @Environment(\.presentationMode) var presentationMode
-    @State var currentDrawing: Drawing = Drawing()
-    @State var drawings: [Drawing] = [Drawing]()
+    @State var currentMarkupDrawing: Drawing = Drawing()
     @State var rect: CGRect = .zero
     @State var color: Color = Color.primary
     @State var colorPickerShown: Bool = false
@@ -24,10 +23,10 @@ struct EditScreenshotView: View {
         VStack(alignment: .center) {
             GeometryReader { geometry in
                 Path { path in
-                    for drawing in self.drawings {
-                        self.add(drawing: drawing, toPath: &path)
+                    for markupDrawing in self.model.markupDrawings {
+                        self.add(drawing: markupDrawing, toPath: &path)
                     }
-                    self.add(drawing: self.currentDrawing, toPath: &path)
+                    self.add(drawing: self.currentMarkupDrawing, toPath: &path)
                 }.offsetBy(dx: -15, dy: -self.rect.origin.y)
                 .stroke(self.color, lineWidth: 5)
                 .background(
@@ -40,12 +39,12 @@ struct EditScreenshotView: View {
                     DragGesture(minimumDistance: 0.1, coordinateSpace: .global)
                         .onChanged({ (value) in
                             if self.rect.contains(value.location) {
-                                self.currentDrawing.points.append(value.location)
+                                self.currentMarkupDrawing.points.append(value.location)
                             }
                         })
                         .onEnded({ (value) in
-                            self.drawings.append(self.currentDrawing)
-                            self.currentDrawing = Drawing()
+                            self.model.markupDrawings.append(self.currentMarkupDrawing)
+                            self.currentMarkupDrawing = Drawing()
                         })
                 )
             }.padding()
@@ -58,14 +57,14 @@ struct EditScreenshotView: View {
                 Image(systemName: "arrow.uturn.left")
                     .imageScale(.large)
                     .onTapGesture {
-                        if self.drawings.count > 0 {
-                            self.drawings.removeLast()
+                        if self.model.markupDrawings.count > 0 {
+                            self.model.markupDrawings.removeLast()
                         }
                     }
                 Image(systemName: "xmark")
                     .imageScale(.large)
                     .onTapGesture {
-                       self.drawings = [Drawing]()
+                        self.model.markupDrawings = [Drawing]()
                     }
             }.frame(height: 32)
         }
@@ -104,8 +103,7 @@ struct EditScreenshotView: View {
     }
     
     private func save() {
-        self.drawings = [Drawing]()
-        self.model.screenshot = UIApplication.shared.windows.first?.asImage(rect: rect) ?? UIImage()
+        self.model.screenshotWithMarkup = UIApplication.shared.windows.first?.asImage(rect: rect) ?? UIImage()
         self.presentationMode.wrappedValue.dismiss()
     }
     
@@ -113,7 +111,6 @@ struct EditScreenshotView: View {
         if colorPickerShown {
             colorPickerShown = false
         } else {
-            self.drawings = [Drawing]()
             self.presentationMode.wrappedValue.dismiss()
         }
     }

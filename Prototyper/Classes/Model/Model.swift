@@ -10,6 +10,8 @@ import SwiftUI
 
 class Model: ObservableObject {
     @Published var screenshot: UIImage = Model.getScreenShot()
+    @Published var screenshotWithMarkup: UIImage = Model.getScreenShot()
+    @Published var markupDrawings: [Drawing] = [Drawing]()
     @Published var continueWithoutLogin: Bool = false
     
     static func getScreenShot() -> UIImage {
