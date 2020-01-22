@@ -18,7 +18,7 @@ class FeedbackBubble: UIView {
                                  height: FeedbackBubble.size.height))
         
         let feedbackButton = UIButton(type: .custom)
-        feedbackButton.setImage(UIImage(named: "feedback_icon", in: Bundle(for: PrototyperController.self), compatibleWith: nil), for: .normal)
+        feedbackButton.setImage(UIImage(systemName: "envelope.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 120, weight: .regular)), for: .normal)
         feedbackButton.frame = CGRect(x: 0, y: 0, width: FeedbackBubble.size.width, height: FeedbackBubble.size.height)
         feedbackButton.addTarget(target, action: action, for: .touchUpInside)
         self.addSubview(feedbackButton)
