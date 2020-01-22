@@ -18,6 +18,7 @@ struct EditScreenshotView: View {
     
     var body: some View {
         VStack(alignment: .center) {
+            Spacer(minLength: 16)
             ZStack(alignment: .center) {
                 Image(uiImage: self.model.screenshot)
                     .resizable()
@@ -29,11 +30,10 @@ struct EditScreenshotView: View {
                         drawing.path
                     }
                     currentDrawing?.path
-                }.offset(x: -15, y: -self.rect.origin.y)
+                }.offset(y: -self.rect.origin.y)
 
-            }
-                .padding()
-                .gesture(dragGesture)
+            }.gesture(dragGesture)
+            Spacer(minLength: 16)
             actions
         }
             .navigationBarTitle("Markup")
