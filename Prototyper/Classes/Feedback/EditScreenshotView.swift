@@ -14,7 +14,6 @@ struct Drawing {
 struct EditScreenshotView: View {
     @EnvironmentObject var model: Model
     @Environment(\.presentationMode) var presentationMode
-    @Environment(\.colorScheme) var colorScheme
     @State var currentDrawing: Drawing = Drawing()
     @State var drawings: [Drawing] = [Drawing]()
     @State var rect: CGRect = .zero
@@ -37,18 +36,18 @@ struct EditScreenshotView: View {
                         .scaledToFit()
                         .background(RectGetter(rect: self.$rect))
                         .shadow(color: Color.primary.opacity(0.2), radius: 5.0))
-                        .gesture(
-                            DragGesture(minimumDistance: 0.1, coordinateSpace: .global)
-                                .onChanged({ (value) in
-                                    if self.rect.contains(value.location) {
-                                        self.currentDrawing.points.append(value.location)
-                                    }
-                                })
-                                .onEnded({ (value) in
-                                    self.drawings.append(self.currentDrawing)
-                                    self.currentDrawing = Drawing()
-                                })
-                        )
+                .gesture(
+                    DragGesture(minimumDistance: 0.1, coordinateSpace: .global)
+                        .onChanged({ (value) in
+                            if self.rect.contains(value.location) {
+                                self.currentDrawing.points.append(value.location)
+                            }
+                        })
+                        .onEnded({ (value) in
+                            self.drawings.append(self.currentDrawing)
+                            self.currentDrawing = Drawing()
+                        })
+                )
             }.padding()
             HStack (alignment: .center, spacing: 30) {
                 Image(systemName: "eyedropper.halffull")
