@@ -18,9 +18,10 @@ class FeedbackBubble: UIView {
                                  height: FeedbackBubble.size.height))
         
         let feedbackButton = UIButton(type: .custom)
-        feedbackButton.setImage(UIImage(named: "feedback_icon", in: Bundle(for: PrototyperController.self), compatibleWith: nil), for: .normal)
+        setBubbleImageToButton(button: feedbackButton)
         feedbackButton.frame = CGRect(x: 0, y: 0, width: FeedbackBubble.size.width, height: FeedbackBubble.size.height)
         feedbackButton.addTarget(target, action: action, for: .touchUpInside)
+        addShadow(view: feedbackButton)
         self.addSubview(feedbackButton)
         
         let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(detectPan(recognizer:)))
@@ -58,4 +59,20 @@ class FeedbackBubble: UIView {
         }
     }
     
+    private func setBubbleImageToButton(button: UIButton) {
+        let backgroundCircle = UIImage(systemName: "circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 70, weight: .heavy))?.withTintColor(.systemBlue, renderingMode: .alwaysTemplate)
+        let shareIcon = UIImage(systemName: "square.and.arrow.up", withConfiguration: UIImage.SymbolConfiguration(pointSize: 40, weight: .light))?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        guard let backgroundCircleImage = backgroundCircle, let shareIconImage = shareIcon else {
+            return
+        }
+        let feedbackIcon = UIImage.overlapImages(topImage: shareIconImage, bottomImage: backgroundCircleImage)
+        button.setImage(feedbackIcon, for: .normal)
+    }
+    
+    private func addShadow(view: UIView) {
+        view.layer.shadowColor = UIColor.systemGray.cgColor
+        view.layer.shadowOpacity = 1
+        view.layer.shadowOffset = .zero
+        view.layer.shadowRadius = 5
+    }
 }

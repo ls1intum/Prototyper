@@ -11,7 +11,7 @@ struct EditScreenshotView: View {
     @EnvironmentObject var model: Model
     @Environment(\.presentationMode) var presentationMode
     @State var currentDrawing: Drawing?
-    @State var drawings: [Drawing] = [Drawing]()
+    @State var allDrawings: [Drawing] = []
     @State var rect: CGRect = .zero
     @State var color: Color = .primary
     @State var colorPickerShown: Bool = false
@@ -26,7 +26,7 @@ struct EditScreenshotView: View {
                     .background(RectGetter(rect: self.$rect))
                     .shadow(color: Color.primary.opacity(0.2), radius: 5.0)
                 Group {
-                    ForEach(self.drawings) { drawing in
+                    ForEach(self.allDrawings) { drawing in
                         drawing.path
                     }
                     currentDrawing?.path
@@ -35,7 +35,7 @@ struct EditScreenshotView: View {
             }.gesture(dragGesture)
             Spacer(minLength: 16)
             actions
-        }
+        }.onAppear(perform: setupCurrentDrawings)
             .navigationBarTitle("Markup")
             .navigationBarItems(leading: cancelButton, trailing: saveButton)
             .sheet(isPresented: $colorPickerShown) {
@@ -56,14 +56,14 @@ struct EditScreenshotView: View {
             Image(systemName: "arrow.uturn.left")
                 .imageScale(.large)
                 .onTapGesture {
-                    if self.drawings.count > 0 {
-                        self.drawings.removeLast()
+                    if self.allDrawings.count > 0 {
+                        self.allDrawings.removeLast()
                     }
             }
             Image(systemName: "xmark")
                 .imageScale(.large)
                 .onTapGesture {
-                    self.drawings = [Drawing]()
+                    self.allDrawings = [Drawing]()
             }
         }.frame(height: 32)
     }
@@ -79,7 +79,7 @@ struct EditScreenshotView: View {
                 }
             }
             .onEnded { _ in
-                self.currentDrawing.map({ self.drawings.append($0) })
+                self.currentDrawing.map({ self.allDrawings.append($0) })
                 self.currentDrawing = nil
             }
     }
@@ -97,8 +97,8 @@ struct EditScreenshotView: View {
     }
     
     private func save() {
-        self.drawings = [Drawing]()
-        self.model.screenshot = UIApplication.shared.windows.first?.asImage(rect: rect) ?? UIImage()
+        self.model.markupDrawings = allDrawings
+        self.model.screenshotWithMarkup = UIApplication.shared.windows.first?.asImage(rect: rect) ?? UIImage()
         self.presentationMode.wrappedValue.dismiss()
     }
     
@@ -106,8 +106,11 @@ struct EditScreenshotView: View {
         if colorPickerShown {
             colorPickerShown = false
         } else {
-            self.drawings = [Drawing]()
             self.presentationMode.wrappedValue.dismiss()
         }
+    }
+    
+    private func setupCurrentDrawings() {
+        self.allDrawings = self.model.markupDrawings
     }
 }

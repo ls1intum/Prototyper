@@ -1,6 +1,6 @@
 //
 //  FeedbackView.swift
-//  KeychainSwift
+//  Prototyper
 //
 //  Created by Raymond Pinto on 20.12.19.
 //
@@ -25,24 +25,7 @@ struct FeedbackView: View {
             VStack {
                 HStack (alignment: .top) {
                     if showScreenshot {
-                        ZStack (alignment: .topTrailing) {
-                            ZStack {
-                                Image(uiImage: model.screenshot)
-                                    .resizable()
-                                    .shadow(color: Color.primary.opacity(0.2), radius: 5.0)
-                                    .scaledToFit()
-                                Image(systemName: "pencil.circle.fill")
-                                    .imageScale(.large)
-                                    .onTapGesture {
-                                        self.editImage()
-                                }
-                            }
-                            Image(systemName: "xmark.circle.fill")
-                                .imageScale(.large)
-                                .onTapGesture {
-                                    self.removeScreenshot()
-                            }.offset(x: 5)
-                        }
+                        screenshot
                     }
                     NavigationLink(destination: SendFeedbackView(showSendFeedbackView: $showSendFeedbackView, feedback: $feedback), isActive: $showSendFeedbackView) {
                         Text("")
@@ -52,7 +35,7 @@ struct FeedbackView: View {
                 Spacer()
             }.padding()
             .navigationBarTitle("Give Feedback")
-            .navigationBarItems(leading: cancelButton, trailing: shareButton)
+            .navigationBarItems(leading: cancelButton, trailing: sendButton)
             .sheet(isPresented: $showSheet) {
                 if self.activeSheet == .loginSheet {
                     NavigationView {
@@ -64,6 +47,28 @@ struct FeedbackView: View {
                     }.environmentObject(self.model)
                 }
             }
+        }
+    }
+    
+    var screenshot: some View {
+        ZStack (alignment: .topTrailing) {
+            ZStack {
+                Image(uiImage: model.screenshotWithMarkup)
+                    .resizable()
+                    .shadow(color: Color.primary.opacity(0.2), radius: 5.0)
+                    .scaledToFit()
+                Image(systemName: "pencil.tip.crop.circle.badge.plus")
+                    .resizable()
+                    .frame(width: 50, height: 40, alignment: .center)
+                    .onTapGesture {
+                        self.editImage()
+                    }
+            }
+            Image(systemName: "xmark.circle.fill")
+                .imageScale(.large)
+                .onTapGesture {
+                    self.removeScreenshot()
+            }.offset(x: 5)
         }
     }
     
@@ -80,13 +85,13 @@ struct FeedbackView: View {
     
     private var cancelButton : some View {
         Button(action: cancel) {
-            Text("Cancel").bold()
+            Text("Cancel")
         }
     }
     
-    private var shareButton : some View {
+    private var sendButton : some View {
         Button(action: share) {
-            Text("Share").bold()
+            Text("Send").bold()
         }
     }
     
