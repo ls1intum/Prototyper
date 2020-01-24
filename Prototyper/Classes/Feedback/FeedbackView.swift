@@ -62,7 +62,7 @@ struct FeedbackView: View {
                     .frame(width: 50, height: 40, alignment: .center)
                     .onTapGesture {
                         self.editImage()
-                }
+                    }
             }
             Image(systemName: "xmark.circle.fill")
                 .imageScale(.large)
