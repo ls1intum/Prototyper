@@ -35,7 +35,7 @@ struct FeedbackView: View {
                 Spacer()
             }.padding()
             .navigationBarTitle("Give Feedback")
-            .navigationBarItems(leading: cancelButton, trailing: shareButton)
+            .navigationBarItems(leading: cancelButton, trailing: sendButton)
             .sheet(isPresented: $showSheet) {
                 if self.activeSheet == .loginSheet {
                     NavigationView {
@@ -85,13 +85,13 @@ struct FeedbackView: View {
     
     private var cancelButton : some View {
         Button(action: cancel) {
-            Text("Cancel").bold()
+            Text("Cancel")
         }
     }
     
-    private var shareButton : some View {
+    private var sendButton : some View {
         Button(action: share) {
-            Text("Share").bold()
+            Text("Send").bold()
         }
     }
     

@@ -97,8 +97,7 @@ struct EditScreenshotView: View {
     }
     
     private func save() {
-        self.model.markupDrawings.removeAll()
-        self.allDrawings.forEach({ self.model.markupDrawings.append($0) })
+        self.model.markupDrawings = allDrawings
         self.model.screenshotWithMarkup = UIApplication.shared.windows.first?.asImage(rect: rect) ?? UIImage()
         self.presentationMode.wrappedValue.dismiss()
     }
@@ -112,6 +111,6 @@ struct EditScreenshotView: View {
     }
     
     private func setupCurrentDrawings() {
-        self.model.markupDrawings.forEach({ self.allDrawings.append($0) })
+        self.allDrawings = self.model.markupDrawings
     }
 }
