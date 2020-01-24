@@ -18,7 +18,7 @@ class FeedbackBubble: UIView {
                                  height: FeedbackBubble.size.height))
         
         let feedbackButton = UIButton(type: .custom)
-        let backgroundCircle = UIImage(systemName: "circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 80, weight: .light))?.withTintColor(.systemBlue, renderingMode: .alwaysTemplate)
+        let backgroundCircle = UIImage(systemName: "circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 70, weight: .heavy))?.withTintColor(.systemBlue, renderingMode: .alwaysTemplate)
         let shareIcon = UIImage(systemName: "square.and.arrow.up", withConfiguration: UIImage.SymbolConfiguration(pointSize: 40, weight: .light))?.withTintColor(.white, renderingMode: .alwaysOriginal)
         guard let backgroundCircleImage = backgroundCircle, let shareIconImage = shareIcon else {
             return
