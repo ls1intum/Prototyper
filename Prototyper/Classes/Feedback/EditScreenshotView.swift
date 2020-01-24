@@ -11,7 +11,7 @@ struct EditScreenshotView: View {
     @EnvironmentObject var model: Model
     @Environment(\.presentationMode) var presentationMode
     @State var currentDrawing: Drawing?
-    @State var allDrawings: [Drawing] = [Drawing]()
+    @State var allDrawings: [Drawing] = []
     @State var rect: CGRect = .zero
     @State var color: Color = .primary
     @State var colorPickerShown: Bool = false
