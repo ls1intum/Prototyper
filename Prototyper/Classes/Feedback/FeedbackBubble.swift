@@ -18,7 +18,12 @@ class FeedbackBubble: UIView {
                                  height: FeedbackBubble.size.height))
         
         let feedbackButton = UIButton(type: .custom)
-        let feedbackIcon = UIImage(systemName: "envelope.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 120, weight: .light))
+        let backgroundCircle = UIImage(systemName: "circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 80, weight: .light))?.withTintColor(.systemBlue, renderingMode: .alwaysTemplate)
+        let shareIcon = UIImage(systemName: "square.and.arrow.up", withConfiguration: UIImage.SymbolConfiguration(pointSize: 40, weight: .light))?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        guard let backgroundCircleImage = backgroundCircle, let shareIconImage = shareIcon else {
+            return
+        }
+        let feedbackIcon = UIImage.overlapImages(topImage: shareIconImage, bottomImage: backgroundCircleImage)
         feedbackButton.setImage(feedbackIcon, for: .normal)
         feedbackButton.frame = CGRect(x: 0, y: 0, width: FeedbackBubble.size.width, height: FeedbackBubble.size.height)
         feedbackButton.addTarget(target, action: action, for: .touchUpInside)
