@@ -18,8 +18,7 @@ The Prototyper Framework allows you to integrate prototypes into an iOS applicat
   s.swift_version = '5.1'
   s.ios.deployment_target = '13.0'
 
-  s.source_files = 'Prototyper/Classes/**/*'
-  s.resources = 'Prototyper/Assets/*'
+  s.source_files = 'Sources/Prototyper/Classes/**/*'
 
   s.dependency 'KeychainSwift', '18.0.0'
   s.dependency 'Prototype', '0.4.0'
