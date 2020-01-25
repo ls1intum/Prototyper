@@ -8,7 +8,9 @@
 
 // swiftlint:disable force_unwrapping
 
+#if canImport(UIKit)
 import UIKit
+#endif
 
 extension UIWindow {
     var screenshot: UIImage {

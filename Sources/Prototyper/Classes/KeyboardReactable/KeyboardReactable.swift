@@ -7,7 +7,9 @@
 //
 
 import Foundation
+#if canImport(UIKit)
 import UIKit
+#endif
 
 private struct KeyboardReactableParameters {
     let keyboardHeight: CGFloat
