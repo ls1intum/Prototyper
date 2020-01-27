@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>APIHandler Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/APIHandler" class="dashAnchor"></a>
+    <a title="APIHandler Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (100% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        APIHandler Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/APIHandler.html">APIHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Coordinator.html">Coordinator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FeedbackBubble.html">FeedbackBubble</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Model.html">Model</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PrototyperController.html">PrototyperController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PrototyperController/Constants.html">– Constants</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global%20Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:10Prototyper15defaultBoundary33_FEB3A09C60596F842B7CCDC2F8C7893ELLSSvp">defaultBoundary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:10Prototyper14sharedInstanceAA10APIHandlerCvp">sharedInstance</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/API.html">API</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/API/EndPoints.html">– EndPoints</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/API/DataTypes.html">– DataTypes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/HTTPHeaderField.html">HTTPHeaderField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/HTTPMethod.html">HTTPMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/KeychainKeys.html">KeychainKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MimeType.html">MimeType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PrototyperError.html">PrototyperError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/UserDefaultKeys.html">UserDefaultKeys</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/CGPoint.html">CGPoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIImage.html">UIImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIView.html">UIView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIViewController.html">UIViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIWindow.html">UIWindow</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/KeyboardReactable.html">KeyboardReactable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/ActivityIndicator.html">ActivityIndicator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ColorPickerCell.html">ColorPickerCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ColorPickerView.html">ColorPickerView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Drawing.html">Drawing</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/EditScreenshotView.html">EditScreenshotView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Feedback.html">Feedback</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FeedbackView.html">FeedbackView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FeedbackView/ActiveSheet.html">– ActiveSheet</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FeedbackView_Previews.html">FeedbackView_Previews</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KeyboardReactableParameters.html">KeyboardReactableParameters</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LoginView.html">LoginView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LoginView/LoginViewConstants.html">– LoginViewConstants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MarkupColor.html">MarkupColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MultilineTextView.html">MultilineTextView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RectGetter.html">RectGetter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SendFeedbackView.html">SendFeedbackView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SendInviteView.html">SendInviteView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ShareRequest.html">ShareRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ShareView.html">ShareView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Share_Previews.html">Share_Previews</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>APIHandler</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">APIHandler</span></code></pre>
+
+                </div>
+              </div>
+            
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Prototyper10APIHandlerC7sessionSo12NSURLSessionCvp"></a>
+                    <a name="//apple_ref/swift/Property/session" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Prototyper10APIHandlerC7sessionSo12NSURLSessionCvp">session</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">URLSession</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Prototyper10APIHandlerC5appIdSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/appId" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Prototyper10APIHandlerC5appIdSSSgvp">appId</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">appId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Prototyper10APIHandlerC9releaseIdSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/releaseId" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Prototyper10APIHandlerC9releaseIdSSSgvp">releaseId</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">releaseId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Prototyper10APIHandlerC10isLoggedInSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isLoggedIn" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Prototyper10APIHandlerC10isLoggedInSbvp">isLoggedIn</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">isLoggedIn</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Prototyper10APIHandlerCACycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Prototyper10APIHandlerCACycfc">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Prototyper10APIHandlerC06sharedB0ACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/sharedAPIHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Prototyper10APIHandlerC06sharedB0ACvpZ">sharedAPIHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="k">var</span> <span class="nv">sharedAPIHandler</span><span class="p">:</span> <span class="kt">APIHandler</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Release%20Infos"></a>
+                <a name="//apple_ref/swift/Section/Release Infos" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Release%20Infos"></a>
+                  <h3 class="section-name"><p>Release Infos</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Prototyper10APIHandlerC22tryToFetchReleaseInfosyyFZ"></a>
+                    <a name="//apple_ref/swift/Method/tryToFetchReleaseInfos()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Prototyper10APIHandlerC22tryToFetchReleaseInfosyyFZ">tryToFetchReleaseInfos()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">tryToFetchReleaseInfos</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Prototyper10APIHandlerC23fetchReleaseInformation7success7failureyySS_SStc_ys5Error_pSgctF"></a>
+                    <a name="//apple_ref/swift/Method/fetchReleaseInformation(success:failure:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Prototyper10APIHandlerC23fetchReleaseInformation7success7failureyySS_SStc_ys5Error_pSgctF">fetchReleaseInformation(success:failure:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetchReleaseInformation</span><span class="p">(</span><span class="nv">success</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="n">_</span> <span class="nv">appId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">releaseId</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span>
+                             <span class="nv">failure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Login"></a>
+                <a name="//apple_ref/swift/Section/Login" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Login"></a>
+                  <h3 class="section-name"><p>Login</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Prototyper10APIHandlerC10tryToLoginyyFZ"></a>
+                    <a name="//apple_ref/swift/Method/tryToLogin()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Prototyper10APIHandlerC10tryToLoginyyFZ">tryToLogin()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">tryToLogin</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Prototyper10APIHandlerC5login_8password7success7failureySS_SSyycys5Error_pSgctF"></a>
+                    <a name="//apple_ref/swift/Method/login(_:password:success:failure:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Prototyper10APIHandlerC5login_8password7success7failureySS_SSyycys5Error_pSgctF">login(_:password:success:failure:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">login</span><span class="p">(</span><span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">success</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span> <span class="nv">failure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Feedback"></a>
+                <a name="//apple_ref/swift/Section/Feedback" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Feedback"></a>
+                  <h3 class="section-name"><p>Feedback</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Prototyper10APIHandlerC4send8feedback7success7failureyAA8FeedbackV_yycys5Error_pSgctFZ"></a>
+                    <a name="//apple_ref/swift/Method/send(feedback:success:failure:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Prototyper10APIHandlerC4send8feedback7success7failureyAA8FeedbackV_yycys5Error_pSgctFZ">send(feedback:success:failure:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">send</span><span class="p">(</span><span class="nv">feedback</span><span class="p">:</span> <span class="kt"><a href="../Structs/Feedback.html">Feedback</a></span><span class="p">,</span> <span class="nv">success</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span> <span class="nv">failure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Prototyper10APIHandlerC19sendGeneralFeedback33_FEB3A09C60596F842B7CCDC2F8C7893ELL11description4name7success7failureySS_SSSgyycys5Error_pSgctF"></a>
+                    <a name="//apple_ref/swift/Method/sendGeneralFeedback(description:name:success:failure:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Prototyper10APIHandlerC19sendGeneralFeedback33_FEB3A09C60596F842B7CCDC2F8C7893ELL11description4name7success7failureySS_SSSgyycys5Error_pSgctF">sendGeneralFeedback(description:name:success:failure:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">sendGeneralFeedback</span><span class="p">(</span><span class="nv">description</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                                 <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                                 <span class="nv">success</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span>
+                                 <span class="nv">failure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Prototyper10APIHandlerC18sendScreenFeedback33_FEB3A09C60596F842B7CCDC2F8C7893ELL10screenshot11description4name7success7failureySo7UIImageC_S2SSgyycys5Error_pSgctF"></a>
+                    <a name="//apple_ref/swift/Method/sendScreenFeedback(screenshot:description:name:success:failure:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Prototyper10APIHandlerC18sendScreenFeedback33_FEB3A09C60596F842B7CCDC2F8C7893ELL10screenshot11description4name7success7failureySo7UIImageC_S2SSgyycys5Error_pSgctF">sendScreenFeedback(screenshot:description:name:success:failure:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">sendScreenFeedback</span><span class="p">(</span><span class="nv">screenshot</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">,</span>
+                                <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                                <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                                <span class="nv">success</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span>
+                                <span class="nv">failure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Share"></a>
+                <a name="//apple_ref/swift/Section/Share" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Share"></a>
+                  <h3 class="section-name"><p>Share</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Prototyper10APIHandlerC4send12shareRequest7success7failureyAA05ShareE0V_yycys5Error_pSgctFZ"></a>
+                    <a name="//apple_ref/swift/Method/send(shareRequest:success:failure:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Prototyper10APIHandlerC4send12shareRequest7success7failureyAA05ShareE0V_yycys5Error_pSgctFZ">send(shareRequest:success:failure:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">send</span><span class="p">(</span><span class="nv">shareRequest</span><span class="p">:</span> <span class="kt"><a href="../Structs/ShareRequest.html">ShareRequest</a></span><span class="p">,</span>
+                 <span class="nv">success</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span>
+                 <span class="nv">failure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Prototyper10APIHandlerC16sendShareRequest33_FEB3A09C60596F842B7CCDC2F8C7893ELL3for7because4name7success7failureySS_S2SSgyycys5Error_pSgctF"></a>
+                    <a name="//apple_ref/swift/Method/sendShareRequest(for:because:name:success:failure:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Prototyper10APIHandlerC16sendShareRequest33_FEB3A09C60596F842B7CCDC2F8C7893ELL3for7because4name7success7failureySS_S2SSgyycys5Error_pSgctF">sendShareRequest(for:because:name:success:failure:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">sendShareRequest</span><span class="p">(</span><span class="k">for</span> <span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                              <span class="n">because</span> <span class="nv">explanation</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                              <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                              <span class="nv">success</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span>
+                              <span class="nv">failure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Helper"></a>
+                <a name="//apple_ref/swift/Section/Helper" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Helper"></a>
+                  <h3 class="section-name"><p>Helper</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Prototyper10APIHandlerC24jsonRequestForHttpMethod33_FEB3A09C60596F842B7CCDC2F8C7893ELL_10requestURL8bodyData11contentTypeSo19NSMutableURLRequestCAA10HTTPMethodAELLO_10Foundation0Q0VAM0S0VSgSStF"></a>
+                    <a name="//apple_ref/swift/Method/jsonRequestForHttpMethod(_:requestURL:bodyData:contentType:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Prototyper10APIHandlerC24jsonRequestForHttpMethod33_FEB3A09C60596F842B7CCDC2F8C7893ELL_10requestURL8bodyData11contentTypeSo19NSMutableURLRequestCAA10HTTPMethodAELLO_10Foundation0Q0VAM0S0VSgSStF">jsonRequestForHttpMethod(_:requestURL:bodyData:contentType:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">fileprivate</span> <span class="kd">func</span> <span class="nf">jsonRequestForHttpMethod</span><span class="p">(</span><span class="n">_</span> <span class="nv">method</span><span class="p">:</span> <span class="kt"><a href="../Enums/HTTPMethod.html">HTTPMethod</a></span><span class="p">,</span>
+                                          <span class="nv">requestURL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span>
+                                          <span class="nv">bodyData</span><span class="p">:</span> <span class="kt">Data</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                                          <span class="nv">contentType</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kt"><a href="../Enums/MimeType.html">MimeType</a></span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">rawValue</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NSMutableURLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Prototyper10APIHandlerC16bodyDataForImage33_FEB3A09C60596F842B7CCDC2F8C7893ELL_8boundary10Foundation0D0VSo7UIImageC_SStF"></a>
+                    <a name="//apple_ref/swift/Method/bodyDataForImage(_:boundary:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Prototyper10APIHandlerC16bodyDataForImage33_FEB3A09C60596F842B7CCDC2F8C7893ELL_8boundary10Foundation0D0VSo7UIImageC_SStF">bodyDataForImage(_:boundary:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">fileprivate</span> <span class="kd">func</span> <span class="nf">bodyDataForImage</span><span class="p">(</span><span class="n">_</span> <span class="nv">image</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">,</span> <span class="nv">boundary</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="n"><a href="../Global%20Variables.html#/s:10Prototyper15defaultBoundary33_FEB3A09C60596F842B7CCDC2F8C7893ELLSSvp">defaultBoundary</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Data</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Prototyper10APIHandlerC14executeRequest33_FEB3A09C60596F842B7CCDC2F8C7893ELL_17completionHandlery10Foundation10URLRequestV_yAG4DataVSg_So13NSURLResponseCSgs5Error_pSgtctF"></a>
+                    <a name="//apple_ref/swift/Method/executeRequest(_:completionHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Prototyper10APIHandlerC14executeRequest33_FEB3A09C60596F842B7CCDC2F8C7893ELL_17completionHandlery10Foundation10URLRequestV_yAG4DataVSg_So13NSURLResponseCSgs5Error_pSgtctF">executeRequest(_:completionHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">fileprivate</span> <span class="kd">func</span> <span class="nf">executeRequest</span><span class="p">(</span><span class="n">_</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Data</span><span class="p">?,</span> <span class="kt">URLResponse</span><span class="p">?,</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Post%20params"></a>
+                <a name="//apple_ref/swift/Section/Post params" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Post%20params"></a>
+                  <h3 class="section-name"><p>Post params</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Prototyper10APIHandlerC18postParamsForLogin33_FEB3A09C60596F842B7CCDC2F8C7893ELL5email8passwordSDySSypGSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/postParamsForLogin(email:password:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Prototyper10APIHandlerC18postParamsForLogin33_FEB3A09C60596F842B7CCDC2F8C7893ELL5email8passwordSDySSypGSS_SStF">postParamsForLogin(email:password:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                        <a href="../Classes/APIHandler/postParamsForLogin%28email%3Apassword%3A%29.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">fileprivate</span> <span class="kd">func</span> <span class="nf">postParamsForLogin</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-01-27)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
