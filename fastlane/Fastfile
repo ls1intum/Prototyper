@@ -12,7 +12,7 @@
 #Update Variables for your Project
 
 APPID = "de.tum.in.www1.prototyper"
-SCHEME = "Prototyper"
+SCHEME = "PrototyperExample"
 PROJECT = "./Example/PrototyperExample.xcodeproj"
 
 default_platform(:ios)
@@ -21,7 +21,9 @@ platform :ios do
 
         desc "Default bamboo configuration"
         lane :bamboo do
-
+        
+                #Resolve package dependencies
+                sh("xcodebuild","-resolvePackageDependencies")
                 
                 # Setup ENV variables
                 ENV['FASTLANE_PASSWORD'] = ENV['bamboo_FASTLANE_PASSWORD'] # Necessary for unlocking the key chain
