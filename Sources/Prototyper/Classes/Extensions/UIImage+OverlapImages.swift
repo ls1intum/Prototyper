@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension UIImage {
     static func overlapImages(topImage: UIImage, bottomImage: UIImage) -> UIImage {

@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4DEB659523E1E783008702DC /* Prototyper in Frameworks */ = {isa = PBXBuildFile; productRef = 4DEB659423E1E783008702DC /* Prototyper */; };
 		654F66442367BB090092B915 /* Prototype.prototype in Resources */ = {isa = PBXBuildFile; fileRef = 654F66432367BB080092B915 /* Prototype.prototype */; };
 		659E838E2367B508004DF6E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659E838D2367B508004DF6E3 /* AppDelegate.swift */; };
 		659E83902367B508004DF6E3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659E838F2367B508004DF6E3 /* SceneDelegate.swift */; };
@@ -14,11 +15,9 @@
 		659E83942367B50F004DF6E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 659E83932367B50F004DF6E3 /* Assets.xcassets */; };
 		659E83972367B50F004DF6E3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 659E83962367B50F004DF6E3 /* Preview Assets.xcassets */; };
 		659E839A2367B50F004DF6E3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 659E83982367B50F004DF6E3 /* LaunchScreen.storyboard */; };
-		A899A352B6105B652DF4CE98 /* Pods_PrototyperExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5C89F554469C0346EC0814B /* Pods_PrototyperExample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		58008D7867F4914A765E437F /* Pods-PrototyperExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrototyperExample.debug.xcconfig"; path = "Target Support Files/Pods-PrototyperExample/Pods-PrototyperExample.debug.xcconfig"; sourceTree = "<group>"; };
 		654F66432367BB080092B915 /* Prototype.prototype */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Prototype.prototype; sourceTree = "<group>"; };
 		659E838A2367B508004DF6E3 /* Prototyper Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Prototyper Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		659E838D2367B508004DF6E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -28,10 +27,6 @@
 		659E83962367B50F004DF6E3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		659E83992367B50F004DF6E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		659E839B2367B50F004DF6E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B61558E7707B3F65BF73DBF4 /* Pods-PrototyperExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrototyperExample.release.xcconfig"; path = "Target Support Files/Pods-PrototyperExample/Pods-PrototyperExample.release.xcconfig"; sourceTree = "<group>"; };
-		BA6E848A34FDA540844608BE /* Pods-Prototyper Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prototyper Example.debug.xcconfig"; path = "Target Support Files/Pods-Prototyper Example/Pods-Prototyper Example.debug.xcconfig"; sourceTree = "<group>"; };
-		C2F9C9726290F5421CFF6712 /* Pods-Prototyper Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prototyper Example.release.xcconfig"; path = "Target Support Files/Pods-Prototyper Example/Pods-Prototyper Example.release.xcconfig"; sourceTree = "<group>"; };
-		E5C89F554469C0346EC0814B /* Pods_PrototyperExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrototyperExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,7 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A899A352B6105B652DF4CE98 /* Pods_PrototyperExample.framework in Frameworks */,
+				4DEB659523E1E783008702DC /* Prototyper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,7 +47,6 @@
 				659E838C2367B508004DF6E3 /* PrototyperExample */,
 				659E838B2367B508004DF6E3 /* Products */,
 				6B2FF5FA394598E618A296FD /* Pods */,
-				FC1466F7A1FEE57CF48CEAE0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,20 +84,8 @@
 		6B2FF5FA394598E618A296FD /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				BA6E848A34FDA540844608BE /* Pods-Prototyper Example.debug.xcconfig */,
-				C2F9C9726290F5421CFF6712 /* Pods-Prototyper Example.release.xcconfig */,
-				58008D7867F4914A765E437F /* Pods-PrototyperExample.debug.xcconfig */,
-				B61558E7707B3F65BF73DBF4 /* Pods-PrototyperExample.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		FC1466F7A1FEE57CF48CEAE0 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E5C89F554469C0346EC0814B /* Pods_PrototyperExample.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -113,17 +95,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 659E839E2367B50F004DF6E3 /* Build configuration list for PBXNativeTarget "PrototyperExample" */;
 			buildPhases = (
-				B58BE26B90D13C8182694205 /* [CP] Check Pods Manifest.lock */,
 				659E83862367B508004DF6E3 /* Sources */,
 				659E83872367B508004DF6E3 /* Frameworks */,
 				659E83882367B508004DF6E3 /* Resources */,
-				64AAD59ACDEC45D890FC4611 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = PrototyperExample;
+			packageProductDependencies = (
+				4DEB659423E1E783008702DC /* Prototyper */,
+			);
 			productName = "Prototyper Example";
 			productReference = 659E838A2367B508004DF6E3 /* Prototyper Example.app */;
 			productType = "com.apple.product-type.application";
@@ -152,6 +135,9 @@
 				Base,
 			);
 			mainGroup = 659E83812367B508004DF6E3;
+			packageReferences = (
+				4DEB659323E1E783008702DC /* XCRemoteSwiftPackageReference "Prototyper" */,
+			);
 			productRefGroup = 659E838B2367B508004DF6E3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -174,48 +160,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		64AAD59ACDEC45D890FC4611 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PrototyperExample/Pods-PrototyperExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PrototyperExample/Pods-PrototyperExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PrototyperExample/Pods-PrototyperExample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B58BE26B90D13C8182694205 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PrototyperExample-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		659E83862367B508004DF6E3 /* Sources */ = {
@@ -358,7 +302,6 @@
 		};
 		659E839F2367B50F004DF6E3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 58008D7867F4914A765E437F /* Pods-PrototyperExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -380,10 +323,9 @@
 		};
 		659E83A02367B50F004DF6E3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B61558E7707B3F65BF73DBF4 /* Pods-PrototyperExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"PrototyperExample/Preview Content\"";
 				DEVELOPMENT_TEAM = WCM2L8RG39;
 				ENABLE_PREVIEWS = YES;
@@ -395,6 +337,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = de.tum.in.ase.prototyper;
 				PRODUCT_NAME = "Prototyper Example";
+				PROVISIONING_PROFILE_SPECIFIER = $SIGH_NAME;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -422,6 +365,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4DEB659323E1E783008702DC /* XCRemoteSwiftPackageReference "Prototyper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ls1intum/Prototyper.git";
+			requirement = {
+				branch = "SPM-implementation";
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4DEB659423E1E783008702DC /* Prototyper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DEB659323E1E783008702DC /* XCRemoteSwiftPackageReference "Prototyper" */;
+			productName = Prototyper;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 659E83822367B508004DF6E3 /* Project object */;
 }

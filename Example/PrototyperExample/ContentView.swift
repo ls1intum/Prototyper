@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Prototype
 
 struct ContentView: View {
     @State var prototypeName: String
