@@ -13,6 +13,7 @@
 
 APPID = "de.tum.in.www1.prototyper"
 SCHEME = "Prototyper"
+PROJECT = "./Example/PrototyperExample.xcodeproj"
 
 default_platform(:ios)
 
@@ -50,6 +51,7 @@ platform :ios do
 
                 # Build the app
                 build_ios_app(
+                        project: PROJECT,
                         scheme: SCHEME,
                         clean: true,
                         output_directory: "./",
