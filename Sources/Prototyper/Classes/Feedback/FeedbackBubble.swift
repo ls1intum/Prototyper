@@ -7,9 +7,7 @@
 //
 
 import Foundation
-#if canImport(UIKit)
 import UIKit
-#endif
 
 class FeedbackBubble: UIView {
     private static var size = CGSize(width: 70, height: 70)
