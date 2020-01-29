@@ -371,7 +371,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ls1intum/Prototyper.git";
 			requirement = {
-				branch = "SPM-implementation";
+				branch = master;
 				kind = branch;
 			};
 		};
