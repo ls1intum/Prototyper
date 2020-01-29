@@ -7,9 +7,7 @@
 //
 
 import Foundation
-#if canImport(UIKit)
 import UIKit
-#endif
 import KeychainSwift
 
 // MARK: - Constants
