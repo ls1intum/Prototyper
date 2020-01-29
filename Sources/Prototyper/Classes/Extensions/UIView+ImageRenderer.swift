@@ -6,9 +6,7 @@
 //
 
 import Foundation
-#if canImport(UIKit)
 import UIKit
-#endif
 
 extension UIView {
     func asImage(rect: CGRect) -> UIImage {
