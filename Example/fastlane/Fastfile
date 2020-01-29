@@ -13,7 +13,7 @@
 
 APPID = "de.tum.in.ase.prototyper"
 SCHEME = "PrototyperExample"
-PROJECT = "./Example/PrototyperExample.xcodeproj"
+PROJECT = "./PrototyperExample.xcodeproj"
 
 default_platform(:ios)
 
