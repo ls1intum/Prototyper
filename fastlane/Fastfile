@@ -23,7 +23,9 @@ platform :ios do
         lane :bamboo do
         
                 #Resolve package dependencies
-                sh("xcodebuild","-resolvePackageDependencies")
+                Dir.chdir("../Example") do
+                    sh("xcodebuild","-resolvePackageDependencies")
+                end
                 
                 # Setup ENV variables
                 ENV['FASTLANE_PASSWORD'] = ENV['bamboo_FASTLANE_PASSWORD'] # Necessary for unlocking the key chain
