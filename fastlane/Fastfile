@@ -11,7 +11,7 @@
 
 #Update Variables for your Project
 
-APPID = "de.tum.in.www1.prototyper"
+APPID = "de.tum.in.ase.prototyper"
 SCHEME = "PrototyperExample"
 PROJECT = "./Example/PrototyperExample.xcodeproj"
 
