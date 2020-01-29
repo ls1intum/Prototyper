@@ -11,7 +11,7 @@
 
 #Update Variables for your Project
 
-APPID = "de.tum.in.www1.ios.ExampleApp"
+APPID = "de.tum.in.www1.prototyper"
 SCHEME = "Prototyper"
 
 default_platform(:ios)
@@ -59,11 +59,6 @@ platform :ios do
                         archive_path: "./BuildedApplication",                       # DO NOT CHANGE!
                         codesigning_identity: ENV['bamboo_CodeSigningIdentity'],    # DO NOT CHANGE!
                         configuration: "Release",           # DO NOT CHANGE!
-                )
-                
-                spm(
-                  command: "generate-xcodeproj",
-                  xcconfig: "Package.xcconfig"
                 )
 
                 # Create Build String
