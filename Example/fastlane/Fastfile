@@ -23,7 +23,7 @@ platform :ios do
         lane :bamboo do
         
                 #Resolve package dependencies
-                Dir.chdir("../Example") do
+                Dir.chdir("../") do
                     sh("xcodebuild","-resolvePackageDependencies")
                 end
                 
