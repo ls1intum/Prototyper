@@ -371,7 +371,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ls1intum/Prototyper.git";
 			requirement = {
-				branch = master;
+				branch = "bugfix-markup-image-not-being-sent";
 				kind = branch;
 			};
 		};

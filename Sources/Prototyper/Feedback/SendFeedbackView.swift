@@ -32,6 +32,10 @@ struct SendFeedbackView: View {
             return
         }
         
+        if (feedback.creatorName == nil) {
+            UserDefaults.standard.string(forKey: UserDefaultKeys.username)
+        }
+        
         APIHandler.send(feedback: feedback,
             success: {
                 print("Successfully sent feedback to server")

@@ -31,7 +31,11 @@ struct SendInviteView: View {
         guard let shareRequest = shareRequest else {
             return
         }
-        print(shareRequest)
+        
+        if (shareRequest.creatorName == nil) {
+            UserDefaults.standard.string(forKey: UserDefaultKeys.username)
+        }
+        
         APIHandler.send(shareRequest: shareRequest,
                         success: {
             print("Successfully sent share request to server")
