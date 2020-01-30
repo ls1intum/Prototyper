@@ -198,7 +198,7 @@
               <div class="declaration">
                 <div class="language">
                   <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">Model</span> <span class="p">:</span> <span class="kt">ObservableObject</span></code></pre>
-
+                  <p>An instance of this class is to be used inside views, so that when the Published variable values change, the view will reload.</p>
                 </div>
               </div>
             
@@ -227,7 +227,7 @@
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@Published</span>
 <span class="k">var</span> <span class="nv">screenshot</span><span class="p">:</span> <span class="kt">UIImage</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
+                          <p>This variable holds the screenshot of the first view when the feedback bubble was pressed.</p>
                         </div>
                       </div>
                     </section>
@@ -254,7 +254,7 @@
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@Published</span>
 <span class="k">var</span> <span class="nv">screenshotWithMarkup</span><span class="p">:</span> <span class="kt">UIImage</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
+                          <p>This variable holds the screenshot of the view after the user draws and saves markups on the first view when the feedback bubble was clicked.</p>
                         </div>
                       </div>
                     </section>
@@ -281,7 +281,7 @@
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@Published</span>
 <span class="k">var</span> <span class="nv">markupDrawings</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/Drawing.html">Drawing</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
+                          <p>This variable holds all the drawings the user draws in the Markup view.</p>
                         </div>
                       </div>
                     </section>
@@ -308,7 +308,7 @@
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@Published</span>
 <span class="k">var</span> <span class="nv">continueWithoutLogin</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
+                          <p>This boolean variable is used to check if the user is submitting feedback with or without logging in.</p>
                         </div>
                       </div>
                     </section>
