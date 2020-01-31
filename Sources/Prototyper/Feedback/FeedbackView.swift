@@ -89,7 +89,7 @@ struct FeedbackView: View {
         }
         
         return Feedback(description: descriptionText,
-                        screenshot: model.screenshot,
+                        screenshot: model.screenshotWithMarkup,
                         creatorName: creatorName)
     }
     

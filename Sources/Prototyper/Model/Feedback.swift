@@ -16,7 +16,7 @@ struct Feedback {
     /// The screenshot image to be sent as part of the feedback.
     let screenshot: UIImage?
     /// The name of the user sending the feedback.
-    let creatorName: String?
+    var creatorName: String?
 }
 
 extension Feedback: CustomStringConvertible {}
