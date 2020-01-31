@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 extension UIView {
+    /// Renders the UIView as an UIImage
     func asImage(rect: CGRect) -> UIImage {
         let renderer = UIGraphicsImageRenderer(bounds: rect)
         return renderer.image { rendererContext in

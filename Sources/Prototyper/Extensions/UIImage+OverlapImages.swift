@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 extension UIImage {
+    /// Used to overlap two images, one on top of another.
     static func overlapImages(topImage: UIImage, bottomImage: UIImage) -> UIImage {
         let bottomImageContainer = CGRect(x: 0, y: 0, width: bottomImage.size.width, height: bottomImage.size.height)
         UIGraphicsBeginImageContextWithOptions(bottomImage.size, false, 2.0)

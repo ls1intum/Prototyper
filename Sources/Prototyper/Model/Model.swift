@@ -8,12 +8,18 @@
 import Foundation
 import SwiftUI
 
+/// An instance of this class is to be used inside views, so that when the Published variable values change, the view will reload.
 class Model: ObservableObject {
+    /// This variable holds the screenshot of the first view when the feedback bubble was pressed.
     @Published var screenshot: UIImage = Model.getScreenShot()
+    /// This variable holds the screenshot of the view after the user draws and saves markups on the first view when the feedback bubble was clicked.
     @Published var screenshotWithMarkup: UIImage = Model.getScreenShot()
+    /// This variable holds all the drawings the user draws in the Markup view.
     @Published var markupDrawings: [Drawing] = [Drawing]()
+    /// This boolean variable is used to check if the user is submitting feedback with or without logging in.
     @Published var continueWithoutLogin: Bool = false
     
+    /// Instantiates the screenshot variables with the screenshot of the first View when the feedback Bubble was pressed.
     static func getScreenShot() -> UIImage {
         PrototyperController.isFeedbackButtonHidden = true
         let screenshot =  UIApplication.shared.windows.filter{ $0.isKeyWindow }.first?.screenshot ?? UIImage()
@@ -21,6 +27,7 @@ class Model: ObservableObject {
         return screenshot
     }
     
+    /// The markup colors provided to draw on the EditScreenshotView
     static let markupColors: [MarkupColor] = [
         MarkupColor(displayName: "Black", color: Color.black),
         MarkupColor(displayName: "Red", color: Color.red),

@@ -11,18 +11,20 @@ import UIKit
 import KeychainSwift
 
 // MARK: - Constants
-
+/// The key to be specified to retrieve the appID, releaseID and the username being stored in UserDefaults.
 enum UserDefaultKeys {
     static let appId = "AppId"
     static let releaseId = "ReleaseId"
     static let username = "Username"
 }
 
+/// The key to be specified to retrieve the username and passwor being stored in the Keychain.
 private enum KeychainKeys {
     static let userNameKey = "PrototyperUserName"
     static let passwordKey = "PrototyperPassword"
 }
 
+/// The HTTP method used to access the prototyper endpoint.
 private enum HTTPMethod: String {
     case GET
     case POST
@@ -30,19 +32,24 @@ private enum HTTPMethod: String {
     case DELETE
 }
 
+/// The content type to be specified while accessing endpoints.
 private enum MimeType: String {
     case json = "application/json"
     case multipart = "multipart/form-data"
 }
 
+/// HTTPHeaderField options while accessing endpoints.
 private enum HTTPHeaderField: String {
     case contentType = "Content-Type"
     case accept = "Accept"
 }
 
+/// Constants that would be specified while accessing endpoints.
 private enum API {
+    /// The base url of prototyper
     static let BaseURL = URL(string: "https://prototyper-bruegge.in.tum.de/")
     
+    /// The actions to be executed when the endpoints are reached.
     enum EndPoints {
         static let login = "login"
         static func fetchReleaseInfo(bundleId: String, bundleVersion: String) -> String {
@@ -62,8 +69,9 @@ private enum API {
             return "apps/\(appId)/releases/\(releaseId)/share_app?share_email=\(sharedEmail)&explanation=\(explanation)"
         }
     }
-    
+    /// Datatypes enum consisting of the Session enum.
     enum DataTypes {
+        /// The Session enum consisting of the session, email and password.
         enum Session {
             static let session = "session"
             static let email = "email"
@@ -72,22 +80,28 @@ private enum API {
     }
 }
 
+/// The share instance of the APIHandler class.
 let sharedInstance = APIHandler()
+/// The default boundary string.
 private let defaultBoundary = "------VohpleBoundary4QuqLuM1cE5lMwCy"
 
 // MARK: - APIHandler
-
+///This class deals with making all the HTTP calls to the prototyper api, to login, send feedback and share request.
 class APIHandler {
+    ///The variable that coordinates a group of related, network data-transfer tasks.
     let session: URLSession
+    /// The appID of the current Bundle
     var appId: String? {
         let readPrototyperAppId = Bundle.main.object(forInfoDictionaryKey: "PrototyperAppId") as? String
         return readPrototyperAppId ?? UserDefaults.standard.string(forKey: UserDefaultKeys.appId)
     }
+    /// The releaseID of the current bundle
     var releaseId: String? {
         let readPrototyperReleaseId = Bundle.main.object(forInfoDictionaryKey: "PrototyperReleaseId") as? String
         return readPrototyperReleaseId ?? UserDefaults.standard.string(forKey: UserDefaultKeys.releaseId)
     }
     
+    /// The variable that is updated when the user logs in.
     var isLoggedIn: Bool = false
     
     init() {
@@ -95,12 +109,13 @@ class APIHandler {
         session = URLSession(configuration: sessionConfig)
     }
     
+    /// The class variable that can be accessed via the class and can be overridden.
     class var sharedAPIHandler: APIHandler {
         return sharedInstance
     }
     
     // MARK: Release Infos
-    
+    /// This function tries to fetch the release inforrmation and store it in the Userdefauts
     static func tryToFetchReleaseInfos() {
         APIHandler.sharedAPIHandler.fetchReleaseInformation(success: { appId, releaseId in
             UserDefaults.standard.set(appId, forKey: UserDefaultKeys.appId)
@@ -109,7 +124,7 @@ class APIHandler {
             print("No release information found on Prototyper.")
         })
     }
-    
+    /// This function tries to fetch the release inforrmation from the Keychain
     func fetchReleaseInformation(success: @escaping (_ appId: String, _ releaseId: String) -> Void,
                                  failure: @escaping (_ error: Error?) -> Void) {
         let bundleId = Bundle.main.infoDictionary?[kCFBundleIdentifierKey as String] as? String ?? ""
@@ -144,7 +159,7 @@ class APIHandler {
     }
     
     // MARK: Login
-    
+    /// Retrives the username and password stored in the keychain and calls the login function.
     static func tryToLogin() {
         let keychain = KeychainSwift()
         let oldUsername = keychain.get(KeychainKeys.userNameKey)
@@ -155,6 +170,7 @@ class APIHandler {
         }
     }
     
+    /// The login task is performed here.
     func login(_ id: String, password: String, success: @escaping () -> Void, failure: @escaping (_ error: Error?) -> Void) {
         let params = postParamsForLogin(email: id, password: password)
         let articlesURL = URL(string: API.EndPoints.login, relativeTo: API.BaseURL as URL?)
@@ -188,7 +204,7 @@ class APIHandler {
     }
     
     // MARK: Feedback
-    
+    /// The screenshot feedback is sent to the prototyper by calling this function with inturn calls the actual send function.
     static func send(feedback: Feedback, success: @escaping () -> Void, failure: @escaping (_ error: Error?) -> Void) {
         guard let screenshot = feedback.screenshot else {
             sharedAPIHandler.sendGeneralFeedback(description: feedback.description,
@@ -203,7 +219,7 @@ class APIHandler {
                                             success: success,
                                             failure: failure)
     }
-    
+    /// The feedback text is sent to the prototyper by calling this function with inturn calls the actual send function.
     private func sendGeneralFeedback(description: String,
                                      name: String? = nil,
                                      success: @escaping () -> Void,
@@ -230,6 +246,7 @@ class APIHandler {
         }
     }
     
+    /// The feedback is sent to the prototyper by calling this function
     private func sendScreenFeedback(screenshot: UIImage,
                                     description: String,
                                     name: String? = nil,
@@ -264,7 +281,7 @@ class APIHandler {
     }
     
     // MARK: Share
-    
+    /// Internally calls another function that send the share request to the specified user
     static func send(shareRequest: ShareRequest,
                      success: @escaping () -> Void,
                      failure: @escaping (_ error: Error?) -> Void) {
@@ -275,6 +292,7 @@ class APIHandler {
                                           failure: failure)
     }
     
+    ///Sends the share request to the email id specified.
     private func sendShareRequest(for email: String,
                                   because explanation: String,
                                   name: String? = nil,

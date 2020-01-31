@@ -9,6 +9,7 @@
 import Foundation
 
 extension String {
+    /// Called after the function returns.
     var escaped: String {
         return self.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
     }

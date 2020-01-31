@@ -11,6 +11,7 @@
 import UIKit
 
 extension UIWindow {
+    /// Used to capture the screenshot of the View.
     var screenshot: UIImage {
         UIGraphicsBeginImageContextWithOptions(self.frame.size, self.isOpaque, UIScreen.main.scale)
         self.layer.render(in: UIGraphicsGetCurrentContext()!)
@@ -20,3 +21,4 @@ extension UIWindow {
         return image
     }
 }
+

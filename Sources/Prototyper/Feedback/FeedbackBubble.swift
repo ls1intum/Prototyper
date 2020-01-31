@@ -9,7 +9,9 @@
 import Foundation
 import UIKit
 
+/// A static instance of this class is created to place the feedback bubble on app start.
 class FeedbackBubble: UIView {
+    /// The size of the feedback bubble in CGSize.
     private static var size = CGSize(width: 70, height: 70)
     
     init(target: Any, action: Selector) {
@@ -60,6 +62,7 @@ class FeedbackBubble: UIView {
         }
     }
     
+    /// This function is called when the Feedback bubble is initialised.
     private func setBubbleImageToButton(button: UIButton) {
         let backgroundCircle = UIImage(systemName: "circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 70, weight: .heavy))?.withTintColor(.systemBlue, renderingMode: .alwaysTemplate)
         let shareIcon = UIImage(systemName: "square.and.arrow.up", withConfiguration: UIImage.SymbolConfiguration(pointSize: 40, weight: .light))?.withTintColor(.white, renderingMode: .alwaysOriginal)
@@ -70,6 +73,7 @@ class FeedbackBubble: UIView {
         button.setImage(feedbackIcon, for: .normal)
     }
     
+    /// This function adds shadow to the feedback bubble
     private func addShadow(view: UIView) {
         view.layer.shadowColor = UIColor.systemGray.cgColor
         view.layer.shadowOpacity = 1

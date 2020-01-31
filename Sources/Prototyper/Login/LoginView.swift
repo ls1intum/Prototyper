@@ -7,15 +7,24 @@
 
 import SwiftUI
 
+/// This is an independent View that shows up if the user is not logged in.
 struct LoginView: View {
+    /// The instance of the Observable Object class named Model,  to share model data anywhere it’s needed.
     @EnvironmentObject var model: Model
+    /// Environment variable for presentationMode to dismiss the View.
     @Environment(\.presentationMode) var presentationMode
+    /// The username of the user.
     @State var userid: String = ""
+    /// The password of the user.
     @State var password: String = ""
+    /// State variable to show or dismiss an alert View.
     @State var showLoginErrorAlert: Bool = false
+    /// A boolean to check if the user is proceeding without logging in,
     @State var continueWithoutLogin: Bool = false
+    /// A binding variable to update the calling view once the user has clicked the login button.
     @Binding var finishLoggingIn: Bool 
     
+    /// The constant text variables used in the View.
     enum LoginViewConstants {
         enum userNamePlaceHolder {
             static let withoutLoginText = "TUM-ID/E-Mail"
@@ -30,6 +39,7 @@ struct LoginView: View {
         static let alertText = "Could not log in! Please check your login credentials and try again."
     }
     
+    /// The text to be displayed as placeholder text on the text field.
     var userNamePlaceHolder: String {
         if continueWithoutLogin {
               return LoginViewConstants.userNamePlaceHolder.withLoginText
@@ -38,6 +48,7 @@ struct LoginView: View {
         }
     }
     
+    /// The text to be displayed on the Login button.
     var subButtonText: String {
         if continueWithoutLogin {
               return LoginViewConstants.subButtonText.withLoginText
@@ -79,20 +90,24 @@ struct LoginView: View {
             .navigationBarItems(leading: backButton)
     }
     
+    /// The color switch to show that the button is enabled.
     var buttonColor: Color {
         return userid.isEmpty || password.isEmpty ? .gray : .blue
     }
     
+    /// The back button displayed at the top left corner of the View.
     private var backButton : some View {
         Button(action: goBack) {
             Text("Cancel").bold()
         }
     }
     
+    /// The action to be performed when the back button is pressed.
     private func goBack() {
         self.presentationMode.wrappedValue.dismiss()
     }
     
+    /// This action to be performed when the login button is pressed.
     private func login() {
         if continueWithoutLogin {
             UserDefaults.standard.set(userid, forKey: UserDefaultKeys.username)
@@ -109,22 +124,26 @@ struct LoginView: View {
         }
     }
     
+    /// The action to be performed when the user swiches between the two types of login available.
     private func loginSubButton() {
         continueWithoutLogin ? proceedWithLogin() : proceedWithoutLogin()
     }
     
+    /// The action performed when the user wants to login.
     private func proceedWithLogin() {
         continueWithoutLogin = false
         userid = ""
         password = ""
     }
     
+    /// The action performed when the user wants to proceed without logging in.
     private func proceedWithoutLogin() {
         continueWithoutLogin = true
         userid = UserDefaults.standard.string(forKey: UserDefaultKeys.username) ?? ""
         password = "*"
     }
     
+    /// The action performed when the Login isn't successful.
     private func showingLoginErrorAlert() {
         showLoginErrorAlert = true
     }

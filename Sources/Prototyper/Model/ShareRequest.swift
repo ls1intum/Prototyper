@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// An instance of this struct holds the details of the user to whom the app is to be shared.
 struct ShareRequest {
     let email: String
     let content: String
