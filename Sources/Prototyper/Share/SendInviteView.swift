@@ -28,12 +28,12 @@ struct SendInviteView: View {
     }
     
     private func sendShareRequest() {
-        guard let shareRequest = shareRequest else {
+        guard var shareRequest = shareRequest else {
             return
         }
         
-        if (shareRequest.creatorName == nil) {
-            UserDefaults.standard.string(forKey: UserDefaultKeys.username)
+        if let _ = shareRequest.creatorName {
+            shareRequest.creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.username)
         }
         
         APIHandler.send(shareRequest: shareRequest,

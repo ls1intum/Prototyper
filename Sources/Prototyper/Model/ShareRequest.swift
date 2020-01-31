@@ -11,5 +11,5 @@ import Foundation
 struct ShareRequest {
     let email: String
     let content: String
-    let creatorName: String?
+    var creatorName: String?
 }

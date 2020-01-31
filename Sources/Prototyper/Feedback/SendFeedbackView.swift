@@ -28,12 +28,12 @@ struct SendFeedbackView: View {
     }
     
     private func sendFeedback() {
-        guard let feedback = feedback else {
+        guard var feedback = feedback else {
             return
         }
         
-        if (feedback.creatorName == nil) {
-            UserDefaults.standard.string(forKey: UserDefaultKeys.username)
+        if let _ = feedback.creatorName {
+            feedback.creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.username)
         }
         
         APIHandler.send(feedback: feedback,
