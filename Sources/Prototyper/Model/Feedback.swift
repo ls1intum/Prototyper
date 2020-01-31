@@ -12,7 +12,7 @@ import UIKit
 struct Feedback {
     let description: String
     let screenshot: UIImage?
-    let creatorName: String?
+    var creatorName: String?
 }
 
 extension Feedback: CustomStringConvertible {}
