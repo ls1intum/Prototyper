@@ -39,9 +39,7 @@ struct SendInviteView: View {
             return
         }
         
-        if let _ = shareRequest.creatorName {
-            shareRequest.creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.username)
-        }
+        shareRequest.creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.username)
         
         APIHandler.send(shareRequest: shareRequest,
                         success: {

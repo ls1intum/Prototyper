@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4DEB659523E1E783008702DC /* Prototyper in Frameworks */ = {isa = PBXBuildFile; productRef = 4DEB659423E1E783008702DC /* Prototyper */; };
+		4DDB033323E593C9005432FD /* Prototyper in Frameworks */ = {isa = PBXBuildFile; productRef = 4DDB033223E593C9005432FD /* Prototyper */; };
 		654F66442367BB090092B915 /* Prototype.prototype in Resources */ = {isa = PBXBuildFile; fileRef = 654F66432367BB080092B915 /* Prototype.prototype */; };
 		659E838E2367B508004DF6E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659E838D2367B508004DF6E3 /* AppDelegate.swift */; };
 		659E83902367B508004DF6E3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659E838F2367B508004DF6E3 /* SceneDelegate.swift */; };
@@ -34,7 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DEB659523E1E783008702DC /* Prototyper in Frameworks */,
+				4DDB033323E593C9005432FD /* Prototyper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,7 +105,7 @@
 			);
 			name = PrototyperExample;
 			packageProductDependencies = (
-				4DEB659423E1E783008702DC /* Prototyper */,
+				4DDB033223E593C9005432FD /* Prototyper */,
 			);
 			productName = "Prototyper Example";
 			productReference = 659E838A2367B508004DF6E3 /* Prototyper Example.app */;
@@ -136,7 +136,7 @@
 			);
 			mainGroup = 659E83812367B508004DF6E3;
 			packageReferences = (
-				4DEB659323E1E783008702DC /* XCRemoteSwiftPackageReference "Prototyper" */,
+				4DDB033123E593C9005432FD /* XCRemoteSwiftPackageReference "Prototyper" */,
 			);
 			productRefGroup = 659E838B2367B508004DF6E3 /* Products */;
 			projectDirPath = "";
@@ -367,7 +367,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4DEB659323E1E783008702DC /* XCRemoteSwiftPackageReference "Prototyper" */ = {
+		4DDB033123E593C9005432FD /* XCRemoteSwiftPackageReference "Prototyper" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ls1intum/Prototyper.git";
 			requirement = {
@@ -378,9 +378,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4DEB659423E1E783008702DC /* Prototyper */ = {
+		4DDB033223E593C9005432FD /* Prototyper */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4DEB659323E1E783008702DC /* XCRemoteSwiftPackageReference "Prototyper" */;
+			package = 4DDB033123E593C9005432FD /* XCRemoteSwiftPackageReference "Prototyper" */;
 			productName = Prototyper;
 		};
 /* End XCSwiftPackageProductDependency section */

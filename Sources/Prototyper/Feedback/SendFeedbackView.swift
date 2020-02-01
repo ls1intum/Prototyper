@@ -39,9 +39,7 @@ struct SendFeedbackView: View {
             return
         }
         
-        if let _ = feedback.creatorName {
-            feedback.creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.username)
-        }
+        feedback.creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.username)
         
         APIHandler.send(feedback: feedback,
             success: {
