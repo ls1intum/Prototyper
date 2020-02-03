@@ -8,14 +8,6 @@
 import Foundation
 import SwiftUI
 
-/// In order for CGPoints to be stored in a Array, its type must conform to Hashable protocol.
-extension CGPoint: Hashable {
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(x)
-        hasher.combine(y)
-    }
-}
-
 /// An instance of this this struct is a stroke drawn on the markup view.
 struct Drawing: Hashable, Identifiable {
     /// The color of the stroke drawn
@@ -32,5 +24,14 @@ struct Drawing: Hashable, Identifiable {
         points.first.map { path.move(to: $0) }
         path.addLines(points)
         return path.stroke(color, lineWidth: 2.5)
+    }
+    
+    /// Conformance of Drawing to Hashable
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.color)
+        for point in self.points {
+            hasher.combine(point.x)
+            hasher.combine(point.y)
+        }
     }
 }

@@ -15,13 +15,13 @@ private struct KeyboardReactableParameters {
     let animatorOption: UIView.AnimationOptions
 }
 
-@objc public protocol KeyboardReactable: class {
+@objc protocol KeyboardReactable: class {
     @objc func keyboardWillShow(notification: NSNotification)
     @objc func keyboardWillHide(notification: NSNotification)
 }
 
 extension KeyboardReactable {
-    public func setupKeyboardListener() {
+    func setupKeyboardListener() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow(notification:)),
                                                name: UIResponder.keyboardWillShowNotification,
@@ -32,7 +32,7 @@ extension KeyboardReactable {
                                                object: nil)
     }
     
-    public func animateKeyboardWillShow(_ notification: NSNotification, animation: @escaping (CGFloat) -> Void) {
+    func animateKeyboardWillShow(_ notification: NSNotification, animation: @escaping (CGFloat) -> Void) {
         if let parameter = keyboardParameterFrom(notification: notification) {
             UIView.animate(withDuration: parameter.duration, delay: 0.0, options: parameter.animatorOption, animations: {
                 animation(parameter.keyboardHeight)
@@ -40,7 +40,7 @@ extension KeyboardReactable {
         }
     }
     
-    public func animateKeyboardWillHide(_ notification: NSNotification, animation: @escaping () -> Void) {
+    func animateKeyboardWillHide(_ notification: NSNotification, animation: @escaping () -> Void) {
         if let parameter = keyboardParameterFrom(notification: notification) {
             UIView.animate(withDuration: parameter.duration, delay: 0.0, options: parameter.animatorOption, animations: {
                 animation()
@@ -62,7 +62,7 @@ extension KeyboardReactable {
 }
 
 extension UIViewController {
-    public func adaptSafeAreaInserts(basedOnKeyboardHeight keyboardHeight: CGFloat) {
+    func adaptSafeAreaInserts(basedOnKeyboardHeight keyboardHeight: CGFloat) {
         if #available(iOS 11.0, *) {
             self.additionalSafeAreaInsets.bottom = 0.0
             self.additionalSafeAreaInsets.bottom = keyboardHeight - self.view.safeAreaInsets.bottom
@@ -70,7 +70,7 @@ extension UIViewController {
         }
     }
     
-    public func adaptSafeAreaInserts() {
+    func adaptSafeAreaInserts() {
         if #available(iOS 11.0, *) {
             self.additionalSafeAreaInsets.bottom = 0.0
         }
