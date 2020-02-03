@@ -33,7 +33,7 @@ struct SendFeedbackView: View {
         }.navigationBarTitle("Sending Feedback")
     }
     
-    /// This function is called instantly when the View appears
+    /// Sends the feedback to Prototyper and on failure displays the alert
     private func sendFeedback() {
         guard var feedback = feedback else {
             return

@@ -33,7 +33,7 @@ struct SendInviteView: View {
             }.navigationBarTitle("Sending Invitation")
     }
     
-    /// This function is called instantly when the View appears
+    /// Sends the invite to the email mentioned in the ShareRequest object and on failure shows an alert.
     private func sendShareRequest() {
         guard var shareRequest = shareRequest else {
             return

@@ -26,7 +26,7 @@ struct Drawing: Hashable, Identifiable {
         return path.stroke(color, lineWidth: 2.5)
     }
     
-    /// Conformance of Drawing to Hashable
+    /// Hashes the essential components of this value by feeding them into the given hasher.
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.color)
         for point in self.points {

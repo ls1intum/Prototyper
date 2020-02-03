@@ -72,7 +72,7 @@ open class PrototyperController: NSObject {
     
     // MARK: - Static Methods
     // MARK: Show Feedback
-    /// The actions displayed when the bubble was touched.
+    /// Displays the actions that the framework can perform.
     @objc private static func feedbackBubbleTouched() {
         let actionSheet = UIAlertController(title: Constants.FeedbackActionSheet.title,
                                             message: Constants.FeedbackActionSheet.text,
@@ -101,7 +101,7 @@ open class PrototyperController: NSObject {
                                    completion: nil)
     }
     
-    /// Shows the FeedbackView as a UIHostingController
+    /// Presents the FeedbackView as a UIHostingController
     private static func showFeedbackView() {
         let instantiatedViewController = UIHostingController(rootView: FeedbackView().environmentObject(Model()))
         instantiatedViewController.isModalInPresentation = true
@@ -111,7 +111,7 @@ open class PrototyperController: NSObject {
     
     
     // MARK: Feedback Button Interaction
-    /// Adds the feedback bubble to a specific position on the app.
+    /// Adds the feedback bubble to a specific position on the app window.
     private static func addFeedbackButton() {
         let keyWindow = UIApplication.shared.windows.filter{ $0.isKeyWindow }.first ?? UIApplication.shared.windows.first
         feedbackBubble = feedbackBubble == nil ? FeedbackBubble(target: self,
@@ -140,7 +140,7 @@ open class PrototyperController: NSObject {
     }
     
     // MARK: Share App
-    ///Shows the ShareView as a UIHostingController.
+    ///Presents the ShareView as a UIHostingController.
     private static func shareApp() {
         let instantiatedViewController = UIHostingController(rootView: ShareView().environmentObject(Model()))
         instantiatedViewController.isModalInPresentation = true

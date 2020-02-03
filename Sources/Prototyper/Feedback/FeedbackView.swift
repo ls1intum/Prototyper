@@ -107,13 +107,13 @@ struct FeedbackView: View {
         }
     }
     
-    /// The action to be performed when the cancel button is pressed
+    /// Dismisses the view and makes the Feedback bubble appear again.
     private func cancel() {
         PrototyperController.dismissView()
         PrototyperController.isFeedbackButtonHidden = false
     }
     
-    /// The action to be performed when the Send button is pressed
+    /// Sends the feedback to Prototyper via the SendFeedbackView
     private func send() {
         feedback = currentFeedback
         if APIHandler.sharedAPIHandler.isLoggedIn || model.continueWithoutLogin {
@@ -125,13 +125,13 @@ struct FeedbackView: View {
         }
     }
     
-    /// This function is called when the user wants to Markup the screenshot
+    /// Brings up the EditScreenShotView to Markup the screenshot
     private func editImage() {
         activeSheet = .MarkupSheet
         showSheet = true
     }
     
-    /// The function is called when the user deletes the screenshot
+    /// Deletes the screenshot from the View
     private func removeScreenshot() {
         showScreenshot = false
     }

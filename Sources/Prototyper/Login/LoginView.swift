@@ -102,12 +102,12 @@ struct LoginView: View {
         }
     }
     
-    /// The action to be performed when the back button is pressed.
+    /// Dismisses the LoginView
     private func goBack() {
         self.presentationMode.wrappedValue.dismiss()
     }
     
-    /// This action to be performed when the login button is pressed.
+    /// Performs login and upon faliure shows the alert.
     private func login() {
         if continueWithoutLogin {
             UserDefaults.standard.set(userid, forKey: UserDefaultKeys.username)
@@ -124,26 +124,26 @@ struct LoginView: View {
         }
     }
     
-    /// The action to be performed when the user swiches between the two types of login available.
+    /// Swiches between the two types of login available.
     private func loginSubButton() {
         continueWithoutLogin ? proceedWithLogin() : proceedWithoutLogin()
     }
     
-    /// The action performed when the user wants to login.
+    /// The username and password field appears for the user to login.
     private func proceedWithLogin() {
         continueWithoutLogin = false
         userid = ""
         password = ""
     }
     
-    /// The action performed when the user wants to proceed without logging in.
+    /// The name field appears for the user to continue without logging in.
     private func proceedWithoutLogin() {
         continueWithoutLogin = true
         userid = UserDefaults.standard.string(forKey: UserDefaultKeys.username) ?? ""
         password = "*"
     }
     
-    /// The action performed when the Login isn't successful.
+    /// Shows the alert when login isn't successful.
     private func showingLoginErrorAlert() {
         showLoginErrorAlert = true
     }

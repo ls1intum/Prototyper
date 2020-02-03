@@ -108,14 +108,14 @@ struct EditScreenshotView: View {
         }
     }
     
-    /// The action to be perfomed when the save button is pressed.
+    /// Save the strokes in the Model and update the screenshot with the latest image
     private func save() {
         self.model.markupDrawings = allDrawings
         self.model.screenshotWithMarkup = UIApplication.shared.windows.first?.asImage(rect: rect) ?? UIImage()
         self.presentationMode.wrappedValue.dismiss()
     }
     
-    /// The action to be performed when the cancel button is pressed.
+    /// Dismisses the current view
     private func cancel() {
         if colorPickerShown {
             colorPickerShown = false
@@ -124,7 +124,7 @@ struct EditScreenshotView: View {
         }
     }
     
-    /// This function is called when the View appears, to initialise the allDrawings State variable.
+    /// Initialise the allDrawings State variable with the markupDrawings in the Model
     private func setupCurrentDrawings() {
         self.allDrawings = self.model.markupDrawings
     }
