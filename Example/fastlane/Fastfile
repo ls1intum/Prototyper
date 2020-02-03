@@ -21,6 +21,8 @@ platform :ios do
 
         desc "Default bamboo configuration"
         lane :bamboo do
+                #Deletes the Xcode Derived Data
+                clear_derived_data
         
                 #Resolve package dependencies
                 Dir.chdir("../") do
