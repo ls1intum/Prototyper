@@ -6,7 +6,7 @@ The Prototyper Framework allows you to integrate prototypes into an iOS applicat
 
 ## Example
 
-Open `PrototyperExample.xcodeproj` under the Example directory to test the Prototyper framework. To work on the framework, open the `Prototyper` directory in xcode, which opens as a swift package.
+Open `PrototyperExample.xcodeproj` under the Example directory to test the Prototyper framework. You can find [here](https://ls1intum.github.io/Prototyper/docs/Classes) the list of globally available classes. To work on the framework, open the `Prototyper` directory in xcode, which opens as a swift package. 
 
 ## Requirements
 
