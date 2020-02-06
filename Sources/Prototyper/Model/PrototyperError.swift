@@ -8,8 +8,10 @@
 
 import Foundation
 
+/// The errors associated with logging in into Prototyper
 enum PrototyperError: Error {
     case APIURLError
     case dataParseError
     case dataEncodeError
 }
+
