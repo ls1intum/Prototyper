@@ -1,6 +1,8 @@
 # Prototyper
 
 [![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
+![platforms](https://img.shields.io/cocoapods/p/Prototyper)
+![license](https://img.shields.io/github/license/ls1intum/prototyper)
 
 The Prototyper Framework allows you to integrate prototypes into an iOS application and receive feedback using Prototyper service. When you deploy an application using the [Prototyper service](https://prototyper-bruegge.in.tum.de) the Prototyper Framework allows users to send feedback from within the application.
 
@@ -15,12 +17,7 @@ Your users can use the feedback button to give feedback and share the applicatio
 
 ## Installation
 
-1. Add the Prototyper framework to your application as a swift package dependency:
-
-    * Go to File > Swift Packages > Add Package Dependency...
-    * Enter https://github.com/ls1intum/Prototyper.git as the package respository URL.
-    * Select the branch as `master` in the rules section.
-    * Make sure the target is right and then click Finish.
+1. Add the Prototyper framework to your application as a swift package dependency. Follow the instructions specified [here](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app) and use https://github.com/ls1intum/Prototyper.git as the package respository URL.
 
 2. Display the feedback button in the `scene(: UIScene, willConnectTo: UISceneSession, options: UIScene.ConnectionOptions)` method of your `SceneDelegate`. Don't forget to import the Prototyper framework.
 
@@ -51,7 +48,7 @@ Your users can use the feedback button to give feedback and share the applicatio
 
 Paul Schmiedmayer, [@PSchmiedmayer](https://twitter.com/pschmiedmayer), Chair of Applied Software Engineering, ios@in.tum.de
 Stefan Kofler, grafele@gmail.com
-Raymond Pinto, Masters Informatics, raymond.pinto@tum.de
+Raymond Pinto, [@RaymondPinto94](https://twitter.com/RaymondPinto94), Masters Informatics, raymond.pinto@tum.de
 
 ## License
 
