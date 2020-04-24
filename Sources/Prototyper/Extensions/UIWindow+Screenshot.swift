@@ -6,18 +6,25 @@
 //  Copyright © 2018 Paul Schmiedmayer. All rights reserved.
 //
 
-// swiftlint:disable force_unwrapping
-
 import UIKit
 
+
+// MARK: UIWindow + Screenshot
 extension UIWindow {
     /// Used to capture the screenshot of the View.
-    var screenshot: UIImage {
+    var screenshot: UIImage? {
         UIGraphicsBeginImageContextWithOptions(self.frame.size, self.isOpaque, UIScreen.main.scale)
-        self.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
         
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return nil
+        }
+        self.layer.render(in: context)
+        
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
+            return nil
+        }
+        
+        UIGraphicsEndImageContext()
         return image
     }
 }

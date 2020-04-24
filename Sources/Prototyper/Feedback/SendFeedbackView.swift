@@ -7,18 +7,23 @@
 
 import SwiftUI
 
+
+// MARK: SendFeedbackView
 /// This View appears when the logged in user sends feedback.
 struct SendFeedbackView: View {
     /// The instance of the Observable Object class named Model,  to share model data anywhere it’s needed.
     @EnvironmentObject var model: Model
-    /// This State variable tells the Activity indicator to Animate or not.
-    @State private var shouldAnimate = true
-    /// This State variable is updated to true when sending feedback fails.
-    @State private var showingAlert = false
+    
     /// Once the feedback is sent the View is dismissed by updating this variable.
     @Binding var showSendFeedbackView: Bool
     /// The variable holds the image and the feedback text to be sent, which is given by the FeedbackView.
     @Binding var feedback: Feedback?
+    
+    /// This State variable tells the Activity indicator to Animate or not.
+    @State private var shouldAnimate = true
+    /// This State variable is updated to true when sending feedback fails.
+    @State private var showingAlert = false
+    
     
     var body: some View {
         VStack {
@@ -35,6 +40,7 @@ struct SendFeedbackView: View {
             }
             .navigationBarTitle("Sending Feedback")
     }
+    
     
     /// Sends the feedback to Prototyper and on failure displays the alert
     private func sendFeedback() {

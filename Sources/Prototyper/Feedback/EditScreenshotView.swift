@@ -7,12 +7,15 @@
 
 import SwiftUI
 
+
+// MARK: EditScreenshotView
 /// This View enables the user to Markup the first view of the application, when the feedback bubble was pressed.
 struct EditScreenshotView: View {
     /// The instance of the Observable Object class named Model,  to share model data anywhere it’s needed.
     @EnvironmentObject var model: Model
     /// Environment variable for presentationMode to dismiss the View.
     @Environment(\.presentationMode) var presentationMode
+    
     /// The State variable holds the current Drawing being drawn on this View.
     @State var currentDrawing: Drawing?
     /// This State variable holds all the drawings and is initialised with the existing strokes when the View appears.
@@ -23,6 +26,7 @@ struct EditScreenshotView: View {
     @State var color: Color = .primary
     /// This attribute is updated when the user wants to change the Markup Color.
     @State var colorPickerShown: Bool = false
+    
     
     var body: some View {
         VStack(alignment: .center) {
@@ -106,6 +110,7 @@ struct EditScreenshotView: View {
             Text("Save").bold()
         }
     }
+    
     
     /// Save the strokes in the Model and update the screenshot with the latest image
     private func save() {

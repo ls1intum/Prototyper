@@ -7,10 +7,13 @@
 
 import SwiftUI
 
+
+// MARK: ColorPickerCell
 /// This View displays the color and the name on one cell in a list.
 struct ColorPickerCell: View {
     /// This attribute picks up the color info passed by the ColorPickerView
     let colorInfo: MarkupColor
+    
     
     var body: some View {
         HStack {

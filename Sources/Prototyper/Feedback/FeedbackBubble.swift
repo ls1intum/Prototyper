@@ -9,10 +9,13 @@
 import Foundation
 import UIKit
 
+
+// MARK: FeedbackBubble
 /// A static instance of this class is created to place the feedback bubble on app start.
 class FeedbackBubble: UIView {
     /// The size of the feedback bubble in CGSize.
     private static var size = CGSize(width: 70, height: 70)
+    
     
     init(target: Any, action: Selector) {
         super.init(frame: CGRect(x: -FeedbackBubble.size.width / 2,
@@ -34,6 +37,7 @@ class FeedbackBubble: UIView {
     required init?(coder aDecoder: NSCoder) {
         nil
     }
+    
     
     @objc func detectPan(recognizer: UIPanGestureRecognizer) {
         self.center = recognizer.location(in: self.superview)

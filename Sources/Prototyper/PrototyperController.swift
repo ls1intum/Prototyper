@@ -9,8 +9,11 @@
 import Foundation
 import SwiftUI
 
+
+// MARK: PrototyperController
 /// This class handles the control flow of the tasks to be performed when the feedback button is pressed.
 open class PrototyperController: NSObject {
+    // MARK: Constants
     /// The Constants to be used when alerts and sheets are presented via the feedback bubble.
     enum Constants {
         enum FeedbackHideAlertSheet {
@@ -28,11 +31,11 @@ open class PrototyperController: NSObject {
         }
     }
     
-    // MARK: Stored Properties
+    
     /// The static instance of the feedback bubble.
     fileprivate static var feedbackBubble: FeedbackBubble?
     
-    // MARK: Computed Properties
+    
     /// Set to true when the application wants the feedback bubble to appear on the application.
     public static var showFeedbackButton: Bool = false {
         didSet {
@@ -46,6 +49,7 @@ open class PrototyperController: NSObject {
             }
         }
     }
+    
     /// Static variable to swich between hiding and showing the feedback bubble.
     static var isFeedbackButtonHidden: Bool = false {
         didSet {
@@ -56,6 +60,7 @@ open class PrototyperController: NSObject {
             }
         }
     }
+    
     /// The topmost View where the bubble was pressed.
     private static var topViewController: UIViewController? {
         guard let rootViewController = UIApplication.shared.windows.first?.rootViewController else {
@@ -70,7 +75,6 @@ open class PrototyperController: NSObject {
     }
     
     
-    // MARK: - Static Methods
     // MARK: Show Feedback
     /// Displays the actions that the framework can perform.
     @objc private static func feedbackBubbleTouched() {
@@ -156,6 +160,7 @@ open class PrototyperController: NSObject {
     static func dismissView() {
         topViewController?.dismiss(animated: true, completion: nil)
     }
+    
     
     // MARK: Helper
     /// Shows an alert after hiding the feedback bubble.

@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+// MARK: String + EMail Validation
 extension String {
     /// Boolean to check if the email syntax is valid
     var isValidEmail: Bool {

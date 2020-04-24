@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+
+// MARK: UIView + Get as UIImage
 extension UIView {
     /// Renders the UIView as an UIImage
     func asImage(rect: CGRect) -> UIImage {

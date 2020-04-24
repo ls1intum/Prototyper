@@ -8,15 +8,19 @@
 import Foundation
 import SwiftUI
 
+
+// MARK: RectGetter
 struct RectGetter: View {
     @Binding var rect: CGRect
 
+    
     var body: some View {
         GeometryReader { reader in
             self.createView(reader: reader)
         }
     }
 
+    
     func createView(reader: GeometryProxy) -> some View {
         DispatchQueue.main.async {
             self.rect = reader.frame(in: .global)

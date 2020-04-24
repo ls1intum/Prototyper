@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+
+// MARK: Drawing
 /// This struct holds the data associated with the feedback.
 struct Feedback {
     /// The description of the feedback.
@@ -19,4 +21,6 @@ struct Feedback {
     var creatorName: String?
 }
 
-extension Feedback: CustomStringConvertible {}
+
+// MARK: Feedback + CustomStringConvertible
+extension Feedback: CustomStringConvertible { }

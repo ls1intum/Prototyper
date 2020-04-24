@@ -7,10 +7,23 @@
 
 import SwiftUI
 
+
+// MARK: FeedbackView
 /// This View holds the markup image and the feedback text field for the user to send feedback.
 struct FeedbackView: View {
+    // MARK: ActiveSheet
+    /// The type of active sheet that can be presented by the `FeedbackView`
+    enum ActiveSheet {
+        /// The login sheet is presented
+        case loginSheet
+        /// The markup sheet is presented
+        case markupSheet
+    }
+    
+    
     /// The instance of the Observable Object class named Model,  to share model data anywhere it’s needed.
     @EnvironmentObject var model: Model
+    
     /// This State variable holds the feedback text.
     @State var descriptionText: String = ""
     /// This State variable is updated when the Send button is pressed.
@@ -24,10 +37,6 @@ struct FeedbackView: View {
     /// The variable holds the image and the feedback text to be sent.
     @State var feedback: Feedback?
     
-    enum ActiveSheet {
-        case loginSheet
-        case markupSheet
-    }
     
     var body: some View {
         NavigationView {
@@ -111,6 +120,7 @@ struct FeedbackView: View {
         }
     }
     
+    
     /// Dismisses the view and makes the Feedback bubble appear again.
     private func cancel() {
         PrototyperController.dismissView()
@@ -141,6 +151,8 @@ struct FeedbackView: View {
     }
 }
 
+
+// MARK: FeedbackView + Preview
 struct FeedbackView_Previews: PreviewProvider {
     static var previews: some View {
         FeedbackView()

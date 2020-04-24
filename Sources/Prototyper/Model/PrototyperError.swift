@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+// MARK: PrototyperError
 /// The errors associated with logging in into Prototyper
 enum PrototyperError: Error {
     case APIURLError

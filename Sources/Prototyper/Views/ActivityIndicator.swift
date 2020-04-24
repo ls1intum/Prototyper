@@ -8,9 +8,12 @@
 import Foundation
 import SwiftUI
 
+
+// MARK: ActivityIndicator
 struct ActivityIndicator: UIViewRepresentable {
     @Binding var isAnimating: Bool
-
+    
+    
     func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
         UIActivityIndicatorView()
     }

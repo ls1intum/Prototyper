@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+// MARK: ShareRequest
 /// An instance of this struct holds the details of the user to whom the app is to be shared.
 struct ShareRequest {
     /// The email id of the user to whom the app is to be shared

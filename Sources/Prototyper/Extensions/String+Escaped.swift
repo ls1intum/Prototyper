@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+// MARK: String + URL escaped
 extension String {
     /// Called after the function returns.
     var escaped: String {

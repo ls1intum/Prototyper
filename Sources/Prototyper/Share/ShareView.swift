@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+
+
+// MARK: ShareView
 ///This View holds two textfields for the emailId and the invite text.
 struct ShareView: View {
     /// The instance of the Observable Object class named Model,  to share model data anywhere it’s needed.
     @EnvironmentObject var model: Model
+    
     /// The State variable holds the emailId of the user to whom the invite needs to be sent to.
     @State var inviteList: String = ""
     /// The State variable holds the inviteText to the invitee.
@@ -20,6 +24,7 @@ struct ShareView: View {
     @State var showSendInviteView: Bool = false
     /// The State variable that holds the ShareRequest object.
     @State var shareRequest: ShareRequest?
+    
     
     var body: some View {
         NavigationView {
@@ -78,6 +83,7 @@ struct ShareView: View {
         }.disabled(!inviteList.isValidEmail)
     }
     
+    
     /// Dismisses the view and make the Feedback bubble appear again.
     private func cancel() {
         PrototyperController.dismissView()
@@ -96,7 +102,9 @@ struct ShareView: View {
     }
 }
 
-struct Share_Previews: PreviewProvider {
+
+// MARK: ShareView + Preview
+struct ShareView_Previews: PreviewProvider {
     static var previews: some View {
         ShareView()
     }
