@@ -39,7 +39,6 @@ struct EditScreenshotView: View {
                     }
                     currentDrawing?.path
                 }.offset(y: -self.rect.origin.y)
-
             }.gesture(dragGesture)
             Spacer(minLength: 16)
             actions
@@ -56,24 +55,24 @@ struct EditScreenshotView: View {
     
     /// The color picker, undo and clear actions for the Markup View.
     var actions: some View {
-        HStack (alignment: .center, spacing: 30) {
+        HStack(alignment: .center, spacing: 30) {
             Image(systemName: "eyedropper.halffull")
                 .imageScale(.large)
                 .onTapGesture {
                     self.colorPickerShown.toggle()
-            }
+                }
             Image(systemName: "arrow.uturn.left")
                 .imageScale(.large)
                 .onTapGesture {
-                    if self.allDrawings.count > 0 {
+                    if self.allDrawings.isEmpty {
                         self.allDrawings.removeLast()
                     }
-            }
+                }
             Image(systemName: "xmark")
                 .imageScale(.large)
                 .onTapGesture {
                     self.allDrawings = [Drawing]()
-            }
+                }
         }.frame(height: 32)
     }
     
@@ -89,7 +88,7 @@ struct EditScreenshotView: View {
                 }
             }
             .onEnded { _ in
-                self.currentDrawing.map({ self.allDrawings.append($0) })
+                self.currentDrawing.map { self.allDrawings.append($0) }
                 self.currentDrawing = nil
             }
     }

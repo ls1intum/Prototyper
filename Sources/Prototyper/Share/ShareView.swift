@@ -1,6 +1,6 @@
 //
 //  ShareView.swift
-//  KeychainSwift
+//  Prototyper
 //
 //  Created by Raymond Pinto on 30.11.19.
 //
@@ -23,13 +23,15 @@ struct ShareView: View {
     
     var body: some View {
         NavigationView {
-            VStack{
-                VStack (alignment: .leading, spacing: 25) {
+            VStack {
+                VStack(alignment: .leading, spacing: 25) {
                     Text("Send the invitation to test the app to:")
                     TextField("email@example.com", text: $inviteList)
                     Text("Invitation Text:")
                     MultilineTextView(text: $inviteText, placeholderText: "This is the content of the invitation...").frame(numLines: 10)
-                    NavigationLink(destination: SendInviteView(showSendInviteView: $showSendInviteView, shareRequest: $shareRequest), isActive: $showSendInviteView) {
+                    NavigationLink(destination: SendInviteView(showSendInviteView: $showSendInviteView,
+                                                               shareRequest: $shareRequest),
+                                   isActive: $showSendInviteView) {
                         Text("")
                     }
                 }
@@ -59,7 +61,7 @@ struct ShareView: View {
     
     /// Set the color of the Button based on the correctness of the inviteList
     var buttonColor: Color {
-        return !inviteList.isValidEmail ? .gray : .blue
+        !inviteList.isValidEmail ? .gray : .blue
     }
     
     /// The cancel button displayed at the top left of the View

@@ -9,11 +9,10 @@ import Foundation
 import SwiftUI
 
 struct ActivityIndicator: UIViewRepresentable {
-
     @Binding var isAnimating: Bool
 
     func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
-        return UIActivityIndicatorView()
+        UIActivityIndicatorView()
     }
 
     func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {

@@ -25,17 +25,20 @@ struct FeedbackView: View {
     @State var feedback: Feedback?
     
     enum ActiveSheet {
-        case loginSheet, MarkupSheet
+        case loginSheet
+        case markupSheet
     }
     
     var body: some View {
         NavigationView {
             VStack {
-                HStack (alignment: .top) {
+                HStack(alignment: .top) {
                     if showScreenshot {
                         screenshot
                     }
-                    NavigationLink(destination: SendFeedbackView(showSendFeedbackView: $showSendFeedbackView, feedback: $feedback), isActive: $showSendFeedbackView) {
+                    NavigationLink(destination: SendFeedbackView(showSendFeedbackView: $showSendFeedbackView,
+                                                                 feedback: $feedback),
+                                   isActive: $showSendFeedbackView) {
                         Text("")
                     }
                     MultilineTextView(text: $descriptionText, placeholderText: "Add your feedback here...").frame(numLines: 15)
@@ -49,7 +52,7 @@ struct FeedbackView: View {
                     NavigationView {
                         LoginView(finishLoggingIn: self.$showSendFeedbackView)
                     }.environmentObject(self.model)
-                } else  {
+                } else {
                     NavigationView {
                         EditScreenshotView()
                     }.environmentObject(self.model)
@@ -60,7 +63,7 @@ struct FeedbackView: View {
     
     /// The screenshot displayed on the FeedbackView with a Markup and delete button
     var screenshot: some View {
-        ZStack (alignment: .topTrailing) {
+        ZStack(alignment: .topTrailing) {
             ZStack {
                 Image(uiImage: model.screenshotWithMarkup)
                     .resizable()
@@ -77,7 +80,8 @@ struct FeedbackView: View {
                 .imageScale(.large)
                 .onTapGesture {
                     self.removeScreenshot()
-            }.offset(x: 5)
+                }
+                .offset(x: 5)
         }
     }
     
@@ -127,7 +131,7 @@ struct FeedbackView: View {
     
     /// Brings up the EditScreenShotView to Markup the screenshot
     private func editImage() {
-        activeSheet = .MarkupSheet
+        activeSheet = .markupSheet
         showSheet = true
     }
     

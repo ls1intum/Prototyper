@@ -32,7 +32,7 @@ class FeedbackBubble: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        return nil
+        nil
     }
     
     @objc func detectPan(recognizer: UIPanGestureRecognizer) {
@@ -64,11 +64,18 @@ class FeedbackBubble: UIView {
     
     /// Sets the image to the Feedback bubble
     private func setBubbleImageToButton(button: UIButton) {
-        let backgroundCircle = UIImage(systemName: "circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 70, weight: .heavy))?.withTintColor(.systemBlue, renderingMode: .alwaysTemplate)
-        let shareIcon = UIImage(systemName: "square.and.arrow.up", withConfiguration: UIImage.SymbolConfiguration(pointSize: 40, weight: .light))?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        let backgroundCircle = UIImage(systemName: "circle.fill",
+                                       withConfiguration: UIImage.SymbolConfiguration(pointSize: 70, weight: .heavy))?
+            .withTintColor(.systemBlue, renderingMode: .alwaysTemplate)
+        
+        let shareIcon = UIImage(systemName: "square.and.arrow.up",
+                                withConfiguration: UIImage.SymbolConfiguration(pointSize: 40, weight: .light))?
+            .withTintColor(.white, renderingMode: .alwaysOriginal)
+        
         guard let backgroundCircleImage = backgroundCircle, let shareIconImage = shareIcon else {
             return
         }
+        
         let feedbackIcon = UIImage.overlapImages(topImage: shareIconImage, bottomImage: backgroundCircleImage)
         button.setImage(feedbackIcon, for: .normal)
     }

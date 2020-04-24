@@ -22,8 +22,12 @@ class Model: ObservableObject {
     /// Instantiates the screenshot variables with the screenshot of the first View when the feedback Bubble was pressed.
     static func getScreenShot() -> UIImage {
         PrototyperController.isFeedbackButtonHidden = true
-        let screenshot =  UIApplication.shared.windows.filter{ $0.isKeyWindow }.first?.screenshot ?? UIImage()
+        let screenshot = UIApplication.shared.windows
+            .first(where: { $0.isKeyWindow })?
+            .screenshot ?? UIImage()
+        
         PrototyperController.isFeedbackButtonHidden = false
+        
         return screenshot
     }
     

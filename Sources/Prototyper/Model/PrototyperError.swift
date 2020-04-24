@@ -14,4 +14,3 @@ enum PrototyperError: Error {
     case dataParseError
     case dataEncodeError
 }
-

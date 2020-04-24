@@ -16,6 +16,6 @@ struct MarkupColor: Identifiable {
     let color: Color
     /// The id associated with the color
     var id: String {
-        return displayName
+        displayName
     }
 }

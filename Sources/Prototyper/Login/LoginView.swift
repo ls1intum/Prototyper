@@ -22,16 +22,16 @@ struct LoginView: View {
     /// A boolean to check if the user is proceeding without logging in,
     @State var continueWithoutLogin: Bool = false
     /// A binding variable to update the calling view once the user has clicked the login button.
-    @Binding var finishLoggingIn: Bool 
+    @Binding var finishLoggingIn: Bool
     
     /// The constant text variables used in the View.
     enum LoginViewConstants {
-        enum userNamePlaceHolder {
+        enum UserNamePlaceHolder {
             static let withoutLoginText = "TUM-ID/E-Mail"
             static let withLoginText = "Enter your name"
         }
         
-        enum subButtonText {
+        enum SubButtonText {
             static let withoutLoginText = "Continue without login"
             static let withLoginText = "Continue with login"
         }
@@ -42,29 +42,29 @@ struct LoginView: View {
     /// The text to be displayed as placeholder text on the text field.
     var userNamePlaceHolder: String {
         if continueWithoutLogin {
-              return LoginViewConstants.userNamePlaceHolder.withLoginText
+              return LoginViewConstants.UserNamePlaceHolder.withLoginText
         } else {
-              return LoginViewConstants.userNamePlaceHolder.withoutLoginText
+              return LoginViewConstants.UserNamePlaceHolder.withoutLoginText
         }
     }
     
     /// The text to be displayed on the Login button.
     var subButtonText: String {
         if continueWithoutLogin {
-              return LoginViewConstants.subButtonText.withLoginText
+              return LoginViewConstants.SubButtonText.withLoginText
         } else {
-              return LoginViewConstants.subButtonText.withoutLoginText
+              return LoginViewConstants.SubButtonText.withoutLoginText
         }
     }
     
     var body: some View {
             VStack {
-                VStack (alignment: .leading) {
+                VStack(alignment: .leading) {
                     Text("Please log in using your Prototyper/TUM credentials to send feedback")
                         .lineLimit(2)
                 }.padding()
                     
-                VStack (spacing: 25) {
+                VStack(spacing: 25) {
                     TextField(userNamePlaceHolder, text: $userid)
                     if !continueWithoutLogin {
                         SecureField("Password", text: $password)
@@ -92,7 +92,7 @@ struct LoginView: View {
     
     /// The color switch to show that the button is enabled.
     var buttonColor: Color {
-        return userid.isEmpty || password.isEmpty ? .gray : .blue
+        userid.isEmpty || password.isEmpty ? .gray : .blue
     }
     
     /// The back button displayed at the top left corner of the View.

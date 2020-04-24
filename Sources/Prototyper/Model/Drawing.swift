@@ -16,7 +16,7 @@ struct Drawing: Hashable, Identifiable {
     var points: [CGPoint] = []
     /// The Hashable id of the stroke
     var id: Int {
-        return hashValue
+        hashValue
     }
     /// Draws the path of the stroke using the array of points.
     var path: some View {

@@ -11,7 +11,6 @@ import SwiftUI
 import Prototyper
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
 
 

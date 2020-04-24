@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import KeychainSwift
 
 // MARK: - Constants
 /// The key to be specified to retrieve the appID, releaseID and the username being stored in UserDefaults.
@@ -53,7 +52,7 @@ private enum API {
     enum EndPoints {
         static let login = "login"
         static func fetchReleaseInfo(bundleId: String, bundleVersion: String) -> String {
-            return "apps/find_release?bundle_id=\(bundleId)&bundle_version=\(bundleVersion)"
+            "apps/find_release?bundle_id=\(bundleId)&bundle_version=\(bundleVersion)"
         }
         
         static func feedback(_ appId: String, releaseId: String, text: String, username: String? = nil) -> String {
@@ -111,7 +110,7 @@ class APIHandler {
     
     /// The class variable that can be accessed via the class and can be overridden.
     class var sharedAPIHandler: APIHandler {
-        return sharedInstance
+        sharedInstance
     }
     
     // MARK: Release Infos
@@ -161,9 +160,8 @@ class APIHandler {
     // MARK: Login
     /// Retrives the username and password stored in the keychain and calls the login function.
     static func tryToLogin() {
-        let keychain = KeychainSwift()
-        let oldUsername = keychain.get(KeychainKeys.userNameKey)
-        let oldPassword = keychain.get(KeychainKeys.passwordKey)
+        let oldUsername = KeyChain.load(KeychainKeys.userNameKey)
+        let oldPassword = KeyChain.load(KeychainKeys.passwordKey)
         
         if let oldUsername = oldUsername, let oldPassword = oldPassword {
             APIHandler.sharedAPIHandler.login(oldUsername, password: oldPassword, success: {}, failure: { _ in })
@@ -193,9 +191,8 @@ class APIHandler {
             if error != nil {
                 failure(error)
             } else {
-                let keychain = KeychainSwift()
-                keychain.set(id, forKey: KeychainKeys.userNameKey)
-                keychain.set(password, forKey: KeychainKeys.passwordKey)
+                KeyChain.store(element: id, for: KeychainKeys.userNameKey)
+                KeyChain.store(element: password, for: KeychainKeys.passwordKey)
                 
                 success()
             }

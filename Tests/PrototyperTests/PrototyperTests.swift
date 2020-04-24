@@ -3,9 +3,6 @@ import XCTest
 
 final class PrototyperTests: XCTestCase {
     func testExample() {
+        XCTAssert(true)
     }
-
-    static var allTests = [
-        ("testExample", testExample),
-    ]
 }

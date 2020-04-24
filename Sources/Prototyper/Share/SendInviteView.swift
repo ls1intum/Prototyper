@@ -1,6 +1,6 @@
 //
 //  SendInviteView.swift
-//  KeychainSwift
+//  Prototyper
 //
 //  Created by Raymond Pinto on 01.12.19.
 //
@@ -27,10 +27,13 @@ struct SendInviteView: View {
                 Text("Sending the invitation to Prototyper")
             }
             .alert(isPresented: $showingAlert) {
-                Alert(title: Text("Error"), message: Text("Could not send feedback to server."), dismissButton: .default(Text("OK"), action: {
+                Alert(title: Text("Error"),
+                      message: Text("Could not send feedback to server."),
+                      dismissButton: .default(Text("OK")) {
                     self.showSendInviteView = false
-                }))
-            }.navigationBarTitle("Sending Invitation")
+                })
+            }
+            .navigationBarTitle("Sending Invitation")
     }
     
     /// Sends the invite to the email mentioned in the ShareRequest object and on failure shows an alert.

@@ -42,8 +42,7 @@ struct MultilineTextView: UIViewRepresentable {
     }
 }
 
-class Coordinator : NSObject, UITextViewDelegate {
-
+class Coordinator: NSObject, UITextViewDelegate {
     var parent: MultilineTextView
 
     init(_ uiTextView: MultilineTextView) {
@@ -51,7 +50,7 @@ class Coordinator : NSObject, UITextViewDelegate {
     }
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        return true
+        true
     }
 
     func textViewDidChange(_ textView: UITextView) {

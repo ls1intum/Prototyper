@@ -26,11 +26,14 @@ struct SendFeedbackView: View {
                 .onAppear { self.sendFeedback() }
             Text("Sending the feedback to Prototyper")
         }
-        .alert(isPresented: $showingAlert) {
-            Alert(title: Text("Error"), message: Text("Could not send feedback to server."), dismissButton: .default(Text("OK"), action: {
-                self.showSendFeedbackView = false
-            }))
-        }.navigationBarTitle("Sending Feedback")
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text("Error"),
+                      message: Text("Could not send feedback to server."),
+                      dismissButton: .default(Text("OK")) {
+                          self.showSendFeedbackView = false
+                      })
+            }
+            .navigationBarTitle("Sending Feedback")
     }
     
     /// Sends the feedback to Prototyper and on failure displays the alert
@@ -41,14 +44,17 @@ struct SendFeedbackView: View {
         
         feedback.creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.username)
         
-        APIHandler.send(feedback: feedback,
+        APIHandler.send(
+            feedback: feedback,
             success: {
                 print("Successfully sent feedback to server")
                 PrototyperController.isFeedbackButtonHidden = false
                 PrototyperController.dismissView()
-        },  failure: { _ in
+            },
+            failure: { _ in
                 self.shouldAnimate = false
                 self.showingAlert = true
-        })
+            }
+        )
     }
 }

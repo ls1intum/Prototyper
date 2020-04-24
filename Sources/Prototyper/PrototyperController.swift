@@ -113,7 +113,9 @@ open class PrototyperController: NSObject {
     // MARK: Feedback Button Interaction
     /// Adds the feedback bubble to a specific position on the app window.
     private static func addFeedbackButton() {
-        let keyWindow = UIApplication.shared.windows.filter{ $0.isKeyWindow }.first ?? UIApplication.shared.windows.first
+        let keyWindow = UIApplication.shared.windows
+            .first(where: { $0.isKeyWindow }) ?? UIApplication.shared.windows.first
+        
         feedbackBubble = feedbackBubble == nil ? FeedbackBubble(target: self,
                                                                 action: #selector(feedbackBubbleTouched)) : feedbackBubble
         feedbackBubble?.layer.zPosition = 100
