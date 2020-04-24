@@ -13,7 +13,6 @@ DerivedData/
 xcuserdata/
 *.xccheckout
 *.xcscmblueprint
-*.xcworkspace
 
 # Other
 *.pbxuser
@@ -39,7 +38,7 @@ playground.xcworkspace
 .swiftpm
 .build/
 Package.resolved
-*.xcodeproj
+Prototyper.xcodeproj
 
 # CocoaPods
 Pods/
