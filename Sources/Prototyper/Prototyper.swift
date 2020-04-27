@@ -61,7 +61,7 @@ public class Prototyper {
     
     /// <#Description#>
     /// - Parameter settings: <#settings description#>
-    static func configure(_ settings: PrototyperSettings) {
+    public static func configure(_ settings: PrototyperSettings) {
         self.settings = settings
         
         self.currentState = PrototyperState(feedbackButtonIsHidden: !settings.showFeedbackButton)
