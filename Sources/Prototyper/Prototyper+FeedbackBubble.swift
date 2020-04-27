@@ -37,15 +37,17 @@ extension Prototyper {
         stateObservingCancellable = currentState.objectWillChange
             .sink {
                 if currentState.feedbackButtonIsHidden {
-                    UIView.animate(withDuration: 0.3) {
+                    UIView.animate(withDuration: 0.3, animations: {
                         feedbackBubble.alpha = 0.0
-                        feedbackBubble.isUserInteractionEnabled = false
-                    }
+                    }, completion: { _ in
+                        feedbackBubble.isHidden = true
+                    })
                 } else {
-                    UIView.animate(withDuration: 0.3) {
+                    UIView.animate(withDuration: 0.3, animations: {
                         feedbackBubble.alpha = 1.0
-                        feedbackBubble.isUserInteractionEnabled = true
-                    }
+                    }, completion: { _ in
+                        feedbackBubble.isHidden = false
+                    })
                 }
             }
         
