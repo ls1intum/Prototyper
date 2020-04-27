@@ -5,7 +5,6 @@
 //  Created by Paul Schmiedmayer on 4/24/20.
 //
 
-import Foundation
 import UIKit
 
 
@@ -59,6 +58,20 @@ public class Prototyper {
     static var currentState: PrototyperState!
     
     
+    /// The topmost View where the bubble was pressed.
+    static var topViewController: UIViewController? {
+        guard let rootViewController = UIApplication.shared.windows.first?.rootViewController else {
+            return nil
+        }
+        
+        var currentVC = rootViewController
+        while let presentedVC = currentVC.presentedViewController {
+            currentVC = presentedVC
+        }
+        return currentVC
+    }
+    
+    
     /// <#Description#>
     /// - Parameter settings: <#settings description#>
     public static func configure(_ settings: PrototyperSettings) {
@@ -77,19 +90,5 @@ public class Prototyper {
     
     private init() {
         fatalError("An instance of Prototyper should never be created")
-    }
-    
-    
-    /// The topmost View where the bubble was pressed.
-    static var topViewController: UIViewController? {
-        guard let rootViewController = UIApplication.shared.windows.first?.rootViewController else {
-            return nil
-        }
-        
-        var currentVC = rootViewController
-        while let presentedVC = currentVC.presentedViewController {
-            currentVC = presentedVC
-        }
-        return currentVC
     }
 }

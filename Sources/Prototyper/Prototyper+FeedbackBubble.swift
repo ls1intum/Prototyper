@@ -5,7 +5,7 @@
 //  Created by Paul Schmiedmayer on 4/24/20.
 //
 
-import Foundation
+import Combine
 import UIKit
 
 
@@ -30,12 +30,30 @@ extension Prototyper {
     }
     
     
+    /// <#Description#>
+    private static var stateObservingCancellable: AnyCancellable?
     /// The static instance of the feedback bubble.
     private static var feedbackBubble: FeedbackBubble = {
         let feedbackBubble = FeedbackBubble(target: Prototyper.self,
                                             action: #selector(showActionSheet))
 
         feedbackBubble.layer.zPosition = 100
+        
+        stateObservingCancellable = currentState.objectWillChange
+            .sink {
+                if currentState.feedbackButtonIsHidden {
+                    UIView.animate(withDuration: 0.3) {
+                        feedbackBubble.alpha = 0.0
+                        feedbackBubble.isUserInteractionEnabled = false
+                    }
+                } else {
+                    UIView.animate(withDuration: 0.3) {
+                        feedbackBubble.alpha = 1.0
+                        feedbackBubble.isUserInteractionEnabled = true
+                    }
+                }
+            }
+        
         return feedbackBubble
     }()
     
@@ -83,10 +101,9 @@ extension Prototyper {
         UIView.animate(withDuration: 0.3,
                        animations: {
             feedbackBubble.alpha = 0.0
+            feedbackBubble.isUserInteractionEnabled = false
         }, completion: { _ in
             currentState.feedbackButtonIsHidden = true
-            feedbackBubble.alpha = 1.0
-            
             showInfoAlertAfterHiding()
         })
     }
