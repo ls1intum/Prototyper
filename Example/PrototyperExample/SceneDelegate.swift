@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.rootViewController = UIHostingController(rootView: contentView)
             self.window = window
             
-            PrototyperController.showFeedbackButton = true
+            Prototyper.configure(.default)
             
             window.makeKeyAndVisible()
         }

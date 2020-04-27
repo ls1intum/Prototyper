@@ -68,6 +68,10 @@ public class Prototyper {
         
         APIHandler.tryToFetchReleaseInfos()
         APIHandler.tryToLogin()
+        
+        if settings.showFeedbackButton {
+            addFeedbackBubble()
+        }
     }
     
     

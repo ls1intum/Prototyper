@@ -34,18 +34,20 @@ extension Prototyper {
     private static var feedbackBubble: FeedbackBubble = {
         let feedbackBubble = FeedbackBubble(target: Prototyper.self,
                                             action: #selector(showActionSheet))
-        
-        let keyWindow = UIApplication.shared.windows.first { $0.isKeyWindow } ?? UIApplication.shared.windows.first
 
         feedbackBubble.layer.zPosition = 100
+        return feedbackBubble
+    }()
+    
+    
+    /// Displays the `FeedbackBubble` on the main window of the application
+    static func addFeedbackBubble() {
+        let keyWindow = UIApplication.shared.windows.first { $0.isKeyWindow } ?? UIApplication.shared.windows.first
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             keyWindow?.addSubview(feedbackBubble)
         }
-        
-        return feedbackBubble
-    }()
-    
+    }
     
     /// Displays the actions that the framework can perform.
     @objc private static func showActionSheet() {
