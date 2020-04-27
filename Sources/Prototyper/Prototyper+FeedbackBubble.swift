@@ -44,11 +44,10 @@ extension Prototyper {
                         feedbackBubble.isHidden = true
                     })
                 } else {
-                    UIView.animate(withDuration: 0.3, animations: {
-                        feedbackBubble.alpha = 1.0
-                    }, completion: { _ in
+                    UIView.animate(withDuration: 0.3) {
                         feedbackBubble.isHidden = false
-                    })
+                        feedbackBubble.alpha = 1.0
+                    }
                 }
             }
         
