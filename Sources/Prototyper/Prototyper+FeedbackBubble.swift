@@ -12,13 +12,8 @@ import UIKit
 // MARK: Prototyper + Feedback Bubble
 extension Prototyper {
     // MARK: Constants
-    /// The Constants to be used when alerts and sheets are presented via the feedback bubble.
-    enum Constants {
-        enum FeedbackHideAlertSheet {
-            static let title = "To unhide the feedback button just close and open the app again."
-            static let ok = "OK"
-        }
-        
+    /// The Constants to be used to display the action sheet that is presented when pressing the feedback bubble
+    private enum Constants {
         enum FeedbackActionSheet {
             static let title: String? = nil
             static let text: String? = nil
@@ -92,35 +87,6 @@ extension Prototyper {
                                             handler: nil))
         
         topViewController?.present(actionSheet,
-                                   animated: true,
-                                   completion: nil)
-    }
-    
-    /// Hides the Feedback bubble from the View.
-    private static func hideFeedbackButton() {
-        UIView.animate(withDuration: 0.3,
-                       animations: {
-            feedbackBubble.alpha = 0.0
-            feedbackBubble.isUserInteractionEnabled = false
-        }, completion: { _ in
-            currentState.feedbackButtonIsHidden = true
-            showInfoAlertAfterHiding()
-        })
-    }
-    
-    /// Shows an alert after hiding the feedback bubble.
-    private static func showInfoAlertAfterHiding() {
-        guard let rootViewController = topViewController else {
-            return
-        }
-        
-        let alertController = UIAlertController(title: Constants.FeedbackHideAlertSheet.title,
-                                                message: nil,
-                                                preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: Constants.FeedbackHideAlertSheet.ok,
-                                                style: .default,
-                                                handler: nil))
-        rootViewController.present(alertController,
                                    animated: true,
                                    completion: nil)
     }
