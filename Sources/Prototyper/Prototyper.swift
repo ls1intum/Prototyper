@@ -68,6 +68,8 @@ public class Prototyper {
     static var settings: PrototyperSettings!
     /// <#Description#>
     static var currentState: PrototyperState!
+    /// <#Description#>
+    static var apiHandler: APIHandler!
     
     
     /// The topmost View where the bubble was pressed.
@@ -110,8 +112,9 @@ public class Prototyper {
         
         self.currentState = PrototyperState(feedbackButtonIsHidden: !settings.showFeedbackButton)
         
-        APIHandler.tryToFetchReleaseInfos()
-        APIHandler.tryToLogin()
+        self.apiHandler = APIHandler(settings: settings)
+        apiHandler.tryToFetchReleaseInfos()
+        apiHandler.tryToLogin()
         
         if settings.showFeedbackButton {
             addFeedbackBubble()

@@ -13,6 +13,8 @@ import SwiftUI
 struct ShareView: View {
     /// The instance of the Observable Object class named Model,  to share state data anywhere it’s needed.
     @EnvironmentObject var state: PrototyperState
+    /// <#Description#>
+    @EnvironmentObject var apiHandler: APIHandler
     
     /// The State variable holds the emailId of the user to whom the invite needs to be sent to.
     @State var inviteList: String = ""
@@ -47,7 +49,9 @@ struct ShareView: View {
             .sheet(isPresented: $showLoginView) {
                 NavigationView {
                     LoginView(finishLoggingIn: self.$showSendInviteView)
-                }.environmentObject(self.state)
+                }
+                    .environmentObject(self.state)
+                    .environmentObject(self.apiHandler)
             }
         }
     }
@@ -55,7 +59,7 @@ struct ShareView: View {
     /// Holds the inviteList and the inviteText to be sent
     private var currentShareRequest: ShareRequest {
         var creatorName: String?
-        if !APIHandler.sharedAPIHandler.isLoggedIn {
+        if !apiHandler.isLoggedIn {
             creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.username)
         }
         
@@ -93,7 +97,7 @@ struct ShareView: View {
     ///Shares the Invite to the emailId mentioned via the SendInviteView
     private func share() {
         shareRequest = currentShareRequest
-        if APIHandler.sharedAPIHandler.isLoggedIn || state.continueWithoutLogin {
+        if apiHandler.isLoggedIn || state.continueWithoutLogin {
             state.continueWithoutLogin = false
             self.showSendInviteView = true
         } else {

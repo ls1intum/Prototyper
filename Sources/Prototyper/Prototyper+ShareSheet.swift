@@ -13,7 +13,10 @@ import SwiftUI
 extension Prototyper {
     ///Presents the ShareView as a UIHostingController.
     public static func showShareApp() {
-        let shareView: some View = ShareView().environmentObject(currentState)
+        let shareView: some View = ShareView()
+            .environmentObject(currentState)
+            .environmentObject(apiHandler)
+        
         let instantiatedViewController = UIHostingController(rootView: shareView)
         instantiatedViewController.isModalInPresentation = true
         

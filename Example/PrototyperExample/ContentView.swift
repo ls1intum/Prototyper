@@ -9,15 +9,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var prototypeName: String
-    
     var body: some View {
-        Text("Hello World")
+        Text("Hello Prototyper")
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(prototypeName: "Prototype")
+        ContentView()
     }
 }

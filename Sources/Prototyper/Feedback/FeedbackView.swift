@@ -23,6 +23,8 @@ struct FeedbackView: View {
     
     /// The instance of the Observable Object class named Model,  to share state data anywhere it’s needed.
     @EnvironmentObject var state: PrototyperState
+    /// <#Description#>
+    @EnvironmentObject var apiHandler: APIHandler
     
     /// This State variable holds the feedback text.
     @State var descriptionText: String = ""
@@ -60,11 +62,15 @@ struct FeedbackView: View {
                 if self.activeSheet == .loginSheet {
                     NavigationView {
                         LoginView(finishLoggingIn: self.$showSendFeedbackView)
-                    }.environmentObject(self.state)
+                    }
+                        .environmentObject(self.state)
+                        .environmentObject(self.apiHandler)
                 } else {
                     NavigationView {
                         EditScreenshotView()
-                    }.environmentObject(self.state)
+                    }
+                        .environmentObject(self.state)
+                        .environmentObject(self.apiHandler)
                 }
             }
         }
@@ -97,7 +103,7 @@ struct FeedbackView: View {
     /// Holds the screenshot and the feedback text to be sent to Prototyper
     var currentFeedback: Feedback {
         var creatorName: String?
-        if !APIHandler.sharedAPIHandler.isLoggedIn {
+        if !apiHandler.isLoggedIn {
             creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.username)
         }
         
@@ -130,7 +136,7 @@ struct FeedbackView: View {
     /// Sends the feedback to Prototyper via the SendFeedbackView
     private func send() {
         feedback = currentFeedback
-        if APIHandler.sharedAPIHandler.isLoggedIn || state.continueWithoutLogin {
+        if apiHandler.isLoggedIn || state.continueWithoutLogin {
             state.continueWithoutLogin = false
             self.showSendFeedbackView = true
         } else {

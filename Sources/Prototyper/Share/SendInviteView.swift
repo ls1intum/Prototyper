@@ -13,6 +13,8 @@ import SwiftUI
 struct SendInviteView: View {
     /// The instance of the Observable Object class named Model,  to share state data anywhere it’s needed.
     @EnvironmentObject var state: PrototyperState
+    /// <#Description#>
+    @EnvironmentObject var apiHandler: APIHandler
     
     /// Once the invite is sent the View is dismissed by updating this variable.
     @Binding var showSendInviteView: Bool
@@ -50,7 +52,7 @@ struct SendInviteView: View {
         
         shareRequest.creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.username)
         
-        APIHandler.send(shareRequest: shareRequest,
+        apiHandler.send(shareRequest: shareRequest,
                         success: {
             print("Successfully sent share request to server")
             Prototyper.dismissView()

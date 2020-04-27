@@ -89,24 +89,18 @@ private enum API {
             static let password = "password"
         }
     }
-    
-    
-    /// The base url of prototyper
-    static let BaseURL = URL(string: "https://prototyper-bruegge.in.tum.de/")
 }
 
 
-/// The share instance of the APIHandler class.
-let sharedInstance = APIHandler()
 /// The default boundary string.
 private let defaultBoundary = "------VohpleBoundary4QuqLuM1cE5lMwCy"
 
 
 // MARK: - APIHandler
 ///This class deals with making all the HTTP calls to the prototyper api, to login, send feedback and share request.
-class APIHandler {
-    ///The variable that coordinates a group of related, network data-transfer tasks.
-    let session: URLSession
+class APIHandler: ObservableObject {
+    var settings: PrototyperSettings
+    
     /// The variable that is updated when the user logs in.
     var isLoggedIn: Bool = false
     
@@ -123,22 +117,19 @@ class APIHandler {
         return readPrototyperReleaseId ?? UserDefaults.standard.string(forKey: UserDefaultKeys.releaseId)
     }
     
-    /// The class variable that can be accessed via the class and can be overridden.
-    class var sharedAPIHandler: APIHandler {
-        sharedInstance
-    }
     
-    
-    init() {
-        let sessionConfig = URLSessionConfiguration.default
-        session = URLSession(configuration: sessionConfig)
+    init(settings: PrototyperSettings) {
+        self.settings = settings
+        
+        tryToFetchReleaseInfos()
+        tryToLogin()
     }
     
     
     // MARK: Release Infos
     /// This function tries to fetch the release inforrmation and store it in the Userdefauts
-    static func tryToFetchReleaseInfos() {
-        APIHandler.sharedAPIHandler.fetchReleaseInformation(success: { appId, releaseId in
+    func tryToFetchReleaseInfos() {
+        fetchReleaseInformation(success: { appId, releaseId in
             UserDefaults.standard.set(appId, forKey: UserDefaultKeys.appId)
             UserDefaults.standard.set(releaseId, forKey: UserDefaultKeys.releaseId)
         }, failure: { _ in
@@ -154,7 +145,7 @@ class APIHandler {
         
         guard let url = URL(string: API.EndPoints.fetchReleaseInfo(bundleId: bundleId,
                                                                    bundleVersion: bundleVersion),
-                            relativeTo: API.BaseURL) else {
+                            relativeTo: settings.prototyperInstance) else {
             print("Coule not create URL for API Endpoint")
             failure(nil)
             return
@@ -183,19 +174,19 @@ class APIHandler {
     
     // MARK: Login
     /// Retrives the username and password stored in the keychain and calls the login function.
-    static func tryToLogin() {
+    func tryToLogin() {
         let oldUsername = KeyChain.load(KeychainKeys.userNameKey)
         let oldPassword = KeyChain.load(KeychainKeys.passwordKey)
         
         if let oldUsername = oldUsername, let oldPassword = oldPassword {
-            APIHandler.sharedAPIHandler.login(oldUsername, password: oldPassword, success: {}, failure: { _ in })
+            login(oldUsername, password: oldPassword, success: {}, failure: { _ in })
         }
     }
     
     /// The login task is performed here.
     func login(_ id: String, password: String, success: @escaping () -> Void, failure: @escaping (_ error: Error?) -> Void) {
         let params = postParamsForLogin(email: id, password: password)
-        let articlesURL = URL(string: API.EndPoints.login, relativeTo: API.BaseURL as URL?)
+        let articlesURL = URL(string: API.EndPoints.login, relativeTo: settings.prototyperInstance)
         
         guard let requestURL = articlesURL else {
             failure(PrototyperError.APIURLError)
@@ -227,19 +218,19 @@ class APIHandler {
     
     // MARK: Feedback
     /// The screenshot feedback is sent to the prototyper by calling this function with inturn calls the actual send function.
-    static func send(feedback: Feedback, success: @escaping () -> Void, failure: @escaping (_ error: Error?) -> Void) {
+    func send(feedback: Feedback, success: @escaping () -> Void, failure: @escaping (_ error: Error?) -> Void) {
         guard let screenshot = feedback.screenshot else {
-            sharedAPIHandler.sendGeneralFeedback(description: feedback.description,
-                                                 name: feedback.creatorName,
-                                                 success: success,
-                                                 failure: failure)
+            sendGeneralFeedback(description: feedback.description,
+                                name: feedback.creatorName,
+                                success: success,
+                                failure: failure)
             return
         }
-        sharedAPIHandler.sendScreenFeedback(screenshot: screenshot,
-                                            description: feedback.description,
-                                            name: feedback.creatorName,
-                                            success: success,
-                                            failure: failure)
+        sendScreenFeedback(screenshot: screenshot,
+                           description: feedback.description,
+                           name: feedback.creatorName,
+                           success: success,
+                           failure: failure)
     }
     
     /// The feedback text is sent to the prototyper by calling this function with inturn calls the actual send function.
@@ -257,7 +248,7 @@ class APIHandler {
                                                            releaseId: releaseId,
                                                            text: description.escaped,
                                                            username: name?.escaped),
-                            relativeTo: API.BaseURL) else {
+                            relativeTo: settings.prototyperInstance) else {
             print("Coule not create URL for API Endpoint")
             failure(nil)
             return
@@ -288,7 +279,7 @@ class APIHandler {
                                                            releaseId: releaseId,
                                                            text: description.escaped,
                                                            username: name?.escaped),
-                            relativeTo: API.BaseURL) else {
+                            relativeTo: settings.prototyperInstance) else {
             print("Coule not create URL for API Endpoint")
             failure(nil)
             return
@@ -306,14 +297,14 @@ class APIHandler {
     
     // MARK: Share
     /// Internally calls another function that send the share request to the specified user
-    static func send(shareRequest: ShareRequest,
+    func send(shareRequest: ShareRequest,
                      success: @escaping () -> Void,
                      failure: @escaping (_ error: Error?) -> Void) {
-        sharedAPIHandler.sendShareRequest(for: shareRequest.email,
-                                          because: shareRequest.content,
-                                          name: shareRequest.creatorName,
-                                          success: success,
-                                          failure: failure)
+        sendShareRequest(for: shareRequest.email,
+                         because: shareRequest.content,
+                         name: shareRequest.creatorName,
+                         success: success,
+                         failure: failure)
     }
     
     ///Sends the share request to the email id specified.
@@ -333,7 +324,7 @@ class APIHandler {
                                                         sharedEmail: email.escaped,
                                                         explanation: explanation.escaped,
                                                         username: name?.escaped),
-                            relativeTo: API.BaseURL) else {
+                            relativeTo: settings.prototyperInstance) else {
             print("Coule not create URL for API Endpoint")
             failure(nil)
             return
@@ -380,7 +371,7 @@ class APIHandler {
     }
     
     fileprivate func executeRequest(_ request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        let dataTask = session.dataTask(with: request, completionHandler: { data, response, error in
+        let dataTask = URLSession.shared.dataTask(with: request, completionHandler: { data, response, error in
             OperationQueue.main.addOperation {
                 completionHandler(data, response, error)
             }

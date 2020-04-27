@@ -15,7 +15,10 @@ extension Prototyper {
     public static func showFeedbackView() {
         takeScreenshot()
         
-        let shareView: some View = FeedbackView().environmentObject(currentState)
+        let shareView: some View = FeedbackView()
+            .environmentObject(currentState)
+            .environmentObject(apiHandler)
+        
         let instantiatedViewController = UIHostingController(rootView: shareView)
         instantiatedViewController.isModalInPresentation = true
         instantiatedViewController.isModalInPresentation = true
