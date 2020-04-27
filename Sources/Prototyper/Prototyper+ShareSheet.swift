@@ -13,7 +13,8 @@ import SwiftUI
 extension Prototyper {
     ///Presents the ShareView as a UIHostingController.
     public static func showShareApp() {
-        let instantiatedViewController = UIHostingController(rootView: ShareView().environmentObject(Model()))
+        let shareView: some View = ShareView().environmentObject(currentState)
+        let instantiatedViewController = UIHostingController(rootView: shareView)
         instantiatedViewController.isModalInPresentation = true
         
         currentState.feedbackButtonIsHidden = true

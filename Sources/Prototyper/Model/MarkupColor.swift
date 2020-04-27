@@ -23,3 +23,16 @@ struct MarkupColor: Identifiable {
         displayName
     }
 }
+
+
+extension MarkupColor {
+    /// The markup colors provided to draw on the EditScreenshotView
+    static let defaultColors: [MarkupColor] = [
+        MarkupColor(displayName: "Black", color: Color.black),
+        MarkupColor(displayName: "Red", color: Color.red),
+        MarkupColor(displayName: "Blue", color: Color.blue),
+        MarkupColor(displayName: "Yellow", color: Color.yellow),
+        MarkupColor(displayName: "Green", color: Color.green),
+        MarkupColor(displayName: "White", color: Color.white)
+    ]
+}

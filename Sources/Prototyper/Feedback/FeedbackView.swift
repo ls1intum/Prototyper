@@ -21,8 +21,8 @@ struct FeedbackView: View {
     }
     
     
-    /// The instance of the Observable Object class named Model,  to share model data anywhere it’s needed.
-    @EnvironmentObject var model: Model
+    /// The instance of the Observable Object class named Model,  to share state data anywhere it’s needed.
+    @EnvironmentObject var state: PrototyperState
     
     /// This State variable holds the feedback text.
     @State var descriptionText: String = ""
@@ -60,11 +60,11 @@ struct FeedbackView: View {
                 if self.activeSheet == .loginSheet {
                     NavigationView {
                         LoginView(finishLoggingIn: self.$showSendFeedbackView)
-                    }.environmentObject(self.model)
+                    }.environmentObject(self.state)
                 } else {
                     NavigationView {
                         EditScreenshotView()
-                    }.environmentObject(self.model)
+                    }.environmentObject(self.state)
                 }
             }
         }
@@ -74,7 +74,7 @@ struct FeedbackView: View {
     var screenshot: some View {
         ZStack(alignment: .topTrailing) {
             ZStack {
-                Image(uiImage: model.screenshotWithMarkup)
+                Image(uiImage: state.screenshotWithMarkup!)
                     .resizable()
                     .shadow(color: Color.primary.opacity(0.2), radius: 5.0)
                     .scaledToFit()
@@ -102,7 +102,7 @@ struct FeedbackView: View {
         }
         
         return Feedback(description: descriptionText,
-                        screenshot: model.screenshotWithMarkup,
+                        screenshot: state.screenshotWithMarkup,
                         creatorName: creatorName)
     }
     
@@ -123,15 +123,15 @@ struct FeedbackView: View {
     
     /// Dismisses the view and makes the Feedback bubble appear again.
     private func cancel() {
-        PrototyperController.dismissView()
-        PrototyperController.isFeedbackButtonHidden = false
+        Prototyper.dismissView()
+        Prototyper.currentState.feedbackButtonIsHidden = !Prototyper.settings.showFeedbackButton
     }
     
     /// Sends the feedback to Prototyper via the SendFeedbackView
     private func send() {
         feedback = currentFeedback
-        if APIHandler.sharedAPIHandler.isLoggedIn || model.continueWithoutLogin {
-            model.continueWithoutLogin = false
+        if APIHandler.sharedAPIHandler.isLoggedIn || state.continueWithoutLogin {
+            state.continueWithoutLogin = false
             self.showSendFeedbackView = true
         } else {
             activeSheet = .loginSheet

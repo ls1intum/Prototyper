@@ -40,6 +40,14 @@ public struct PrototyperSettings {
 public class PrototyperState: ObservableObject {
     /// <#Description#>
     @Published var feedbackButtonIsHidden: Bool
+    /// The screenshot that should be displayed in the feedback view
+    @Published var screenshot: UIImage?
+    /// The screenshot that should be displayed in the feedback view including the rendered markup
+    @Published var screenshotWithMarkup: UIImage?
+    /// This variable holds all the drawings the user draws in the Markup view.
+    @Published var markupDrawings: [Drawing] = [Drawing]()
+    /// This boolean variable is used to check if the user is submitting feedback with or without logging in.
+    @Published var continueWithoutLogin: Bool = false
     
     
     /// <#Description#>
@@ -69,6 +77,25 @@ public class Prototyper {
             currentVC = presentedVC
         }
         return currentVC
+    }
+    
+    
+    /// Dismisses the topmost View.
+    static func dismissView() {
+        topViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    /// Instantiates the screenshot variables with the screenshot of the current window
+    static func takeScreenshot() -> UIImage {
+        feedbackBubble.isHidden = true
+        
+        let screenshot = UIApplication.shared.windows
+            .first(where: { $0.isKeyWindow })?
+            .screenshot ?? UIImage()
+        
+        feedbackBubble.isHidden = currentState.feedbackButtonIsHidden
+        
+        return screenshot
     }
     
     

@@ -11,8 +11,8 @@ import SwiftUI
 // MARK: SendFeedbackView
 /// This View appears when the logged in user sends feedback.
 struct SendFeedbackView: View {
-    /// The instance of the Observable Object class named Model,  to share model data anywhere it’s needed.
-    @EnvironmentObject var model: Model
+    /// The instance of the Observable Object class named Model,  to share state data anywhere it’s needed.
+    @EnvironmentObject var state: PrototyperState
     
     /// Once the feedback is sent the View is dismissed by updating this variable.
     @Binding var showSendFeedbackView: Bool
@@ -54,8 +54,8 @@ struct SendFeedbackView: View {
             feedback: feedback,
             success: {
                 print("Successfully sent feedback to server")
-                PrototyperController.isFeedbackButtonHidden = false
-                PrototyperController.dismissView()
+                Prototyper.dismissView()
+                Prototyper.currentState.feedbackButtonIsHidden = !Prototyper.settings.showFeedbackButton
             },
             failure: { _ in
                 self.shouldAnimate = false

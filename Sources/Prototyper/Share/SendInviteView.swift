@@ -11,8 +11,8 @@ import SwiftUI
 // MARK: SendInviteView
 /// This View appears when the logged in user sends an invite.
 struct SendInviteView: View {
-    /// The instance of the Observable Object class named Model,  to share model data anywhere it’s needed.
-    @EnvironmentObject var model: Model
+    /// The instance of the Observable Object class named Model,  to share state data anywhere it’s needed.
+    @EnvironmentObject var state: PrototyperState
     
     /// Once the invite is sent the View is dismissed by updating this variable.
     @Binding var showSendInviteView: Bool
@@ -53,8 +53,8 @@ struct SendInviteView: View {
         APIHandler.send(shareRequest: shareRequest,
                         success: {
             print("Successfully sent share request to server")
-            PrototyperController.isFeedbackButtonHidden = false
-            PrototyperController.dismissView()
+            Prototyper.dismissView()
+            Prototyper.currentState.feedbackButtonIsHidden = !Prototyper.settings.showFeedbackButton
         }, failure: { _ in
             self.shouldAnimate = false
             self.showingAlert = true

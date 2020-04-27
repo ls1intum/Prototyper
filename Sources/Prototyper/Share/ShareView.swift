@@ -11,8 +11,8 @@ import SwiftUI
 // MARK: ShareView
 ///This View holds two textfields for the emailId and the invite text.
 struct ShareView: View {
-    /// The instance of the Observable Object class named Model,  to share model data anywhere it’s needed.
-    @EnvironmentObject var model: Model
+    /// The instance of the Observable Object class named Model,  to share state data anywhere it’s needed.
+    @EnvironmentObject var state: PrototyperState
     
     /// The State variable holds the emailId of the user to whom the invite needs to be sent to.
     @State var inviteList: String = ""
@@ -47,7 +47,7 @@ struct ShareView: View {
             .sheet(isPresented: $showLoginView) {
                 NavigationView {
                     LoginView(finishLoggingIn: self.$showSendInviteView)
-                }.environmentObject(self.model)
+                }.environmentObject(self.state)
             }
         }
     }
@@ -86,15 +86,15 @@ struct ShareView: View {
     
     /// Dismisses the view and make the Feedback bubble appear again.
     private func cancel() {
-        PrototyperController.dismissView()
-        PrototyperController.isFeedbackButtonHidden = false
+        Prototyper.dismissView()
+        Prototyper.currentState.feedbackButtonIsHidden = !Prototyper.settings.showFeedbackButton
     }
     
     ///Shares the Invite to the emailId mentioned via the SendInviteView
     private func share() {
         shareRequest = currentShareRequest
-        if APIHandler.sharedAPIHandler.isLoggedIn || model.continueWithoutLogin {
-            model.continueWithoutLogin = false
+        if APIHandler.sharedAPIHandler.isLoggedIn || state.continueWithoutLogin {
+            state.continueWithoutLogin = false
             self.showSendInviteView = true
         } else {
             self.showLoginView = true

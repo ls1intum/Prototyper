@@ -28,7 +28,7 @@ extension Prototyper {
     /// <#Description#>
     private static var stateObservingCancellable: AnyCancellable?
     /// The static instance of the feedback bubble.
-    private static var feedbackBubble: FeedbackBubble = {
+    static var feedbackBubble: FeedbackBubble = {
         let feedbackBubble = FeedbackBubble(target: Prototyper.self,
                                             action: #selector(showActionSheet))
 

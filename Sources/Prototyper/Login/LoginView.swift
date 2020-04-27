@@ -27,8 +27,8 @@ struct LoginView: View {
     }
     
     
-    /// The instance of the Observable Object class named Model,  to share model data anywhere it’s needed.
-    @EnvironmentObject var model: Model
+    /// The instance of the Observable Object class named Model,  to share state data anywhere it’s needed.
+    @EnvironmentObject var state: PrototyperState
     /// Environment variable for presentationMode to dismiss the View.
     @Environment(\.presentationMode) var presentationMode
     
@@ -118,7 +118,7 @@ struct LoginView: View {
     private func login() {
         if continueWithoutLogin {
             UserDefaults.standard.set(userid, forKey: UserDefaultKeys.username)
-            model.continueWithoutLogin = true
+            state.continueWithoutLogin = true
             self.finishLoggingIn = true
             self.presentationMode.wrappedValue.dismiss()
         } else {

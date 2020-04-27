@@ -11,8 +11,8 @@ import SwiftUI
 // MARK: EditScreenshotView
 /// This View enables the user to Markup the first view of the application, when the feedback bubble was pressed.
 struct EditScreenshotView: View {
-    /// The instance of the Observable Object class named Model,  to share model data anywhere it’s needed.
-    @EnvironmentObject var model: Model
+    /// The instance of the Observable Object class named Model,  to share state data anywhere it’s needed.
+    @EnvironmentObject var state: PrototyperState
     /// Environment variable for presentationMode to dismiss the View.
     @Environment(\.presentationMode) var presentationMode
     
@@ -32,7 +32,7 @@ struct EditScreenshotView: View {
         VStack(alignment: .center) {
             Spacer(minLength: 16)
             ZStack(alignment: .center) {
-                Image(uiImage: self.model.screenshot)
+                Image(uiImage: self.state.screenshot!)
                     .resizable()
                     .scaledToFit()
                     .background(RectGetter(rect: self.$rect))
@@ -53,7 +53,7 @@ struct EditScreenshotView: View {
                 NavigationView {
                     ColorPickerView(color: self.$color, colorPickerShown: self.$colorPickerShown)
                         .navigationBarItems(leading: self.cancelButton)
-                }.environmentObject(self.model)
+                }
             }
     }
     
@@ -114,8 +114,8 @@ struct EditScreenshotView: View {
     
     /// Save the strokes in the Model and update the screenshot with the latest image
     private func save() {
-        self.model.markupDrawings = allDrawings
-        self.model.screenshotWithMarkup = UIApplication.shared.windows.first?.asImage(rect: rect) ?? UIImage()
+        self.state.markupDrawings = allDrawings
+        self.state.screenshotWithMarkup = UIApplication.shared.windows.first?.asImage(rect: rect) ?? UIImage()
         self.presentationMode.wrappedValue.dismiss()
     }
     
@@ -130,6 +130,6 @@ struct EditScreenshotView: View {
     
     /// Initialise the allDrawings State variable with the markupDrawings in the Model
     private func setupCurrentDrawings() {
-        self.allDrawings = self.model.markupDrawings
+        self.allDrawings = self.state.markupDrawings
     }
 }

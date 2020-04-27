@@ -22,6 +22,7 @@ extension Prototyper {
     
     /// Hides the Feedback bubble from the View and shows an alert after hiding the feedback bubble.
     public static func hideFeedbackButton() {
+        settings.showFeedbackButton = false
         currentState.feedbackButtonIsHidden = true
         
         guard let rootViewController = topViewController else {
