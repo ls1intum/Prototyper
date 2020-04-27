@@ -41,7 +41,11 @@ public class PrototyperState: ObservableObject {
     /// <#Description#>
     @Published var feedbackButtonIsHidden: Bool
     /// The screenshot that should be displayed in the feedback view
-    @Published var screenshot: UIImage?
+    @Published var screenshot: UIImage? {
+        didSet {
+            screenshot.map { screenshotWithMarkup = $0 }
+        }
+    }
     /// The screenshot that should be displayed in the feedback view including the rendered markup
     @Published var screenshotWithMarkup: UIImage?
     /// This variable holds all the drawings the user draws in the Markup view.
@@ -86,7 +90,7 @@ public class Prototyper {
     }
     
     /// Instantiates the screenshot variables with the screenshot of the current window
-    static func takeScreenshot() -> UIImage {
+    static func takeScreenshot() {
         feedbackBubble.isHidden = true
         
         let screenshot = UIApplication.shared.windows
@@ -95,7 +99,7 @@ public class Prototyper {
         
         feedbackBubble.isHidden = currentState.feedbackButtonIsHidden
         
-        return screenshot
+        currentState.screenshot = screenshot
     }
     
     

@@ -13,6 +13,8 @@ import SwiftUI
 extension Prototyper {
     /// Presents the FeedbackView as a UIHostingController
     public static func showFeedbackView() {
+        takeScreenshot()
+        
         let shareView: some View = FeedbackView().environmentObject(currentState)
         let instantiatedViewController = UIHostingController(rootView: shareView)
         instantiatedViewController.isModalInPresentation = true
