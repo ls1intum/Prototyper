@@ -34,9 +34,10 @@ extension Prototyper {
 
         feedbackBubble.layer.zPosition = 100
         
-        stateObservingCancellable = currentState.objectWillChange
-            .sink {
-                if currentState.feedbackButtonIsHidden {
+        stateObservingCancellable = currentState.$feedbackButtonIsHidden
+            .receive(on: RunLoop.main)
+            .sink { feedbackButtonIsHidden in
+                if feedbackButtonIsHidden {
                     UIView.animate(withDuration: 0.3, animations: {
                         feedbackBubble.alpha = 0.0
                     }, completion: { _ in
