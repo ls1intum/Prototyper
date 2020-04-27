@@ -16,15 +16,9 @@ struct RectGetter: View {
     
     var body: some View {
         GeometryReader { reader in
-            self.createView(reader: reader)
+            Rectangle().fill(Color.clear).onAppear {
+                self.rect = reader.frame(in: .global)
+            }
         }
-    }
-
-    
-    func createView(reader: GeometryProxy) -> some View {
-        DispatchQueue.main.async {
-            self.rect = reader.frame(in: .global)
-        }
-        return Rectangle().fill(Color.clear)
     }
 }
