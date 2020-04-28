@@ -36,9 +36,6 @@ platform :ios do
 
     desc "Build a release version of the app for Prototyper"
     lane :release do
-        # Run Unit and UI Tests
-        test
-
         # Setup ENV variables
         ENV['FASTLANE_PASSWORD'] = ENV['bamboo_FASTLANE_PASSWORD'] # Necessary for unlocking the key chain
         ENV['FASTLANE_SESSION'] = ENV['bamboo_FASTLANE_SESSION_PASSWORD'] # Necessary for 2FA 
