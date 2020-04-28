@@ -306,7 +306,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PrototyperExample/Preview Content\"";
-				DEVELOPMENT_TEAM = WCM2L8RG39;
+				DEVELOPMENT_TEAM = 7PLLZ436SG;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PrototyperExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -314,7 +314,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.tum.in.ase.prototyper;
+				PRODUCT_BUNDLE_IDENTIFIER = de.tum.in.ase.university.prototyper;
 				PRODUCT_NAME = "Prototyper Example";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
