@@ -1,0 +1,4 @@
+# For more information about the Scanfile, see:
+#     https://docs.fastlane.tools/actions/run_tests/#scanfile
+
+devices(["iPhone 8", "iPhone 11 Pro", "iPad Pro (11-inch) (2nd generation)"])

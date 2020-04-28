@@ -13,7 +13,6 @@ import SwiftUI
 struct SendFeedbackView: View {
     /// The instance of the Observable Object class named Model,  to share state data anywhere it’s needed.
     @EnvironmentObject var state: PrototyperState
-    
     /// <#Description#>
     @EnvironmentObject var apiHandler: APIHandler
     

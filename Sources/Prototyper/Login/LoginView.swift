@@ -106,7 +106,8 @@ struct LoginView: View {
     /// The back button displayed at the top left corner of the View.
     private var backButton: some View {
         Button(action: goBack) {
-            Text("Cancel").bold()
+            Text("Cancel")
+                .bold()
         }
     }
     

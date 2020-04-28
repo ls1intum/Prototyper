@@ -6,71 +6,77 @@
 #     https://docs.fastlane.tools/actions
 #
 
-# Uncomment the line if you want fastlane to automatically update itself
-# update_fastlane
-
-#Update Variables for your Project
-
-APPID = "de.tum.in.www1.prototyper"
-SCHEME = "PrototyperExample"
-PROJECT = "./PrototyperExample.xcodeproj"
+update_fastlane
 
 default_platform(:ios)
 
 platform :ios do
+    desc "Build only"
+    lane :build do
+        # Resolve the Swift Package Manager dependencies
+        xcodebuild(
+            build: false,
+            xcargs: "-resolvePackageDependencies",
+        )
 
-        desc "Default bamboo configuration"
-        lane :bamboo do
-                #Deletes the Xcode Derived Data
-                clear_derived_data
-        
-                #Resolve package dependencies
-                Dir.chdir("../") do
-                    sh("xcodebuild","-resolvePackageDependencies")
-                end
-                
-                # Setup ENV variables
-                ENV['FASTLANE_PASSWORD'] = ENV['bamboo_FASTLANE_PASSWORD'] # Necessary for unlocking the key chain
-                ENV['FASTLANE_SESSION'] = ENV['bamboo_FASTLANE_SESSION_PASSWORD'] # Necessary for 2FA 
-                INFO_PLIST = sh("find .. -name Info.plist -type f -not -path */Pods/* -not -path *Test* | head -n 1 | cut -c 2-").strip # Location of the info.plist in the folder structure
-                ENV['PROTOTYPER_BUILDSTRING'] = sh("date", "+%y%m%d_%H%M").rstrip + "-build" + (ENV['bamboo_buildNumber'] ||= "") + "-" + (ENV['bamboo_repository_branch_name'] ||= "") # Prototyper Buildstring to identify releases
+        # Build the PrototyperExample application without tests
+        xcodebuild(
+            scheme: "PrototyperExample",
+            configuration: "Debug",
+            clean: true,
+            build: true,
+            build_settings: {
+                "CODE_SIGNING_ALLOWED" => "NO",
+                "CODE_SIGNING_REQUIRED" => "NO",
+                "CODE_SIGN_IDENTITY" => "",
+                "CODE_SIGN_ENTITLEMENTS" => "",
+            }
+        )
+    end
 
-                # Write Prototyper BuildString to Info.plist
-                set_info_plist_value(
-                       path: INFO_PLIST,
-                       key: "CFBundleVersion",
-                       value: "$(PROTOTYPER_BUILDSTRING)"
-                )
+    desc "Build a release version of the app for Prototyper"
+    lane :release do
+        # Run Unit and UI Tests
+        test
 
-                # Unlock the agent key chain to gain access to the necessary certificates
-                unlock_keychain(
-                        path: ENV['bamboo_KeyChain'],
-                        password: ENV['bamboo_KeyChainPassword'],
-                )
+        # Setup ENV variables
+        ENV['FASTLANE_PASSWORD'] = ENV['bamboo_FASTLANE_PASSWORD'] # Necessary for unlocking the key chain
+        ENV['FASTLANE_SESSION'] = ENV['bamboo_FASTLANE_SESSION_PASSWORD'] # Necessary for 2FA 
+        INFO_PLIST = "./PrototyperExample/Info.plist" # Location of the info.plist in the folder structure
+        ENV['PROTOTYPER_BUILDSTRING'] = sh("date", "+%y%m%d_%H%M").rstrip + "-build" + (ENV['bamboo_buildNumber'] ||= "") + "-" + (ENV['bamboo_repository_branch_name'] ||= "") # Prototyper Buildstring to identify releases
 
-                # Invoke fastlane sigh to get the app provisioned
-                get_provisioning_profile(
-                        app_identifier: APPID,
-                        username: ENV['bamboo_FASTLANE_USER'],
-                        team_id: ENV['bamboo_FASTLANE_TEAM_ID'],
-                )
+        # Write Prototyper BuildString to Info.plist
+        set_info_plist_value(
+            path: INFO_PLIST,
+            key: "CFBundleVersion",
+            value: "$(PROTOTYPER_BUILDSTRING)"
+        )
 
-                # Build the app
-                build_ios_app(
-                        project: PROJECT,
-                        scheme: SCHEME,
-                        clean: true,
-                        output_directory: "./",
-                        output_name: "BuildedApplication.ipa",                      # DO NOT CHANGE!
-                        export_method: "enterprise",
-                        buildlog_path: "./",
-                        archive_path: "./BuildedApplication",                       # DO NOT CHANGE!
-                        codesigning_identity: ENV['bamboo_CodeSigningIdentity'],    # DO NOT CHANGE!
-                        configuration: "Release",           # DO NOT CHANGE!
-                )
+        # Unlock the agent key chain to gain access to the necessary certificates
+        unlock_keychain(
+            path: ENV['bamboo_KeyChain'],
+            password: ENV['bamboo_KeyChainPassword'],
+        )
 
-                # Create Build String
-               sh "echo $PROTOTYPER_BUILDSTRING > BuildString.txt"
-               sh "mv BuildString.txt ../"
-        end
+        # Invoke fastlane sigh to get the app provisioned
+        get_provisioning_profile(
+            username: ENV['bamboo_FASTLANE_USER'],
+            team_id: ENV['bamboo_FASTLANE_TEAM_ID'],
+        )
+
+        # Build the app
+        build_ios_app(
+            output_directory: "./",
+            output_name: "BuildedApplication.ipa",
+            export_method: "enterprise",
+            buildlog_path: "./",
+            archive_path: "./BuildedApplication",
+            codesigning_identity: ENV['bamboo_CodeSigningIdentity'],
+            configuration: "Release",
+        )
+
+        # Create Build String
+        sh "echo $PROTOTYPER_BUILDSTRING > BuildString.txt"
+        sh "mv BuildString.txt ../"
+    end
 end
