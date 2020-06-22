@@ -15,5 +15,4 @@ jobs:
       uses: steven0351/publish-jazzy-docs@v1
       with:
         personal_access_token: ${{ secrets.ACCESS_TOKEN }}
-        config: .jazzy.yml
-        args: "--build-tool-arguments -sdk,iphoneos,-scheme,Prototyper-Package"
+        args: "--config .jazzy.yml --swift-build-tool xcodebuild --build-tool-arguments -sdk,iphoneos,-scheme,Prototyper"
