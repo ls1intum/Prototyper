@@ -15,6 +15,8 @@ jobs:
       run: xcodebuild -version
     - name: Check Swift version
       run: swift --version
+    - name: Generate Xcode project
+      run: swift package generate-xcodeproj
     - name: Build
       run: xcodebuild build -sdk iphoneos -scheme 'Prototyper-Package'
     - name: Test
