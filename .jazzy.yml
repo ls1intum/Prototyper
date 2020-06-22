@@ -1,0 +1,7 @@
+module: Prototyper
+author: "TUM LS1"
+theme: fullwidth
+output: ./docs
+documentation: ./*.md
+author_url: https://github.com/ls1intum
+github_url: https://github.com/ls1intum/Prototyper
