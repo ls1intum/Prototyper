@@ -1,4 +1,4 @@
-# Apodini SwiftLint file Apodini
+# TUM LS1 SwiftLint File
   
 # The whitelist_rules configuration also includes rules that are enabled by default to provide a good overview of all rules.
 whitelist_rules:
