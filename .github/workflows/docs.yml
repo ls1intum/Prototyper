@@ -9,8 +9,11 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v1
+    - name: Generate Xcode project
+      run: swift package generate-xcodeproj
     - name: Publish Jazzy Docs
       uses: steven0351/publish-jazzy-docs@v1
       with:
         personal_access_token: ${{ secrets.ACCESS_TOKEN }}
         config: .jazzy.yml
+        args: "--build-tool-arguments -sdk,iphoneos,-scheme,Prototyper-Package"
