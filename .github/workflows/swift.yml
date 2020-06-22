@@ -16,6 +16,6 @@ jobs:
     - name: Check Swift version
       run: swift --version
     - name: Build
-      run: swift build
+      run: xcodebuild build -sdk iphoneos -scheme 'Prototyper-Package'
     - name: Test
-      run: swift test
+      run: xcodebuild test -destination 'name=iPhone 11 Pro' -scheme 'Prototyper-Package'
