@@ -1,12 +1,12 @@
 //
 //  Prototyper.swift
-//  
+//
 //
 //  Created by Paul Schmiedmayer on 4/24/20.
 //
 
 import UIKit
-
+import PencilKit
 
 /// <#Description#>
 public struct PrototyperSettings {
@@ -49,7 +49,7 @@ public class PrototyperState: ObservableObject {
     /// The screenshot that should be displayed in the feedback view including the rendered markup
     @Published var screenshotWithMarkup: UIImage?
     /// This variable holds all the drawings the user draws in the Markup view.
-    @Published var markupDrawings: [Drawing] = [Drawing]()
+    @Published var markupDrawings: PKDrawing?
     /// This boolean variable is used to check if the user is submitting feedback with or without logging in.
     @Published var continueWithoutLogin: Bool = false
     
@@ -126,3 +126,4 @@ public class Prototyper {
         fatalError("An instance of Prototyper should never be created")
     }
 }
+
