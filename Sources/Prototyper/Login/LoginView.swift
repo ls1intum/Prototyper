@@ -23,6 +23,11 @@ struct LoginView: View {
             static let withLoginText = "Continue with login"
         }
         
+        enum DescrpitionText {
+            static let withoutLoginText = "Enter a name"
+            static let withLoginText = "Please log in using your Prototyper/TUM credentials to send feedback"
+        }
+        
         static let alertText = "Could not log in! Please check your login credentials and try again."
     }
     
@@ -46,6 +51,14 @@ struct LoginView: View {
     /// A boolean to check if the user is proceeding without logging in,
     @State var continueWithoutLogin: Bool = false
     
+    var descriptionText: String {
+        if continueWithoutLogin {
+            return LoginViewConstants.DescrpitionText.withoutLoginText
+        } else {
+            return LoginViewConstants.DescrpitionText.withLoginText
+        }
+    }
+    
     
     /// The text to be displayed as placeholder text on the text field.
     var userNamePlaceHolder: String {
@@ -59,16 +72,16 @@ struct LoginView: View {
     /// The text to be displayed on the Login button.
     var subButtonText: String {
         if continueWithoutLogin {
-              return LoginViewConstants.SubButtonText.withLoginText
-        } else {
               return LoginViewConstants.SubButtonText.withoutLoginText
+        } else {
+              return LoginViewConstants.SubButtonText.withLoginText
         }
     }
     
     var body: some View {
             VStack {
                 VStack(alignment: .leading) {
-                    Text("Please log in using your Prototyper/TUM credentials to send feedback")
+                    Text(descriptionText)
                         .lineLimit(2)
                 }.padding()
                     
@@ -158,3 +171,4 @@ struct LoginView: View {
         showLoginErrorAlert = true
     }
 }
+
