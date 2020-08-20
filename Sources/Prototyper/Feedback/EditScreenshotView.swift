@@ -4,7 +4,7 @@
 //
 //  Created by Raymond Pinto on 03.01.20.
 //
-
+// swiftlint:disable:previous force_unwrap
 import SwiftUI
 import PencilKit
 
@@ -87,7 +87,7 @@ struct EditScreenshotView: View {
     func saveDrawing() {
         state.markupDrawings = canvas.drawing
         let drawingImage = canvas.drawing.image(from: canvas.bounds, scale: 1)
-        state.screenshotWithMarkup = combineImage(top:drawingImage , bottom: state.screenshot!)
+        state.screenshotWithMarkup = combineImage(top:drawingImage, bottom: state.screenshot!)
         self.presentationMode.wrappedValue.dismiss()
     }
     
@@ -104,7 +104,7 @@ struct EditScreenshotView: View {
         let areaSize = CGRect(x: 0, y: 0, width: top.size.width, height: top.size.height)
         bottom.draw(in: areaSize)
         top.draw(in: areaSize, blendMode: .normal, alpha: 0.8)
-        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return newImage
     }
@@ -137,9 +137,9 @@ struct DrawingBoard: UIViewRepresentable {
     @EnvironmentObject var state: PrototyperState
     
     @Binding var canvas: PKCanvasView
-    @Binding var isDraw : Bool
-    @Binding var type : PKInkingTool.InkType
-    @Binding var color : Color
+    @Binding var isDraw: Bool
+    @Binding var type: PKInkingTool.InkType
+    @Binding var color: Color
     
     var ink: PKInkingTool {
         PKInkingTool(type, color: UIColor(color))

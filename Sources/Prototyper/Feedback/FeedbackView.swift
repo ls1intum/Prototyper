@@ -4,14 +4,13 @@
 //
 //  Created by Raymond Pinto on 20.12.19.
 //
-
+// swiftlint:disable:previous force_unwrap
 import SwiftUI
 
 
 // MARK: FeedbackView
 /// This View holds the markup image and the feedback text field for the user to send feedback.
 struct FeedbackView: View {
-
     /// The instance of the Observable Object class named Model,  to share state data anywhere it’s needed.
     @EnvironmentObject var state: PrototyperState
     @EnvironmentObject var apiHandler: APIHandler
