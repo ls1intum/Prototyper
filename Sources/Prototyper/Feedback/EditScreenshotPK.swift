@@ -6,15 +6,30 @@
 //
 
 import SwiftUI
+import PencilKit
 
-struct SwiftUIView: View {
+struct EditScreenshotPK: View  {
+    @State private var canvasView = PKCanvasView()
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            MyCanvas(canvasView: $canvasView)
+    }
+}
+}
+
+struct EditScreenshotPK_Previews: PreviewProvider {
+    static var previews: some View {
+        EditScreenshotPK()
     }
 }
 
-struct SwiftUIView_Previews: PreviewProvider {
-    static var previews: some View {
-        SwiftUIView()
+struct MyCanvas: UIViewRepresentable {
+    @Binding var canvasView: PKCanvasView
+
+    func makeUIView(context: Context) -> PKCanvasView {
+        self.canvasView.tool = PKInkingTool(.pen, color: .black, width: 15)
+        return canvasView
     }
+
+    func updateUIView(_ uiView: PKCanvasView, context: Context) { }
 }

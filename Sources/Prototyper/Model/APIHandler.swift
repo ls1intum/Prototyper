@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+import SwiftUI
 
 // MARK: - UserDefaultKeys
 /// The key to be specified to retrieve the appID, releaseID and the username being stored in UserDefaults.
@@ -101,8 +101,9 @@ private let defaultBoundary = "------VohpleBoundary4QuqLuM1cE5lMwCy"
 class APIHandler: ObservableObject {
     var settings: PrototyperSettings
     
+    @EnvironmentObject var state: PrototyperState
     /// The variable that is updated when the user logs in.
-    var isLoggedIn: Bool = false
+//    var isLoggedIn: Bool = false
     
     
     /// The appID of the current Bundle
@@ -120,7 +121,6 @@ class APIHandler: ObservableObject {
     
     init(settings: PrototyperSettings) {
         self.settings = settings
-        
         tryToFetchReleaseInfos()
         tryToLogin()
     }
@@ -205,13 +205,14 @@ class APIHandler: ObservableObject {
             let error = (data == nil || httpURLResponse?.statusCode != 200) ? PrototyperError.dataParseError : networkError
             if error != nil {
                 failure(error)
+                self.state.userIsLoggedIn = false
             } else {
                 KeyChain.store(element: id, for: KeychainKeys.userNameKey)
                 KeyChain.store(element: password, for: KeychainKeys.passwordKey)
-                
+                self.state.userIsLoggedIn = true
+                self.state.continueWithoutLogin = false
                 success()
             }
-            self.isLoggedIn = error == nil
         }
     }
     

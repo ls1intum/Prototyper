@@ -6,11 +6,11 @@
 //
 
 import UIKit
+import PencilKit
 
-
-/// <#Description#>
+/// Prototyper settings is a struct that contains information about the configuration of the prototyper framework and is used for the initialization
 public struct PrototyperSettings {
-    /// <#Description#>
+    /// The default setting establishes a connection to https://prototyper.ase.in.tum.de/login and shows the feedback button
     public static var `default`: PrototyperSettings = {
         PrototyperSettings(showFeedbackButton: true,
                            prototyperInstance: URL(string: "https://prototyper.ase.in.tum.de/login")!)
@@ -18,16 +18,16 @@ public struct PrototyperSettings {
     }()
     
     
-    /// <#Description#>
+    /// Boolean whether the feedback button is shown
     public var showFeedbackButton: Bool
-    /// <#Description#>
+    /// URL for the prototyper instance
     public var prototyperInstance: URL
     
     
-    /// <#Description#>
+    /// The initializer to creat a new `PrototyperSettings` struct
     /// - Parameters:
-    ///   - showFeedbackButton: <#showFeedbackButton description#>
-    ///   - prototyperInstance: <#prototyperInstance description#>
+    ///   - showFeedbackButton: Boolean if the feedback button is shown
+    ///   - prototyperInstance: URL for the prototyper instance
     public init(showFeedbackButton: Bool = `default`.showFeedbackButton,
                 prototyperInstance: URL = `default`.prototyperInstance) {
         self.showFeedbackButton = showFeedbackButton
@@ -36,9 +36,9 @@ public struct PrototyperSettings {
 }
 
 
-/// <#Description#>
+/// This class contains the information which are shared a cross the different classes
 public class PrototyperState: ObservableObject {
-    /// <#Description#>
+    /// Boolean whether the feedback button is shown
     @Published var feedbackButtonIsHidden: Bool
     /// The screenshot that should be displayed in the feedback view
     @Published var screenshot: UIImage? {
@@ -49,26 +49,28 @@ public class PrototyperState: ObservableObject {
     /// The screenshot that should be displayed in the feedback view including the rendered markup
     @Published var screenshotWithMarkup: UIImage?
     /// This variable holds all the drawings the user draws in the Markup view.
-    @Published var markupDrawings: [Drawing] = [Drawing]()
+    @Published var markupDrawings: PKDrawing?
     /// This boolean variable is used to check if the user is submitting feedback with or without logging in.
     @Published var continueWithoutLogin: Bool = false
+    /// This boolean variable is used to check if the user is logged in
+    @Published var userIsLoggedIn: Bool = false
     
     
-    /// <#Description#>
-    /// - Parameter feedbackButtonIsHidden: <#feedbackButtonIsHidden description#>
+    /// Initializer for the state
+    /// - Parameter feedbackButtonIsHidden: Boolean whether the feedback button is shown
     init(feedbackButtonIsHidden: Bool) {
         self.feedbackButtonIsHidden = feedbackButtonIsHidden
     }
 }
 
 
-/// <#Description#>
+/// Main class of the framework
 public class Prototyper {
-    /// <#Description#>
+    /// Prototyper settings is a struct that contains information about the configuration of the prototyper framework and is used for the initialization
     static var settings: PrototyperSettings!
-    /// <#Description#>
+    /// This class contains the information which are shared a cross the different classes
     static var currentState: PrototyperState!
-    /// <#Description#>
+    /// The apiHandler takes over all network tasks
     static var apiHandler: APIHandler!
     
     
@@ -105,8 +107,8 @@ public class Prototyper {
     }
     
     
-    /// <#Description#>
-    /// - Parameter settings: <#settings description#>
+    /// This static function is used to initialize the prototyper framework with a suitable `PrototyperSettings` object
+    /// - Parameter settings: Struct that contains information about the configuration of the prototyper framework
     public static func configure(_ settings: PrototyperSettings) {
         self.settings = settings
         
@@ -120,7 +122,6 @@ public class Prototyper {
             addFeedbackBubble()
         }
     }
-    
     
     private init() {
         fatalError("An instance of Prototyper should never be created")

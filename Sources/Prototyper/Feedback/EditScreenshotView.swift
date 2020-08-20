@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import PencilKit
 
 // MARK: EditScreenshotView
 /// This View enables the user to Markup the first view of the application, when the feedback bubble was pressed.
@@ -16,17 +16,17 @@ struct EditScreenshotView: View {
     /// Environment variable for presentationMode to dismiss the View.
     @Environment(\.presentationMode) var presentationMode
     
-    /// The State variable holds the current Drawing being drawn on this View.
-    @State var currentDrawing: Drawing?
-    /// This State variable holds all the drawings and is initialised with the existing strokes when the View appears.
-    @State var allDrawings: [Drawing] = []
-    /// The frame data of the markup image in the cuurent View.
-    @State var rect: CGRect = .zero
-    /// The initial color for markup when the View appears.
-    @State var color: Color = .primary
-    /// This attribute is updated when the user wants to change the Markup Color.
-    @State var colorPickerShown: Bool = false
+    @State var canvas = PKCanvasView()
+    @State var isDraw = true
+    @State var color : Color = .black
+    @State var type : PKInkingTool.InkType = .pencil
+    @State var colorPicker = false
+    @State var inkTypeImage: String = "pencil"
     
+    ///Changes the pencil image whether you are drawing or want to erase something
+    var pencilImage: String {
+        isDraw ?  "pencil.slash" : "pencil.and.outline"
+    }
     
     var body: some View {
         VStack(alignment: .center) {
@@ -35,101 +35,134 @@ struct EditScreenshotView: View {
                 Image(uiImage: self.state.screenshot!)
                     .resizable()
                     .scaledToFit()
-                    .background(RectGetter(rect: self.$rect))
                     .shadow(color: Color.primary.opacity(0.2), radius: 5.0)
-                Group {
-                    ForEach(self.allDrawings) { drawing in
-                        drawing.path
-                    }
-                    currentDrawing?.path
-                }.offset(y: -self.rect.origin.y)
-            }.gesture(dragGesture)
+                    .overlay(DrawingBoard(canvas: $canvas, isDraw: $isDraw, type: $type, color: $color))
+            }
             Spacer(minLength: 16)
             actions
-        }.onAppear(perform: setupCurrentDrawings)
-            .navigationBarTitle("Markup")
-            .navigationBarItems(leading: cancelButton, trailing: saveButton)
-            .sheet(isPresented: $colorPickerShown) {
-                NavigationView {
-                    ColorPickerView(color: self.$color, colorPickerShown: self.$colorPickerShown)
-                        .navigationBarItems(leading: self.cancelButton)
-                }
-            }
+        }.navigationBarTitle("Markup")
+        .navigationBarItems(leading: cancelButton, trailing: saveButton)
+        .sheet(isPresented: $colorPicker) {
+            ColorPicker("Pick Color", selection: $color)
+                .padding()
+        }
     }
     
-    /// The color picker, undo and clear actions for the Markup View.
+    ///View for all drawing related actions
     var actions: some View {
         HStack(alignment: .center, spacing: 30) {
-            Image(systemName: "eyedropper.halffull")
+            Image(systemName: pencilImage)
                 .imageScale(.large)
                 .onTapGesture {
-                    self.colorPickerShown.toggle()
+                    isDraw.toggle()
                 }
-            Image(systemName: "arrow.uturn.left")
+            Image(systemName: inkTypeImage)
                 .imageScale(.large)
                 .onTapGesture {
-                    if self.allDrawings.isEmpty {
-                        self.allDrawings.removeLast()
-                    }
+                    changeInkType()
                 }
-            Image(systemName: "xmark")
+            Image(systemName: "pencil.circle.fill")
                 .imageScale(.large)
                 .onTapGesture {
-                    self.allDrawings = [Drawing]()
+                    colorPicker.toggle()
                 }
         }.frame(height: 32)
     }
     
-    /// This view records the strokes and gestures of the user on the current View.
-    var dragGesture: some Gesture {
-        DragGesture(minimumDistance: 1, coordinateSpace: .global)
-            .onChanged { value in
-                if self.rect.contains(value.location) {
-                    if self.currentDrawing == nil {
-                        self.currentDrawing = Drawing(color: self.color)
-                    }
-                    self.currentDrawing?.points.append(value.location)
-                }
-            }
-            .onEnded { _ in
-                self.currentDrawing.map { self.allDrawings.append($0) }
-                self.currentDrawing = nil
-            }
-    }
-    
     /// The cancel button displayed on the left top corner of the View.
     private var cancelButton: some View {
-        Button(action: cancel) {
+        Button(action: cancle) {
             Text("Cancel")
         }
     }
     
     /// The save button displayed on the top right corner of the View.
     private var saveButton: some View {
-        Button(action: save) {
+        Button(action: saveDrawing) {
             Text("Save").bold()
         }
     }
     
-    
-    /// Save the strokes in the Model and update the screenshot with the latest image
-    private func save() {
-        self.state.markupDrawings = allDrawings
-        self.state.screenshotWithMarkup = UIApplication.shared.windows.first?.asImage(rect: rect) ?? UIImage()
+    ///Adds the drawings to the screenshot
+    func saveDrawing() {
+        state.markupDrawings = canvas.drawing
+        let drawingImage = canvas.drawing.image(from: canvas.bounds, scale: 1)
+        state.screenshotWithMarkup = combineImage(top:drawingImage , bottom: state.screenshot!)
         self.presentationMode.wrappedValue.dismiss()
     }
     
-    /// Dismisses the current view
-    private func cancel() {
-        if colorPickerShown {
-            colorPickerShown = false
-        } else {
-            self.presentationMode.wrappedValue.dismiss()
-        }
+    ///Stores the current drawjngs and closes the view
+    func cancle() {
+        //If the current drawings should be deleted, just comment out this line
+        state.markupDrawings = canvas.drawing
+        self.presentationMode.wrappedValue.dismiss()
     }
     
-    /// Initialise the allDrawings State variable with the markupDrawings in the Model
-    private func setupCurrentDrawings() {
-        self.allDrawings = self.state.markupDrawings
+    ///Combines to images to one
+    func combineImage(top: UIImage, bottom: UIImage) -> UIImage {
+        UIGraphicsBeginImageContext(top.size)
+        let areaSize = CGRect(x: 0, y: 0, width: top.size.width, height: top.size.height)
+        bottom.draw(in: areaSize)
+        top.draw(in: areaSize, blendMode: .normal, alpha: 0.8)
+        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
+    ///Changes the ink / tool
+    func changeInkType() {
+        isDraw = true
+        switch type {
+        case .pencil:
+            inkTypeImage = "pencil.tip"
+            type = .pen
+        case .pen:
+            inkTypeImage = "highlighter"
+            type = .marker
+        case .marker:
+            inkTypeImage = "pencil"
+            type = .pencil
+        default:
+            inkTypeImage = "pencil.tip"
+            type = .pen
+        }
+    }
+}
+
+// MARK: DrawingBoard
+///Thjs view is a paintable overlay for the screenshot 
+struct DrawingBoard: UIViewRepresentable {
+    
+    
+    @EnvironmentObject var state: PrototyperState
+    
+    @Binding var canvas: PKCanvasView
+    @Binding var isDraw : Bool
+    @Binding var type : PKInkingTool.InkType
+    @Binding var color : Color
+    
+    var ink: PKInkingTool {
+        PKInkingTool(type, color: UIColor(color))
+        
+    }
+    
+    let eraser = PKEraserTool(.vector)
+    
+    ///Set up the canvas
+    func makeUIView(context: Context) -> PKCanvasView {
+        if let drawings = state.markupDrawings {
+            canvas.drawing = drawings
+        }
+        canvas.drawingPolicy = .anyInput
+        canvas.tool = isDraw ? ink: eraser
+        canvas.isOpaque = false
+        canvas.backgroundColor = .clear
+        canvas.overrideUserInterfaceStyle = .light
+        return canvas
+    }
+    
+    ///Updates the tool
+    func updateUIView (_ uiView: PKCanvasView, context: Context) {
+        uiView.tool = isDraw ? ink: eraser
     }
 }

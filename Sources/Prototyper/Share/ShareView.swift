@@ -13,20 +13,15 @@ import SwiftUI
 struct ShareView: View {
     /// The instance of the Observable Object class named Model,  to share state data anywhere it’s needed.
     @EnvironmentObject var state: PrototyperState
-    /// <#Description#>
-    @EnvironmentObject var apiHandler: APIHandler
     
     /// The State variable holds the emailId of the user to whom the invite needs to be sent to.
     @State var inviteList: String = ""
     /// The State variable holds the inviteText to the invitee.
     @State var inviteText: String = ""
-    /// The State variable that decides if the Login View needs to appear or not.
-    @State var showLoginView: Bool = false
     /// The State variable is updated if the logged in user clicks on Share
     @State var showSendInviteView: Bool = false
     /// The State variable that holds the ShareRequest object.
     @State var shareRequest: ShareRequest?
-    
     
     var body: some View {
         NavigationView {
@@ -46,20 +41,13 @@ struct ShareView: View {
             }.padding(20)
             .navigationBarTitle("Share App")
             .navigationBarItems(leading: cancelButton, trailing: shareButton)
-            .sheet(isPresented: $showLoginView) {
-                NavigationView {
-                    LoginView(finishLoggingIn: self.$showSendInviteView)
-                }
-                    .environmentObject(self.state)
-                    .environmentObject(self.apiHandler)
-            }
         }
     }
     
     /// Holds the inviteList and the inviteText to be sent
     private var currentShareRequest: ShareRequest {
         var creatorName: String?
-        if !apiHandler.isLoggedIn {
+        if !state.userIsLoggedIn {
             creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.username)
         }
         
@@ -97,15 +85,9 @@ struct ShareView: View {
     ///Shares the Invite to the emailId mentioned via the SendInviteView
     private func share() {
         shareRequest = currentShareRequest
-        if apiHandler.isLoggedIn || state.continueWithoutLogin {
-            state.continueWithoutLogin = false
-            self.showSendInviteView = true
-        } else {
-            self.showLoginView = true
-        }
+        self.showSendInviteView = true
     }
 }
-
 
 // MARK: ShareView + Preview
 struct ShareView_Previews: PreviewProvider {

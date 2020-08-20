@@ -13,7 +13,7 @@ import SwiftUI
 struct SendInviteView: View {
     /// The instance of the Observable Object class named Model,  to share state data anywhere it’s needed.
     @EnvironmentObject var state: PrototyperState
-    /// <#Description#>
+    /// The instance of the apiHandler to send a shareRequest
     @EnvironmentObject var apiHandler: APIHandler
     
     /// Once the invite is sent the View is dismissed by updating this variable.
@@ -21,26 +21,28 @@ struct SendInviteView: View {
     /// The variable holds the email id to whom the invite needs to be sent to and the invite text, which is given by the ShareView.
     @Binding var shareRequest: ShareRequest?
     
-    /// This State variable tells the Activity indicator to Animate or not.
-    @State private var shouldAnimate = true
     /// This State variable is updated to true when sending invite fails.
     @State private var showingAlert = false
     
     
     var body: some View {
-            VStack {
-                ActivityIndicator(isAnimating: self.$shouldAnimate)
-                    .onAppear { self.sendShareRequest() }
-                Text("Sending the invitation to Prototyper")
+        VStack {
+            if !(state.userIsLoggedIn || state.continueWithoutLogin) {
+                LoginView()
+            } else {
+                ProgressView {
+                    Text("Sending the invitation to Prototyper")
+                }.onAppear { self.sendShareRequest() }
             }
-            .alert(isPresented: $showingAlert) {
-                Alert(title: Text("Error"),
-                      message: Text("Could not send feedback to server."),
-                      dismissButton: .default(Text("OK")) {
+        }
+        .alert(isPresented: $showingAlert) {
+            Alert(title: Text("Error"),
+                  message: Text("Could not send feedback to server."),
+                  dismissButton: .default(Text("OK")) {
                     self.showSendInviteView = false
-                })
-            }
-            .navigationBarTitle("Sending Invitation")
+                  })
+        }
+        .navigationBarTitle("Sending Invitation")
     }
     
     
@@ -51,15 +53,13 @@ struct SendInviteView: View {
         }
         
         shareRequest.creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.username)
-        
         apiHandler.send(shareRequest: shareRequest,
                         success: {
-            print("Successfully sent share request to server")
-            Prototyper.dismissView()
-            Prototyper.currentState.feedbackButtonIsHidden = !Prototyper.settings.showFeedbackButton
-        }, failure: { _ in
-            self.shouldAnimate = false
-            self.showingAlert = true
-        })
+                            print("Successfully sent share request to server")
+                            Prototyper.dismissView()
+                            Prototyper.currentState.feedbackButtonIsHidden = !Prototyper.settings.showFeedbackButton
+                        }, failure: { _ in
+                            self.showingAlert = true
+                        })
     }
 }
