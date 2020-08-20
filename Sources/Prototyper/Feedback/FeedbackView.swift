@@ -14,7 +14,6 @@ struct FeedbackView: View {
 
     /// The instance of the Observable Object class named Model,  to share state data anywhere it’s needed.
     @EnvironmentObject var state: PrototyperState
-    /// <#Description#>
     @EnvironmentObject var apiHandler: APIHandler
     
     /// This State variable holds the feedback text.
@@ -117,12 +116,10 @@ struct FeedbackView: View {
     /// Sends the feedback to Prototyper via the SendFeedbackView
     private func send() {
         feedback = currentFeedback
-        //TODO
         self.showSendFeedbackView = true
         NavigationView {
             SendFeedbackView(showSendFeedbackView: $showSendFeedbackView, feedback: $feedback)
         }
-        
     }
     
     /// Brings up the EditScreenShotView to Markup the screenshot

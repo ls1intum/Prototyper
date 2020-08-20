@@ -38,9 +38,11 @@ struct SendFeedbackView: View {
             } else {
                 ProgressView {
                     Text("Sending the feedback to Prototyper")
-                }.onAppear {
+                }
+                .onAppear {
                     self.sendFeedback()
-                }.alert(isPresented: $showingAlert) {
+                }
+                .alert(isPresented: $showingAlert) {
                     Alert(title: Text("Error"),
                           message: Text("Could not send feedback to server."),
                           dismissButton: .default(Text("OK")) {
@@ -48,7 +50,6 @@ struct SendFeedbackView: View {
                           })
                 }
             }
-            
         }.navigationTitle("Feedback")
     }
     

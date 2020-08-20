@@ -18,8 +18,8 @@ struct EditScreenshotView: View {
     
     @State var canvas = PKCanvasView()
     @State var isDraw = true
-    @State var color : Color = .black
-    @State var type : PKInkingTool.InkType = .pencil
+    @State var color: Color = .black
+    @State var type: PKInkingTool.InkType = .pencil
     @State var colorPicker = false
     @State var inkTypeImage: String = "pencil"
     
