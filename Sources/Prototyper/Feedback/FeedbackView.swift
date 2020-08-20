@@ -4,7 +4,6 @@
 //
 //  Created by Raymond Pinto on 20.12.19.
 //
-// swiftlint:disable:previous force_unwrap
 import SwiftUI
 
 

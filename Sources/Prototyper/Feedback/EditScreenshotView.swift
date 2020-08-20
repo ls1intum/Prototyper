@@ -4,7 +4,6 @@
 //
 //  Created by Raymond Pinto on 03.01.20.
 //
-// swiftlint:disable:previous force_unwrap
 import SwiftUI
 import PencilKit
 
@@ -87,7 +86,7 @@ struct EditScreenshotView: View {
     func saveDrawing() {
         state.markupDrawings = canvas.drawing
         let drawingImage = canvas.drawing.image(from: canvas.bounds, scale: 1)
-        state.screenshotWithMarkup = combineImage(top:drawingImage, bottom: state.screenshot!)
+        state.screenshotWithMarkup = combineImage(top: drawingImage, bottom: state.screenshot!)
         self.presentationMode.wrappedValue.dismiss()
     }
     
@@ -132,10 +131,8 @@ struct EditScreenshotView: View {
 // MARK: DrawingBoard
 ///Thjs view is a paintable overlay for the screenshot
 struct DrawingBoard: UIViewRepresentable {
-    
-    
     @EnvironmentObject var state: PrototyperState
-    
+    ///Bindings for the initialization
     @Binding var canvas: PKCanvasView
     @Binding var isDraw: Bool
     @Binding var type: PKInkingTool.InkType
@@ -143,7 +140,6 @@ struct DrawingBoard: UIViewRepresentable {
     
     var ink: PKInkingTool {
         PKInkingTool(type, color: UIColor(color))
-        
     }
     
     let eraser = PKEraserTool(.vector)
