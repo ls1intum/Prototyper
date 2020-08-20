@@ -130,7 +130,7 @@ struct EditScreenshotView: View {
 }
 
 // MARK: DrawingBoard
-///Thjs view is a paintable overlay for the screenshot 
+///Thjs view is a paintable overlay for the screenshot
 struct DrawingBoard: UIViewRepresentable {
     
     

@@ -1,6 +1,6 @@
 //
 //  Prototyper.swift
-//  
+//
 //
 //  Created by Paul Schmiedmayer on 4/24/20.
 //
@@ -127,3 +127,4 @@ public class Prototyper {
         fatalError("An instance of Prototyper should never be created")
     }
 }
+
