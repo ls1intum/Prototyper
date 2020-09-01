@@ -19,7 +19,7 @@ platform :ios do
             xcargs: "-resolvePackageDependencies",
         )
 
-        # Build the PrototyperExample application without tests
+        # Build the Prototyper Example application without tests
         xcodebuild(
             scheme: "Prototyper Example",
             configuration: "Debug",

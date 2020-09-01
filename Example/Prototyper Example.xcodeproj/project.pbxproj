@@ -21,7 +21,7 @@
 		6577E67224F423490055802C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6577E67524F423490055802C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6577E67724F423490055802C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		65D4F37D24FE5467005F3716 /* Prototyper */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Prototyper; path = ../..; sourceTree = "<group>"; };
+		65D4F37D24FE5467005F3716 /* .. */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,7 +39,7 @@
 		6577E66224F423490055802C = {
 			isa = PBXGroup;
 			children = (
-				65D4F37D24FE5467005F3716 /* Prototyper */,
+				65D4F37D24FE5467005F3716 /* .. */,
 				6577E66D24F423490055802C /* Prototyper Example */,
 				6577E66C24F423490055802C /* Products */,
 				6577E67E24F4237A0055802C /* Frameworks */,
