@@ -19,9 +19,9 @@ platform :ios do
             xcargs: "-resolvePackageDependencies",
         )
 
-        # Build the PrototyperExample application without tests
+        # Build the Prototyper Example application without tests
         xcodebuild(
-            scheme: "PrototyperExample",
+            scheme: "Prototyper Example",
             configuration: "Debug",
             clean: true,
             build: true,
@@ -39,7 +39,7 @@ platform :ios do
         # Setup ENV variables
         ENV['FASTLANE_PASSWORD'] = ENV['bamboo_FASTLANE_PASSWORD'] # Necessary for unlocking the key chain
         ENV['FASTLANE_SESSION'] = ENV['bamboo_FASTLANE_SESSION_PASSWORD'] # Necessary for 2FA 
-        INFO_PLIST = "./PrototyperExample/Info.plist" # Location of the info.plist in the folder structure
+        INFO_PLIST = "./Prototyper Example/Info.plist" # Location of the info.plist in the folder structure
         ENV['PROTOTYPER_BUILDSTRING'] = sh("date", "+%y%m%d_%H%M").rstrip + "-build" + (ENV['bamboo_buildNumber'] ||= "") + "-" + (ENV['bamboo_repository_branch_name'] ||= "") # Prototyper Buildstring to identify releases
 
         # Write Prototyper BuildString to Info.plist
