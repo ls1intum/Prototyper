@@ -32,7 +32,6 @@ Your users can use the feedback button to give feedback and share the applicatio
             }
         }
     }
-    }
     ```
 3. Deploy your application e.g. using the [Prototyper service found at https://prototyper.ase.in.tum.de](https://prototyper.ase.in.tum.de)
 
