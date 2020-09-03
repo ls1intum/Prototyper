@@ -39,12 +39,13 @@ struct EditScreenshotView: View {
             }
             Spacer(minLength: 16)
             actions
-        }.navigationBarTitle("Markup")
-        .navigationBarItems(leading: cancelButton, trailing: saveButton)
-        .sheet(isPresented: $colorPicker) {
-            ColorPicker("Pick Color", selection: $color)
-                .padding()
         }
+            .navigationBarTitle("Markup")
+            .navigationBarItems(leading: cancelButton, trailing: saveButton)
+            .sheet(isPresented: $colorPicker) {
+                ColorPicker("Pick Color", selection: $color)
+                    .padding()
+            }
     }
     
     ///View for all drawing related actions
