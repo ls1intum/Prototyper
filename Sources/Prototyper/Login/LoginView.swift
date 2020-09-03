@@ -28,6 +28,11 @@ struct LoginView: View {
             static let withLoginText = "Please log in using your Prototyper/TUM credentials to send feedback"
         }
         
+        enum ContinueButtonText {
+            static let withoutLoginText = "Continue"
+            static let withLoginText = "Login"
+        }
+        
         static let alertText = "Could not log in! Please check your login credentials and try again."
     }
     
@@ -55,6 +60,14 @@ struct LoginView: View {
             return LoginViewConstants.DescrpitionText.withoutLoginText
         } else {
             return LoginViewConstants.DescrpitionText.withLoginText
+        }
+    }
+    
+    var continueButtonText: String {
+        if continueWithoutLogin {
+            return LoginViewConstants.ContinueButtonText.withoutLoginText
+        } else {
+            return LoginViewConstants.ContinueButtonText.withLoginText
         }
     }
     
@@ -94,7 +107,7 @@ struct LoginView: View {
                         if isLoginIn {
                             ProgressView()
                         } else {
-                            Text("Login").bold()
+                            Text(continueButtonText).bold()
                             
                         }
                     }

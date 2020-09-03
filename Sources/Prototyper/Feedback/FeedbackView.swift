@@ -115,9 +115,6 @@ struct FeedbackView: View {
     private func send() {
         feedback = currentFeedback
         self.showSendFeedbackView = true
-        NavigationView {
-            SendFeedbackView(showSendFeedbackView: $showSendFeedbackView, feedback: $feedback)
-        }
     }
     
     /// Brings up the EditScreenShotView to Markup the screenshot
