@@ -19,7 +19,7 @@ Your users can use the feedback button to give feedback and share the applicatio
 
 1. Add the Prototyper framework to your application as a swift package dependency. Follow the instructions specified [here](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app) and use https://github.com/ls1intum/Prototyper.git as the package respository URL.
 
-2. Display the feedback button by using the modifier called `.prototyper(settings: PrototyperSettings)`. If you add it to the `ContentView`, the button will be visible till you disable it. You can configure the `Prototyper` framework using the `PrototyperSettings` class.
+2. Display the feedback button by using the `.prototyper(settings: PrototyperSettings)` modifier. If you add it to the `ContentView`, the button will be visible until you disable it. You can configure the `Prototyper` framework using the `PrototyperSettings` struct.
 
     ```swift
     import SwiftUI
