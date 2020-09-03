@@ -10,7 +10,7 @@ import SwiftUI
 
 
 ///PrototyperModifier is a view modifier that attaches the feedback bubble to a view
-struct ProtoytperModifier: ViewModifier {
+struct ProtoytperModifier: ViewModifier,LibraryContentProvider {
     var settings: PrototyperSettings
     
     init(_ settings: PrototyperSettings) {

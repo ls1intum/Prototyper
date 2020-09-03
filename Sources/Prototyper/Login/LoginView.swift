@@ -47,6 +47,8 @@ struct LoginView: View {
     @State var showLoginErrorAlert: Bool = false
     /// A boolean to check if the user is proceeding without logging in,
     @State var continueWithoutLogin: Bool = false
+    ///Shows ProgessView while logging in
+    @State var isLoginIn: Bool = false
     
     var descriptionText: String {
         if continueWithoutLogin {
@@ -88,12 +90,19 @@ struct LoginView: View {
                     SecureField("Password", text: $password)
                 }
                 Button(action: login) {
-                    Text("Login").bold()
-                        .foregroundColor(.white)
-                        .padding(8)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .background(buttonColor)
-                        .cornerRadius(10)
+                    VStack {
+                        if isLoginIn {
+                            ProgressView()
+                        } else {
+                            Text("Login").bold()
+                            
+                        }
+                    }
+                    .foregroundColor(.white)
+                    .padding(8)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .background(buttonColor)
+                    .cornerRadius(10)
                 }.disabled(userid.isEmpty || password.isEmpty)
                 Button(action: loginSubButton) {
                     Text(subButtonText).bold()
@@ -133,11 +142,14 @@ struct LoginView: View {
             UserDefaults.standard.set(userid, forKey: UserDefaultKeys.username)
             state.continueWithoutLogin = true
         } else {
+            isLoginIn = true
             apiHandler.login(userid,
                              password: password,
                              success: {
+                                isLoginIn = false
                              },
                              failure: { _ in
+                                isLoginIn = false
                                 self.showingLoginErrorAlert()
                              })
             state.continueWithoutLogin = false

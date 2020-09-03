@@ -54,7 +54,8 @@ public class PrototyperState: ObservableObject {
     @Published var continueWithoutLogin: Bool = false
     /// This boolean variable is used to check if the user is logged in
     @Published var userIsLoggedIn: Bool = false
-    
+//    ///The APIHandler handels everything related to networking
+//    @Published var apiHandler: APIHandler
     
     /// Initializer for the state
     /// - Parameter feedbackButtonIsHidden: Boolean whether the feedback button is shown

@@ -102,9 +102,6 @@ class APIHandler: ObservableObject {
     var settings: PrototyperSettings
     
     @EnvironmentObject var state: PrototyperState
-    /// The variable that is updated when the user logs in.
-//    var isLoggedIn: Bool = false
-    
     
     /// The appID of the current Bundle
     var appId: String? {
