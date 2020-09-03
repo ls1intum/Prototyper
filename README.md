@@ -28,7 +28,8 @@ Your users can use the feedback button to give feedback and share the applicatio
     struct ExampleApp: App {
         var body: some Scene {
             WindowGroup {
-                ContentView().prototyper(PrototyperSettings.default)
+                ContentView()
+                    .prototyper(PrototyperSettings.default)
             }
         }
     }
