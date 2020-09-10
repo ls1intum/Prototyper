@@ -54,14 +54,24 @@ public class PrototyperState: ObservableObject {
     @Published var continueWithoutLogin: Bool = false
     /// This boolean variable is used to check if the user is logged in
     @Published var userIsLoggedIn: Bool = false
-//    ///The APIHandler handels everything related to networking
-//    @Published var apiHandler: APIHandler
+    ///The APIHandler handels everything related to networking
+    @Published var apiHandler: APIHandler!
     
     /// Initializer for the state
     /// - Parameter feedbackButtonIsHidden: Boolean whether the feedback button is shown
-    init(feedbackButtonIsHidden: Bool) {
+    init(_ settings: PrototyperSettings) {
+        self.feedbackButtonIsHidden = !settings.showFeedbackButton
+        apiHandler = APIHandler(prototyperInstance: settings.prototyperInstance, state: self)
+    }
+    
+    func setFeedbackButtonIsHidden(_ feedbackButtonIsHidden: Bool) {
         self.feedbackButtonIsHidden = feedbackButtonIsHidden
     }
+    func setFeedbackButtonIsHidden() {
+        self.feedbackButtonIsHidden = !Prototyper.settings.showFeedbackButton
+    }
+    
+    
 }
 
 
@@ -71,10 +81,6 @@ public class Prototyper {
     static var settings: PrototyperSettings!
     /// This class contains the information which are shared a cross the different classes
     static var currentState: PrototyperState!
-    /// The apiHandler takes over all network tasks
-    static var apiHandler: APIHandler!
-    
-    
     /// The topmost View where the bubble was pressed.
     static var topViewController: UIViewController? {
         guard let rootViewController = UIApplication.shared.windows.first?.rootViewController else {
@@ -111,14 +117,8 @@ public class Prototyper {
     /// This static function is used to initialize the prototyper framework with a suitable `PrototyperSettings` object
     /// - Parameter settings: Struct that contains information about the configuration of the prototyper framework
     public static func configure(_ settings: PrototyperSettings) {
+        self.currentState = PrototyperState(settings)
         self.settings = settings
-        
-        self.currentState = PrototyperState(feedbackButtonIsHidden: !settings.showFeedbackButton)
-        
-        self.apiHandler = APIHandler(settings: settings)
-        apiHandler.tryToFetchReleaseInfos()
-        apiHandler.tryToLogin()
-        
         if settings.showFeedbackButton {
             addFeedbackBubble()
         }

@@ -15,7 +15,6 @@ extension Prototyper {
     public static func showShareApp() {
         let shareView: some View = ShareView()
             .environmentObject(currentState)
-            .environmentObject(apiHandler)
         
         let instantiatedViewController = UIHostingController(rootView: shareView)
         instantiatedViewController.isModalInPresentation = true

@@ -13,9 +13,6 @@ import SwiftUI
 struct SendFeedbackView: View {
     /// The instance of the Observable Object class named Model,  to share state data anywhere it’s needed.
     @EnvironmentObject var state: PrototyperState
-    /// <#Description#>
-    @EnvironmentObject var apiHandler: APIHandler
-    
     /// Once the feedback is sent the View is dismissed by updating this variable.
     @Binding var showSendFeedbackView: Bool
     /// The variable holds the image and the feedback text to be sent, which is given by the FeedbackView.
@@ -62,12 +59,12 @@ struct SendFeedbackView: View {
         print("SendFeedback called")
         feedback.creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.username)
         
-        apiHandler.send(
+        state.apiHandler.send(
             feedback: feedback,
             success: {
                 print("Successfully sent feedback to server")
                 Prototyper.dismissView()
-                Prototyper.currentState.feedbackButtonIsHidden = !Prototyper.settings.showFeedbackButton
+                state.setFeedbackButtonIsHidden()
             },
             failure: { _ in
                 self.shouldAnimate = false

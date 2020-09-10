@@ -12,7 +12,6 @@ import SwiftUI
 struct FeedbackView: View {
     /// The instance of the Observable Object class named Model,  to share state data anywhere it’s needed.
     @EnvironmentObject var state: PrototyperState
-    @EnvironmentObject var apiHandler: APIHandler
     
     /// This State variable holds the feedback text.
     @State var descriptionText: String = ""
@@ -49,7 +48,6 @@ struct FeedbackView: View {
                         EditScreenshotView()
                     }
                         .environmentObject(self.state)
-                        .environmentObject(self.apiHandler)
             }
         }
     }
@@ -108,7 +106,7 @@ struct FeedbackView: View {
     /// Dismisses the view and makes the Feedback bubble appear again.
     private func cancel() {
         Prototyper.dismissView()
-        Prototyper.currentState.feedbackButtonIsHidden = !Prototyper.settings.showFeedbackButton
+        state.setFeedbackButtonIsHidden()
     }
     
     /// Sends the feedback to Prototyper via the SendFeedbackView

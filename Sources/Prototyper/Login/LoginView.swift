@@ -39,8 +39,6 @@ struct LoginView: View {
     
     /// The instance of the Observable Object class named Model,  to share state data anywhere it’s needed.
     @EnvironmentObject var state: PrototyperState
-    /// <#Description#>
-    @EnvironmentObject var apiHandler: APIHandler
     /// Environment variable for presentationMode to dismiss the View.
     @Environment(\.presentationMode) var presentationMode
     
@@ -156,7 +154,7 @@ struct LoginView: View {
             state.continueWithoutLogin = true
         } else {
             isLoginIn = true
-            apiHandler.login(userid,
+            state.apiHandler.login(userid,
                              password: password,
                              success: {
                                 isLoginIn = false

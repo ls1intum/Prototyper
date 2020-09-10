@@ -79,7 +79,7 @@ struct ShareView: View {
     /// Dismisses the view and make the Feedback bubble appear again.
     private func cancel() {
         Prototyper.dismissView()
-        Prototyper.currentState.feedbackButtonIsHidden = !Prototyper.settings.showFeedbackButton
+        state.setFeedbackButtonIsHidden()
     }
     
     ///Shares the Invite to the emailId mentioned via the SendInviteView

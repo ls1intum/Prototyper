@@ -99,9 +99,9 @@ private let defaultBoundary = "------VohpleBoundary4QuqLuM1cE5lMwCy"
 // MARK: - APIHandler
 ///This class deals with making all the HTTP calls to the prototyper api, to login, send feedback and share request.
 class APIHandler: ObservableObject {
-    var settings: PrototyperSettings
     
-    @EnvironmentObject var state: PrototyperState
+    var state: PrototyperState
+    let prototyperInstance: URL
     
     /// The appID of the current Bundle
     var appId: String? {
@@ -116,8 +116,9 @@ class APIHandler: ObservableObject {
     }
     
     
-    init(settings: PrototyperSettings) {
-        self.settings = settings
+    init(prototyperInstance: URL, state: PrototyperState) {
+        self.prototyperInstance = prototyperInstance
+        self.state = state
         tryToFetchReleaseInfos()
         tryToLogin()
     }
@@ -142,7 +143,7 @@ class APIHandler: ObservableObject {
         
         guard let url = URL(string: API.EndPoints.fetchReleaseInfo(bundleId: bundleId,
                                                                    bundleVersion: bundleVersion),
-                            relativeTo: settings.prototyperInstance) else {
+                            relativeTo: prototyperInstance) else {
             print("Coule not create URL for API Endpoint")
             failure(nil)
             return
@@ -183,7 +184,7 @@ class APIHandler: ObservableObject {
     /// The login task is performed here.
     func login(_ id: String, password: String, success: @escaping () -> Void, failure: @escaping (_ error: Error?) -> Void) {
         let params = postParamsForLogin(email: id, password: password)
-        let articlesURL = URL(string: API.EndPoints.login, relativeTo: settings.prototyperInstance)
+        let articlesURL = URL(string: API.EndPoints.login, relativeTo: prototyperInstance)
         
         guard let requestURL = articlesURL else {
             failure(PrototyperError.APIURLError)
@@ -246,7 +247,7 @@ class APIHandler: ObservableObject {
                                                            releaseId: releaseId,
                                                            text: description.escaped,
                                                            username: name?.escaped),
-                            relativeTo: settings.prototyperInstance) else {
+                            relativeTo: prototyperInstance) else {
             print("Coule not create URL for API Endpoint")
             failure(nil)
             return
@@ -277,7 +278,7 @@ class APIHandler: ObservableObject {
                                                            releaseId: releaseId,
                                                            text: description.escaped,
                                                            username: name?.escaped),
-                            relativeTo: settings.prototyperInstance) else {
+                            relativeTo: prototyperInstance) else {
             print("Coule not create URL for API Endpoint")
             failure(nil)
             return
@@ -322,7 +323,7 @@ class APIHandler: ObservableObject {
                                                         sharedEmail: email.escaped,
                                                         explanation: explanation.escaped,
                                                         username: name?.escaped),
-                            relativeTo: settings.prototyperInstance) else {
+                            relativeTo: prototyperInstance) else {
             print("Coule not create URL for API Endpoint")
             failure(nil)
             return
