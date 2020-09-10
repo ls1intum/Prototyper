@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6577E66F24F423490055802C /* Prototyper_ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6577E66E24F423490055802C /* Prototyper_ExampleApp.swift */; };
+		6577E66F24F423490055802C /* PrototyperExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6577E66E24F423490055802C /* PrototyperExampleApp.swift */; };
 		6577E67124F423490055802C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6577E67024F423490055802C /* ContentView.swift */; };
 		6577E67324F423490055802C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6577E67224F423490055802C /* Assets.xcassets */; };
 		6577E67624F423490055802C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6577E67524F423490055802C /* Preview Assets.xcassets */; };
@@ -16,7 +16,7 @@
 
 /* Begin PBXFileReference section */
 		6577E66B24F423490055802C /* Prototyper Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Prototyper Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6577E66E24F423490055802C /* Prototyper_ExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prototyper_ExampleApp.swift; sourceTree = "<group>"; };
+		6577E66E24F423490055802C /* PrototyperExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrototyperExampleApp.swift; sourceTree = "<group>"; };
 		6577E67024F423490055802C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6577E67224F423490055802C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6577E67524F423490055802C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -57,7 +57,7 @@
 		6577E66D24F423490055802C /* Prototyper Example */ = {
 			isa = PBXGroup;
 			children = (
-				6577E66E24F423490055802C /* Prototyper_ExampleApp.swift */,
+				6577E66E24F423490055802C /* PrototyperExampleApp.swift */,
 				6577E67024F423490055802C /* ContentView.swift */,
 				6577E67224F423490055802C /* Assets.xcassets */,
 				6577E67724F423490055802C /* Info.plist */,
@@ -154,7 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6577E67124F423490055802C /* ContentView.swift in Sources */,
-				6577E66F24F423490055802C /* Prototyper_ExampleApp.swift in Sources */,
+				6577E66F24F423490055802C /* PrototyperExampleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
