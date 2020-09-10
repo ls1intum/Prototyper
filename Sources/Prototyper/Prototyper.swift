@@ -14,7 +14,6 @@ public struct PrototyperSettings {
     public static var `default`: PrototyperSettings = {
         PrototyperSettings(showFeedbackButton: true,
                            prototyperInstance: URL(string: "https://prototyper.ase.in.tum.de/login")!)
-        // swiftlint:disable:previous force_unwrap
     }()
     
     
@@ -148,4 +147,3 @@ public class Prototyper {
         fatalError("An instance of Prototyper should never be created")
     }
 }
-
