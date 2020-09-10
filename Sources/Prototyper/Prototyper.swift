@@ -143,6 +143,7 @@ public class Prototyper {
         }
     }
     
+    @available(*, unavailable)
     private init() {
         fatalError("An instance of Prototyper should never be created")
     }

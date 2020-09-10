@@ -99,9 +99,10 @@ private let defaultBoundary = "------VohpleBoundary4QuqLuM1cE5lMwCy"
 // MARK: - APIHandler
 ///This class deals with making all the HTTP calls to the prototyper api, to login, send feedback and share request.
 class APIHandler: ObservableObject {
-    
-    var state: PrototyperState
+    ///The URL for the prototyper instance
     let prototyperInstance: URL
+    ///The prototyper state which is set durring the initialization
+    var state: PrototyperState
     
     /// The appID of the current Bundle
     var appId: String? {

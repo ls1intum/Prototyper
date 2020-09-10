@@ -38,11 +38,12 @@ extension Prototyper {
             .receive(on: RunLoop.main)
             .sink { feedbackButtonIsHidden in
                 if feedbackButtonIsHidden {
-                    UIView.animate(withDuration: 0.3, animations: {
-                        feedbackBubble.alpha = 0.0
-                    }, completion: { _ in
-                        feedbackBubble.isHidden = true
-                    })
+                    UIView.animate(withDuration: 0.3,
+                                   animations: {
+                                    feedbackBubble.alpha = 0.0
+                                   }, completion: { _ in
+                                    feedbackBubble.isHidden = true
+                                   })
                 } else {
                     UIView.animate(withDuration: 0.3) {
                         feedbackBubble.isHidden = false
