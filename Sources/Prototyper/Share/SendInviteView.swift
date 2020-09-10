@@ -52,12 +52,12 @@ struct SendInviteView: View {
         
         shareRequest.creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.username)
         state.apiHandler.send(shareRequest: shareRequest,
-                        success: {
-                            print("Successfully sent share request to server")
-                            Prototyper.dismissView()
-                            state.setFeedbackButtonIsHidden()
-                        }, failure: { _ in
-                            self.showingAlert = true
-                        })
+                              success: {
+                                print("Successfully sent share request to server")
+                                Prototyper.dismissView()
+                                state.setFeedbackButtonIsHidden()
+                              }, failure: { _ in
+                                self.showingAlert = true
+                              })
     }
 }

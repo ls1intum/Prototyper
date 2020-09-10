@@ -64,14 +64,15 @@ public class PrototyperState: ObservableObject {
         apiHandler = APIHandler(prototyperInstance: settings.prototyperInstance, state: self)
     }
     
+    ///Function to set FeedbackButtonIsHidden
     func setFeedbackButtonIsHidden(_ feedbackButtonIsHidden: Bool) {
         self.feedbackButtonIsHidden = feedbackButtonIsHidden
     }
+    
+    ///Function to set FeedbackButtonIsHidden depending on the PrototyperState
     func setFeedbackButtonIsHidden() {
         self.feedbackButtonIsHidden = !Prototyper.settings.showFeedbackButton
     }
-    
-    
 }
 
 

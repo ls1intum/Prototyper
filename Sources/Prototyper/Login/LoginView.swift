@@ -155,14 +155,14 @@ struct LoginView: View {
         } else {
             isLoginIn = true
             state.apiHandler.login(userid,
-                             password: password,
-                             success: {
-                                isLoginIn = false
-                             },
-                             failure: { _ in
-                                isLoginIn = false
-                                self.showingLoginErrorAlert()
-                             })
+                                   password: password,
+                                   success: {
+                                    isLoginIn = false
+                                   },
+                                   failure: { _ in
+                                    isLoginIn = false
+                                    self.showingLoginErrorAlert()
+                                   })
             state.continueWithoutLogin = false
         }
     }

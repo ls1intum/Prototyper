@@ -270,7 +270,7 @@ class APIHandler: ObservableObject {
             failure(nil)
             return
         }
-
+        
         let contentType = "\(MimeType.multipart.rawValue); boundary=\(defaultBoundary)"
         let bodyData = bodyDataForImage(screenshot)
         
@@ -297,8 +297,8 @@ class APIHandler: ObservableObject {
     // MARK: Share
     /// Internally calls another function that send the share request to the specified user
     func send(shareRequest: ShareRequest,
-                     success: @escaping () -> Void,
-                     failure: @escaping (_ error: Error?) -> Void) {
+              success: @escaping () -> Void,
+              failure: @escaping (_ error: Error?) -> Void) {
         sendShareRequest(for: shareRequest.email,
                          because: shareRequest.content,
                          name: shareRequest.creatorName,
@@ -317,7 +317,7 @@ class APIHandler: ObservableObject {
             failure(nil)
             return
         }
-
+        
         guard let url = URL(string: API.EndPoints.share(appId,
                                                         releaseId: releaseId,
                                                         sharedEmail: email.escaped,
@@ -335,7 +335,7 @@ class APIHandler: ObservableObject {
             error != nil ? failure(error) : success()
         }
     }
-
+    
     
     // MARK: Helper
     fileprivate func jsonRequestForHttpMethod(_ method: HTTPMethod,
