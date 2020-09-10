@@ -31,7 +31,7 @@ struct EditScreenshotView: View {
         VStack(alignment: .center) {
             Spacer(minLength: 16)
             ZStack(alignment: .center) {
-                Image(uiImage: self.state.screenshot!)
+                Image(uiImage: state.getScreenshot())
                     .resizable()
                     .scaledToFit()
                     .shadow(color: Color.primary.opacity(0.2), radius: 5.0)
@@ -87,7 +87,7 @@ struct EditScreenshotView: View {
     func saveDrawing() {
         state.markupDrawings = canvas.drawing
         let drawingImage = canvas.drawing.image(from: canvas.bounds, scale: 1)
-        state.screenshotWithMarkup = combineImage(top: drawingImage, bottom: state.screenshot!)
+        state.screenshotWithMarkup = combineImage(top: drawingImage, bottom: state.getScreenshot())
         self.presentationMode.wrappedValue.dismiss()
     }
     

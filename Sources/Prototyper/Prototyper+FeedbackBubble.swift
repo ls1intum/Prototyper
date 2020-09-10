@@ -31,7 +31,7 @@ extension Prototyper {
     static var feedbackBubble: FeedbackBubble = {
         let feedbackBubble = FeedbackBubble(target: Prototyper.self,
                                             action: #selector(showActionSheet))
-
+        
         feedbackBubble.layer.zPosition = 100
         
         stateObservingCancellable = currentState.$feedbackButtonIsHidden

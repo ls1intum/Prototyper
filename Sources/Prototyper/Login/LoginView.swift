@@ -106,7 +106,6 @@ struct LoginView: View {
                             ProgressView()
                         } else {
                             Text(continueButtonText).bold()
-                            
                         }
                     }
                     .foregroundColor(.white)
@@ -191,4 +190,3 @@ struct LoginView: View {
         showLoginErrorAlert = true
     }
 }
-

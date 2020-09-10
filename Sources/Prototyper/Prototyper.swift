@@ -73,6 +73,24 @@ public class PrototyperState: ObservableObject {
     func setFeedbackButtonIsHidden() {
         self.feedbackButtonIsHidden = !Prototyper.settings.showFeedbackButton
     }
+    
+    ///Returns the Screenshot if available
+    func getScreenshot() -> UIImage {
+        guard let screenshot = screenshot else {
+            perror("Could not load the screenshot!")
+            return UIImage()
+        }
+        return screenshot
+    }
+    
+    ///Returns the Screenshot if available
+    func getScreenshotWithMarkup() -> UIImage {
+        guard let screenshotWithMarkup = screenshotWithMarkup else {
+            perror("Could not load the screenshot!")
+            return UIImage()
+        }
+        return screenshotWithMarkup
+    }
 }
 
 

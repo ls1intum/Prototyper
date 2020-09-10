@@ -56,7 +56,7 @@ struct FeedbackView: View {
     var screenshot: some View {
         ZStack(alignment: .topTrailing) {
             ZStack {
-                Image(uiImage: state.screenshotWithMarkup!)
+                Image(uiImage: state.getScreenshotWithMarkup())
                     .resizable()
                     .shadow(color: Color.primary.opacity(0.2), radius: 5.0)
                     .scaledToFit()
