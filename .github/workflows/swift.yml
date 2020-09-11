@@ -2,16 +2,23 @@ name: Build and Test
 
 on:
   push:
-    branches: [ develop, release ]
+    branches:
+      - develop
+      - release
   pull_request:
-    branches: [ develop, release ]
+    branches:
+      - develop
+      - release
 
 jobs:
   macos:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Xcode version check
+    - uses: maxim-lobanov/setup-xcode@v1.1
+      with:
+        xcode-version: latest
+    - name: Check Xcode version
       run: xcodebuild -version
     - name: Check Swift version
       run: swift --version
