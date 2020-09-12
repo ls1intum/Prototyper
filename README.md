@@ -55,3 +55,4 @@ Your users can use the feedback button to give feedback and share the applicatio
 ## License
 
 Prototyper is available under the MIT license. See the LICENSE file for more info.
+Prototyper wurde initital im Rahmen des vom BMBF geförderten Softwarecampus Projekt ProCeeD unter der Leitung von Dr. Lukas Alperowitz entwickelt.
