@@ -14,7 +14,8 @@ import Prototyper
 struct PrototyperExampleApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView().prototyper(PrototyperSettings.default)
+            ContentView()
+                .prototyper(PrototyperSettings.default)
         }
     }
 }
