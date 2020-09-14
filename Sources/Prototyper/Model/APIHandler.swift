@@ -101,9 +101,11 @@ private let defaultBoundary = "------VohpleBoundary4QuqLuM1cE5lMwCy"
 class APIHandler: ObservableObject {
     ///The URL for the prototyper instance
     let prototyperInstance: URL
-    ///The prototyper state which is set durring the initialization
-    var state: PrototyperState
     
+    /// This boolean variable is used to check if the user is submitting feedback with or without logging in.
+    var continueWithoutLogin: Bool = false
+    /// This boolean variable is used to check if the user is logged in
+    var userIsLoggedIn: Bool = false
     /// The appID of the current Bundle
     var appId: String? {
         let readPrototyperAppId = Bundle.main.object(forInfoDictionaryKey: "PrototyperAppId") as? String
@@ -119,7 +121,6 @@ class APIHandler: ObservableObject {
     
     init(prototyperInstance: URL, state: PrototyperState) {
         self.prototyperInstance = prototyperInstance
-        self.state = state
         tryToFetchReleaseInfos()
         tryToLogin()
     }
@@ -204,12 +205,12 @@ class APIHandler: ObservableObject {
             let error = (data == nil || httpURLResponse?.statusCode != 200) ? PrototyperError.dataParseError : networkError
             if error != nil {
                 failure(error)
-                self.state.userIsLoggedIn = false
+                self.userIsLoggedIn = false
             } else {
                 KeyChain.store(element: id, for: KeychainKeys.userNameKey)
                 KeyChain.store(element: password, for: KeychainKeys.passwordKey)
-                self.state.userIsLoggedIn = true
-                self.state.continueWithoutLogin = false
+                self.userIsLoggedIn = true
+                self.continueWithoutLogin = false
                 success()
             }
         }

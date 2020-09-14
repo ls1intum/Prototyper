@@ -36,7 +36,7 @@ public struct PrototyperSettings {
 
 
 /// This class contains the information which are shared a cross the different classes
-public class PrototyperState: ObservableObject {
+class PrototyperState: ObservableObject {
     /// Boolean whether the feedback button is shown
     @Published var feedbackButtonIsHidden: Bool
     /// The screenshot that should be displayed in the feedback view
@@ -49,13 +49,19 @@ public class PrototyperState: ObservableObject {
     @Published var screenshotWithMarkup: UIImage?
     /// This variable holds all the drawings the user draws in the Markup view.
     @Published var markupDrawings: PKDrawing?
-    /// This boolean variable is used to check if the user is submitting feedback with or without logging in.
-    @Published var continueWithoutLogin: Bool = false
-    /// This boolean variable is used to check if the user is logged in
-    @Published var userIsLoggedIn: Bool = false
     ///The APIHandler handels everything related to networking
     @Published var apiHandler: APIHandler!
     
+    /// This boolean variable is used to check if the user is submitting feedback with or without logging in.
+    var continueWithoutLogin: Bool {
+        print("ContinueWithoutLogin set with \(apiHandler.continueWithoutLogin)")
+        return apiHandler.continueWithoutLogin
+    }
+    /// This boolean variable is used to check if the user is logged in
+    var userIsLoggedIn: Bool {
+        print("UserisLoggedIn set with \(apiHandler.userIsLoggedIn)")
+        return apiHandler.userIsLoggedIn
+    }
     /// Initializer for the state
     /// - Parameter feedbackButtonIsHidden: Boolean whether the feedback button is shown
     init(_ settings: PrototyperSettings) {
@@ -90,6 +96,20 @@ public class PrototyperState: ObservableObject {
         }
         return screenshotWithMarkup
     }
+    
+//    func getContinueWithoutLogin() -> Bool {
+//        return apiHandler.continueWithoutLogin
+//    }
+//
+//    func getUserIsLoggedIn() -> Bool {
+//        return apiHandler.userIsLoggedIn
+//    }
+//
+    func setContinueWithoutLogin(_ bool: Bool) {
+        apiHandler.continueWithoutLogin = bool
+    }
+    
+    
 }
 
 

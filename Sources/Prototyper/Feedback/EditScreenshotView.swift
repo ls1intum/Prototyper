@@ -20,7 +20,19 @@ struct EditScreenshotView: View {
     @State var color: Color = .black
     @State var type: PKInkingTool.InkType = .pencil
     @State var colorPicker = false
-    @State var inkTypeImage: String = "pencil"
+    
+    var inkTypeImage: String {
+        switch type {
+        case .pencil:
+            return "pencil.tip"
+        case .pen:
+            return "highlighter"
+        case .marker:
+            return "pencil"
+        default:
+            return "pencil.tip"
+        }
+    }
     
     ///Changes the pencil image whether you are drawing or want to erase something
     var pencilImage: String {
@@ -40,12 +52,12 @@ struct EditScreenshotView: View {
             Spacer(minLength: 16)
             actions
         }
-            .navigationBarTitle("Markup")
-            .navigationBarItems(leading: cancelButton, trailing: saveButton)
-            .sheet(isPresented: $colorPicker) {
-                ColorPicker("Pick Color", selection: $color)
-                    .padding()
-            }
+        .navigationBarTitle("Markup")
+        .navigationBarItems(leading: cancelButton, trailing: saveButton)
+        .sheet(isPresented: $colorPicker) {
+            ColorPicker("Pick Color", selection: $color)
+                .padding()
+        }
     }
     
     ///View for all drawing related actions
@@ -114,16 +126,12 @@ struct EditScreenshotView: View {
         isDraw = true
         switch type {
         case .pencil:
-            inkTypeImage = "pencil.tip"
             type = .pen
         case .pen:
-            inkTypeImage = "highlighter"
             type = .marker
         case .marker:
-            inkTypeImage = "pencil"
             type = .pencil
         default:
-            inkTypeImage = "pencil.tip"
             type = .pen
         }
     }
