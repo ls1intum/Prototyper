@@ -150,7 +150,7 @@ struct LoginView: View {
     private func login() {
         if continueWithoutLogin {
             UserDefaults.standard.set(userid, forKey: UserDefaultKeys.username)
-            state.setContinueWithoutLogin(true)
+            state.apiHandler.continueWithoutLogin = true
         } else {
             isLoginIn = true
             state.apiHandler.login(userid,
@@ -162,7 +162,7 @@ struct LoginView: View {
                                     isLoginIn = false
                                     self.showingLoginErrorAlert()
                                    })
-            state.setContinueWithoutLogin(false)
+            state.apiHandler.continueWithoutLogin = false
         }
     }
     

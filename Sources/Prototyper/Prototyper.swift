@@ -52,16 +52,6 @@ class PrototyperState: ObservableObject {
     ///The APIHandler handels everything related to networking
     @Published var apiHandler: APIHandler!
     
-    /// This boolean variable is used to check if the user is submitting feedback with or without logging in.
-    var continueWithoutLogin: Bool {
-        print("ContinueWithoutLogin set with \(apiHandler.continueWithoutLogin)")
-        return apiHandler.continueWithoutLogin
-    }
-    /// This boolean variable is used to check if the user is logged in
-    var userIsLoggedIn: Bool {
-        print("UserisLoggedIn set with \(apiHandler.userIsLoggedIn)")
-        return apiHandler.userIsLoggedIn
-    }
     /// Initializer for the state
     /// - Parameter feedbackButtonIsHidden: Boolean whether the feedback button is shown
     init(_ settings: PrototyperSettings) {
@@ -95,10 +85,6 @@ class PrototyperState: ObservableObject {
             return UIImage()
         }
         return screenshotWithMarkup
-    }
-    
-    func setContinueWithoutLogin(_ bool: Bool) {
-        apiHandler.continueWithoutLogin = bool
     }
 }
 

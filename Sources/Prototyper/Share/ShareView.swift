@@ -47,7 +47,7 @@ struct ShareView: View {
     /// Holds the inviteList and the inviteText to be sent
     private var currentShareRequest: ShareRequest {
         var creatorName: String?
-        if !state.userIsLoggedIn {
+        if !state.apiHandler.userIsLoggedIn {
             creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.username)
         }
         

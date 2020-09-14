@@ -25,7 +25,7 @@ struct SendInviteView: View {
     
     var body: some View {
         VStack {
-            if !(state.userIsLoggedIn || state.continueWithoutLogin) {
+            if !(state.apiHandler.userIsLoggedIn || state.apiHandler.continueWithoutLogin) {
                 LoginView()
             } else {
                 ProgressView {

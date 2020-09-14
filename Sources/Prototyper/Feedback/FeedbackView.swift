@@ -79,7 +79,7 @@ struct FeedbackView: View {
     /// Holds the screenshot and the feedback text to be sent to Prototyper
     var currentFeedback: Feedback {
         var creatorName: String?
-        if state.userIsLoggedIn {
+        if state.apiHandler.userIsLoggedIn {
             creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.username)
         }
         

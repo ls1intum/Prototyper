@@ -30,7 +30,7 @@ struct SendFeedbackView: View {
     @State private var dismissView = false
     var body: some View {
         VStack {
-            if !(state.userIsLoggedIn || state.continueWithoutLogin) {
+            if !(state.apiHandler.userIsLoggedIn || state.apiHandler.continueWithoutLogin) {
                 LoginView()
             } else {
                 ProgressView {
