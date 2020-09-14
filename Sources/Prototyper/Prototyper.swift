@@ -97,19 +97,9 @@ class PrototyperState: ObservableObject {
         return screenshotWithMarkup
     }
     
-//    func getContinueWithoutLogin() -> Bool {
-//        return apiHandler.continueWithoutLogin
-//    }
-//
-//    func getUserIsLoggedIn() -> Bool {
-//        return apiHandler.userIsLoggedIn
-//    }
-//
     func setContinueWithoutLogin(_ bool: Bool) {
         apiHandler.continueWithoutLogin = bool
     }
-    
-    
 }
 
 
