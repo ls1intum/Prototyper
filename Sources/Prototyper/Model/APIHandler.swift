@@ -103,9 +103,9 @@ class APIHandler: ObservableObject {
     let prototyperInstance: URL
     
     /// This boolean variable is used to check if the user is submitting feedback with or without logging in.
-    var continueWithoutLogin: Bool = false
+    @Published var continueWithoutLogin: Bool = false
     /// This boolean variable is used to check if the user is logged in
-    var userIsLoggedIn: Bool = false
+    @Published var userIsLoggedIn: Bool = false
     /// The appID of the current Bundle
     var appId: String? {
         let readPrototyperAppId = Bundle.main.object(forInfoDictionaryKey: "PrototyperAppId") as? String
