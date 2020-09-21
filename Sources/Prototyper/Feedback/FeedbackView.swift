@@ -23,6 +23,8 @@ struct FeedbackView: View {
     @State var showSendFeedbackView: Bool = false
     /// The variable holds the image and the feedback text to be sent.
     @State var feedback: Feedback?
+    /// Stores the old value set as a preference for `UITextView.appearance().backgroundColor` so we can show a placeholder behind the view
+    @State var oldTextViewColor: UIColor?
     
     
     var body: some View {
@@ -38,13 +40,20 @@ struct FeedbackView: View {
                         Text("")
                     }
                     ZStack(alignment: .topLeading) {
-                        TextEditor(text: $descriptionText)
                         if descriptionText.isEmpty {
                             Text("Add your feedback here...")
                                 .foregroundColor(Color(.systemGray3))
                                 .padding(.top, 8)
                                 .padding(.leading, 4)
                         }
+                        TextEditor(text: $descriptionText)
+                            .onAppear {
+                                oldTextViewColor = UITextView.appearance().backgroundColor
+                                UITextView.appearance().backgroundColor = .clear
+                            }
+                            .onDisappear {
+                                UITextView.appearance().backgroundColor = oldTextViewColor
+                            }
                     }
                 }
                 Spacer()

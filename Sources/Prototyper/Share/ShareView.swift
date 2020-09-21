@@ -22,6 +22,8 @@ struct ShareView: View {
     @State var showSendInviteView: Bool = false
     /// The State variable that holds the ShareRequest object.
     @State var shareRequest: ShareRequest?
+    /// Stores the old value set as a preference for `UITextView.appearance().backgroundColor` so we can show a placeholder behind the view
+    @State var oldTextViewColor: UIColor?
     
     
     var body: some View {
@@ -32,14 +34,21 @@ struct ShareView: View {
                     TextField("email@example.com", text: $inviteList)
                     Text("Invitation Text:")
                     ZStack(alignment: .topLeading) {
-                        TextEditor(text: $inviteText)
-                            .border(Color(.systemGray6), width: 1)
                         if inviteText.isEmpty {
                             Text("This is the content of the invitation...")
                                 .foregroundColor(Color(.systemGray3))
                                 .padding(.top, 8)
                                 .padding(.leading, 4)
                         }
+                        TextEditor(text: $inviteText)
+                            .onAppear {
+                                oldTextViewColor = UITextView.appearance().backgroundColor
+                                UITextView.appearance().backgroundColor = .clear
+                            }
+                            .onDisappear {
+                                UITextView.appearance().backgroundColor = oldTextViewColor
+                            }
+                            .border(Color(.systemGray6), width: 1)
                     }
                     NavigationLink(destination: SendInviteView(showSendInviteView: $showSendInviteView,
                                                                shareRequest: $shareRequest),
