@@ -23,6 +23,7 @@ struct ShareView: View {
     /// The State variable that holds the ShareRequest object.
     @State var shareRequest: ShareRequest?
     
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -30,18 +31,27 @@ struct ShareView: View {
                     Text("Send the invitation to test the app to:")
                     TextField("email@example.com", text: $inviteList)
                     Text("Invitation Text:")
-                    MultilineTextView(text: $inviteText, placeholderText: "This is the content of the invitation...").frame(numLines: 10)
+                    ZStack(alignment: .topLeading) {
+                        TextEditor(text: $inviteText)
+                            .border(Color(.systemGray6), width: 1)
+                        if inviteText.isEmpty {
+                            Text("This is the content of the invitation...")
+                                .foregroundColor(Color(.systemGray3))
+                                .padding(.top, 8)
+                                .padding(.leading, 4)
+                        }
+                    }
                     NavigationLink(destination: SendInviteView(showSendInviteView: $showSendInviteView,
                                                                shareRequest: $shareRequest),
                                    isActive: $showSendInviteView) {
                         Text("")
-                    }
+                    }.frame(height: 0)
                 }
                 Spacer()
-            }.padding(20)
-            .navigationBarTitle("Share App")
-            .navigationBarItems(leading: cancelButton, trailing: shareButton)
-        }
+            }.padding([.horizontal, .top], 20)
+                .navigationBarTitle("Share App")
+                .navigationBarItems(leading: cancelButton, trailing: shareButton)
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
     
     /// Holds the inviteList and the inviteText to be sent
@@ -88,6 +98,7 @@ struct ShareView: View {
         self.showSendInviteView = true
     }
 }
+
 
 // MARK: ShareView + Preview
 struct ShareView_Previews: PreviewProvider {

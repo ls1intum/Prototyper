@@ -37,19 +37,30 @@ struct FeedbackView: View {
                                    isActive: $showSendFeedbackView) {
                         Text("")
                     }
-                    MultilineTextView(text: $descriptionText, placeholderText: "Add your feedback here...").frame(numLines: 15)
+                    ZStack(alignment: .topLeading) {
+                        TextEditor(text: $descriptionText)
+                        if descriptionText.isEmpty {
+                            Text("Add your feedback here...")
+                                .foregroundColor(Color(.systemGray3))
+                                .padding(.top, 8)
+                                .padding(.leading, 4)
+                        }
+                    }
                 }
                 Spacer()
-            }.padding()
+            }
+            .padding()
             .navigationBarTitle("Give Feedback")
             .navigationBarItems(leading: cancelButton, trailing: sendButton)
             .sheet(isPresented: $showSheet) {
-                    NavigationView {
-                        EditScreenshotView()
-                    }
-                        .environmentObject(self.state)
+                NavigationView {
+                    EditScreenshotView()
+                }
+                .navigationViewStyle(StackNavigationViewStyle())
+                .environmentObject(self.state)
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     /// The screenshot displayed on the FeedbackView with a Markup and delete button
@@ -117,7 +128,7 @@ struct FeedbackView: View {
     
     /// Brings up the EditScreenShotView to Markup the screenshot
     private func editImage() {
-            showSheet = true
+        showSheet = true
     }
     
     /// Deletes the screenshot from the View
