@@ -53,6 +53,7 @@ struct LoginView: View {
     ///Shows ProgessView while logging in
     @State var isLoginIn: Bool = false
     
+    
     var descriptionText: String {
         if continueWithoutLogin {
             return LoginViewConstants.DescrpitionText.withoutLoginText
@@ -113,10 +114,12 @@ struct LoginView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                     .background(buttonColor)
                     .cornerRadius(10)
-                }.disabled(userid.isEmpty || password.isEmpty)
+                }
+                .disabled(userid.isEmpty || password.isEmpty)
                 Button(action: loginSubButton) {
                     Text(subButtonText).bold()
-                }.alert(isPresented: $showLoginErrorAlert) {
+                }
+                .alert(isPresented: $showLoginErrorAlert) {
                     Alert(title: Text("Error"), message: Text(LoginViewConstants.alertText), dismissButton: .default(Text("OK")))
                 }
                 Spacer()

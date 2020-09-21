@@ -20,6 +20,7 @@ struct EditScreenshotView: View {
     @State var color: Color = .black
     @State var type: PKInkingTool.InkType = .pencil
     
+    
     var inkTypeImage: String {
         switch type {
         case .pencil:
@@ -70,9 +71,11 @@ struct EditScreenshotView: View {
                 }
             ColorPicker(selection: $color) {
                 Text("")
-            }.frame(width: 30)
-                .padding(.trailing, 8)
-        }.frame(height: 32)
+            }
+            .frame(width: 30)
+            .padding(.trailing, 8)
+        }
+        .frame(height: 32)
     }
     
     /// The cancel button displayed on the left top corner of the View.
@@ -89,11 +92,13 @@ struct EditScreenshotView: View {
         }
     }
     
+    
     ///Adds the drawings to the screenshot
     func saveDrawing() {
         state.markupDrawings = canvas.drawing
         let drawingImage = canvas.drawing.image(from: canvas.bounds, scale: 1)
         state.screenshotWithMarkup = combineImage(top: drawingImage, bottom: state.getScreenshot())
+        
         self.presentationMode.wrappedValue.dismiss()
     }
     
@@ -101,17 +106,22 @@ struct EditScreenshotView: View {
     func cancle() {
         //If the current drawings should be deleted, just comment out this line
         state.markupDrawings = canvas.drawing
+        
         self.presentationMode.wrappedValue.dismiss()
     }
     
     ///Combines to images to one
     func combineImage(top: UIImage, bottom: UIImage) -> UIImage {
         UIGraphicsBeginImageContext(top.size)
+        
         let areaSize = CGRect(x: 0, y: 0, width: top.size.width, height: top.size.height)
         bottom.draw(in: areaSize)
         top.draw(in: areaSize, blendMode: .normal, alpha: 0.8)
+        
+        // swiftlint:disable:next force_unwrapping
         let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
+        
         return newImage
     }
     
@@ -128,40 +138,5 @@ struct EditScreenshotView: View {
         default:
             type = .pen
         }
-    }
-}
-
-// MARK: DrawingBoard
-///Thjs view is a paintable overlay for the screenshot
-struct DrawingBoard: UIViewRepresentable {
-    @EnvironmentObject var state: PrototyperState
-    ///Bindings for the initialization
-    @Binding var canvas: PKCanvasView
-    @Binding var isDraw: Bool
-    @Binding var type: PKInkingTool.InkType
-    @Binding var color: Color
-    
-    var ink: PKInkingTool {
-        PKInkingTool(type, color: UIColor(color))
-    }
-    
-    let eraser = PKEraserTool(.vector)
-    
-    ///Set up the canvas
-    func makeUIView(context: Context) -> PKCanvasView {
-        if let drawings = state.markupDrawings {
-            canvas.drawing = drawings
-        }
-        canvas.drawingPolicy = .anyInput
-        canvas.tool = isDraw ? ink: eraser
-        canvas.isOpaque = false
-        canvas.backgroundColor = .clear
-        canvas.overrideUserInterfaceStyle = .light
-        return canvas
-    }
-    
-    ///Updates the tool
-    func updateUIView (_ uiView: PKCanvasView, context: Context) {
-        uiView.tool = isDraw ? ink: eraser
     }
 }
