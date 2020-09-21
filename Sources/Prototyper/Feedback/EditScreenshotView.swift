@@ -19,7 +19,6 @@ struct EditScreenshotView: View {
     @State var isDraw = true
     @State var color: Color = .black
     @State var type: PKInkingTool.InkType = .pencil
-    @State var colorPicker = false
     
     var inkTypeImage: String {
         switch type {
@@ -54,10 +53,6 @@ struct EditScreenshotView: View {
         }
         .navigationBarTitle("Markup")
         .navigationBarItems(leading: cancelButton, trailing: saveButton)
-        .sheet(isPresented: $colorPicker) {
-            ColorPicker("Pick Color", selection: $color)
-                .padding()
-        }
     }
     
     ///View for all drawing related actions
@@ -73,11 +68,10 @@ struct EditScreenshotView: View {
                 .onTapGesture {
                     changeInkType()
                 }
-            Image(systemName: "pencil.circle.fill")
-                .imageScale(.large)
-                .onTapGesture {
-                    colorPicker.toggle()
-                }
+            ColorPicker(selection: $color) {
+                Text("")
+            }.frame(width: 30)
+                .padding(.trailing, 8)
         }.frame(height: 32)
     }
     
