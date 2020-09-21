@@ -31,18 +31,19 @@ extension Prototyper {
     static var feedbackBubble: FeedbackBubble = {
         let feedbackBubble = FeedbackBubble(target: Prototyper.self,
                                             action: #selector(showActionSheet))
-
+        
         feedbackBubble.layer.zPosition = 100
         
         stateObservingCancellable = currentState.$feedbackButtonIsHidden
             .receive(on: RunLoop.main)
             .sink { feedbackButtonIsHidden in
                 if feedbackButtonIsHidden {
-                    UIView.animate(withDuration: 0.3, animations: {
-                        feedbackBubble.alpha = 0.0
-                    }, completion: { _ in
-                        feedbackBubble.isHidden = true
-                    })
+                    UIView.animate(withDuration: 0.3,
+                                   animations: {
+                                    feedbackBubble.alpha = 0.0
+                                   }, completion: { _ in
+                                    feedbackBubble.isHidden = true
+                                   })
                 } else {
                     UIView.animate(withDuration: 0.3) {
                         feedbackBubble.isHidden = false

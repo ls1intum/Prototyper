@@ -71,7 +71,6 @@ platform :ios do
             codesigning_identity: ENV['bamboo_CodeSigningIdentity'],
             configuration: "Release",
         )
-
         # Create Build String
         sh "echo $PROTOTYPER_BUILDSTRING > BuildString.txt"
         sh "mv BuildString.txt ../"

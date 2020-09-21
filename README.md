@@ -19,29 +19,19 @@ Your users can use the feedback button to give feedback and share the applicatio
 
 1. Add the Prototyper framework to your application as a swift package dependency. Follow the instructions specified [here](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app) and use https://github.com/ls1intum/Prototyper.git as the package respository URL.
 
-2. Display the feedback button in the `scene(: UIScene, willConnectTo: UISceneSession, options: UIScene.ConnectionOptions)` method of your `SceneDelegate`. Don't forget to import the Prototyper framework. You can configure the `Prototyper` framework using `Prototyper.configure(_: PrototyperSettings)` using the `PrototyperSettings`.
+2. Display the feedback button by using the `.prototyper(settings: PrototyperSettings)` modifier. If you add it to the `ContentView`, the button will be visible until you disable it. You can configure the `Prototyper` framework using the `PrototyperSettings` struct.
 
     ```swift
+    import SwiftUI
     import Prototyper
-    ```
-
-    ```swift
-    func scene(_ scene: UIScene,
-               willConnectTo session: UISceneSession,
-               options connectionOptions: UIScene.ConnectionOptions) {
-        guard let windowScene = scene as? UIWindowScene else {
-            return
+    @main
+    struct ExampleApp: App {
+        var body: some Scene {
+            WindowGroup {
+                ContentView()
+                    .prototyper(PrototyperSettings.default)
+            }
         }
-        
-        let contentView = ContentView()
-        
-        let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = UIHostingController(rootView: contentView)
-        self.window = window
-        
-        Prototyper.configure(.default)
-        
-        window.makeKeyAndVisible()
     }
     ```
 3. Deploy your application e.g. using the [Prototyper service found at https://prototyper.ase.in.tum.de](https://prototyper.ase.in.tum.de)

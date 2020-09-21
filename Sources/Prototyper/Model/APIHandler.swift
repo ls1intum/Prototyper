@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+import SwiftUI
 
 // MARK: - UserDefaultKeys
 /// The key to be specified to retrieve the appID, releaseID and the username being stored in UserDefaults.
@@ -99,12 +99,13 @@ private let defaultBoundary = "------VohpleBoundary4QuqLuM1cE5lMwCy"
 // MARK: - APIHandler
 ///This class deals with making all the HTTP calls to the prototyper api, to login, send feedback and share request.
 class APIHandler: ObservableObject {
-    var settings: PrototyperSettings
+    ///The URL for the prototyper instance
+    let prototyperInstance: URL
     
-    /// The variable that is updated when the user logs in.
-    var isLoggedIn: Bool = false
-    
-    
+    /// This boolean variable is used to check if the user is submitting feedback with or without logging in.
+    @Published var continueWithoutLogin: Bool = false
+    /// This boolean variable is used to check if the user is logged in
+    @Published var userIsLoggedIn: Bool = false
     /// The appID of the current Bundle
     var appId: String? {
         let readPrototyperAppId = Bundle.main.object(forInfoDictionaryKey: "PrototyperAppId") as? String
@@ -118,9 +119,8 @@ class APIHandler: ObservableObject {
     }
     
     
-    init(settings: PrototyperSettings) {
-        self.settings = settings
-        
+    init(prototyperInstance: URL, state: PrototyperState) {
+        self.prototyperInstance = prototyperInstance
         tryToFetchReleaseInfos()
         tryToLogin()
     }
@@ -145,7 +145,7 @@ class APIHandler: ObservableObject {
         
         guard let url = URL(string: API.EndPoints.fetchReleaseInfo(bundleId: bundleId,
                                                                    bundleVersion: bundleVersion),
-                            relativeTo: settings.prototyperInstance) else {
+                            relativeTo: prototyperInstance) else {
             print("Coule not create URL for API Endpoint")
             failure(nil)
             return
@@ -186,7 +186,7 @@ class APIHandler: ObservableObject {
     /// The login task is performed here.
     func login(_ id: String, password: String, success: @escaping () -> Void, failure: @escaping (_ error: Error?) -> Void) {
         let params = postParamsForLogin(email: id, password: password)
-        let articlesURL = URL(string: API.EndPoints.login, relativeTo: settings.prototyperInstance)
+        let articlesURL = URL(string: API.EndPoints.login, relativeTo: prototyperInstance)
         
         guard let requestURL = articlesURL else {
             failure(PrototyperError.APIURLError)
@@ -205,13 +205,14 @@ class APIHandler: ObservableObject {
             let error = (data == nil || httpURLResponse?.statusCode != 200) ? PrototyperError.dataParseError : networkError
             if error != nil {
                 failure(error)
+                self.userIsLoggedIn = false
             } else {
                 KeyChain.store(element: id, for: KeychainKeys.userNameKey)
                 KeyChain.store(element: password, for: KeychainKeys.passwordKey)
-                
+                self.userIsLoggedIn = true
+                self.continueWithoutLogin = false
                 success()
             }
-            self.isLoggedIn = error == nil
         }
     }
     
@@ -248,7 +249,7 @@ class APIHandler: ObservableObject {
                                                            releaseId: releaseId,
                                                            text: description.escaped,
                                                            username: name?.escaped),
-                            relativeTo: settings.prototyperInstance) else {
+                            relativeTo: prototyperInstance) else {
             print("Coule not create URL for API Endpoint")
             failure(nil)
             return
@@ -271,7 +272,7 @@ class APIHandler: ObservableObject {
             failure(nil)
             return
         }
-
+        
         let contentType = "\(MimeType.multipart.rawValue); boundary=\(defaultBoundary)"
         let bodyData = bodyDataForImage(screenshot)
         
@@ -279,7 +280,7 @@ class APIHandler: ObservableObject {
                                                            releaseId: releaseId,
                                                            text: description.escaped,
                                                            username: name?.escaped),
-                            relativeTo: settings.prototyperInstance) else {
+                            relativeTo: prototyperInstance) else {
             print("Coule not create URL for API Endpoint")
             failure(nil)
             return
@@ -298,8 +299,8 @@ class APIHandler: ObservableObject {
     // MARK: Share
     /// Internally calls another function that send the share request to the specified user
     func send(shareRequest: ShareRequest,
-                     success: @escaping () -> Void,
-                     failure: @escaping (_ error: Error?) -> Void) {
+              success: @escaping () -> Void,
+              failure: @escaping (_ error: Error?) -> Void) {
         sendShareRequest(for: shareRequest.email,
                          because: shareRequest.content,
                          name: shareRequest.creatorName,
@@ -318,13 +319,13 @@ class APIHandler: ObservableObject {
             failure(nil)
             return
         }
-
+        
         guard let url = URL(string: API.EndPoints.share(appId,
                                                         releaseId: releaseId,
                                                         sharedEmail: email.escaped,
                                                         explanation: explanation.escaped,
                                                         username: name?.escaped),
-                            relativeTo: settings.prototyperInstance) else {
+                            relativeTo: prototyperInstance) else {
             print("Coule not create URL for API Endpoint")
             failure(nil)
             return
@@ -336,7 +337,7 @@ class APIHandler: ObservableObject {
             error != nil ? failure(error) : success()
         }
     }
-
+    
     
     // MARK: Helper
     fileprivate func jsonRequestForHttpMethod(_ method: HTTPMethod,

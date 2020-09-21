@@ -11,10 +11,11 @@ import Prototyper
 
 
 @main
-struct Prototyper_ExampleApp: App {
+struct PrototyperExampleApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .prototyper(PrototyperSettings.default)
         }
     }
 }

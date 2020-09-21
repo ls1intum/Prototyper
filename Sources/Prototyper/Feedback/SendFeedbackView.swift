@@ -13,9 +13,6 @@ import SwiftUI
 struct SendFeedbackView: View {
     /// The instance of the Observable Object class named Model,  to share state data anywhere it’s needed.
     @EnvironmentObject var state: PrototyperState
-    /// <#Description#>
-    @EnvironmentObject var apiHandler: APIHandler
-    
     /// Once the feedback is sent the View is dismissed by updating this variable.
     @Binding var showSendFeedbackView: Bool
     /// The variable holds the image and the feedback text to be sent, which is given by the FeedbackView.
@@ -26,21 +23,31 @@ struct SendFeedbackView: View {
     /// This State variable is updated to true when sending feedback fails.
     @State private var showingAlert = false
     
+    @State private var showLoginView = false
     
+    @State private var finishLoggingIn = false
+    
+    @State private var dismissView = false
     var body: some View {
         VStack {
-            ActivityIndicator(isAnimating: self.$shouldAnimate)
-                .onAppear { self.sendFeedback() }
-            Text("Sending the feedback to Prototyper")
-        }
-            .alert(isPresented: $showingAlert) {
-                Alert(title: Text("Error"),
-                      message: Text("Could not send feedback to server."),
-                      dismissButton: .default(Text("OK")) {
-                          self.showSendFeedbackView = false
-                      })
+            if !(state.apiHandler.userIsLoggedIn || state.apiHandler.continueWithoutLogin) {
+                LoginView()
+            } else {
+                ProgressView {
+                    Text("Sending the feedback to Prototyper")
+                }
+                .onAppear {
+                    self.sendFeedback()
+                }
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("Error"),
+                          message: Text("Could not send feedback to server."),
+                          dismissButton: .default(Text("OK")) {
+                            self.showSendFeedbackView = false
+                          })
+                }
             }
-            .navigationBarTitle("Sending Feedback")
+        }.navigationTitle("Feedback")
     }
     
     
@@ -49,15 +56,15 @@ struct SendFeedbackView: View {
         guard var feedback = feedback else {
             return
         }
-        
+        print("SendFeedback called")
         feedback.creatorName = UserDefaults.standard.string(forKey: UserDefaultKeys.username)
         
-        apiHandler.send(
+        state.apiHandler.send(
             feedback: feedback,
             success: {
                 print("Successfully sent feedback to server")
                 Prototyper.dismissView()
-                Prototyper.currentState.feedbackButtonIsHidden = !Prototyper.settings.showFeedbackButton
+                state.setFeedbackButtonIsHidden()
             },
             failure: { _ in
                 self.shouldAnimate = false
