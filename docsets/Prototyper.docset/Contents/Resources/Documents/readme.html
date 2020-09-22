@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>README  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+
+    <a title="README  Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="index.html">
+          Prototyper Docs
+        </a>
+         (100% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/ls1intum/Prototyper">
+            <img class="header-icon" src="img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="index.html">Prototyper Reference</a>
+      <img class="carat" src="img/carat.png" />
+      README  Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Guides.html">Guides</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="readme.html">README</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/Prototyper.html">Prototyper</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/View.html">View</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/PrototyperSettings.html">PrototyperSettings</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            
+            <h1 id='prototyper' class='heading'>Prototyper</h1>
+
+<p><a href="https://github.com/apple/swift-package-manager"><img src="https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg" alt="Swift Package Manager compatible"></a>
+<img src="https://img.shields.io/cocoapods/p/Prototyper" alt="platforms">
+<img src="https://img.shields.io/github/license/ls1intum/prototyper" alt="license"></p>
+
+<p>The Prototyper Framework allows you to integrate prototypes into an iOS application and receive feedback using Prototyper service. When you deploy an application using the <a href="https://prototyper-bruegge.in.tum.de">Prototyper service</a> the Prototyper Framework allows users to send feedback from within the application.</p>
+<h2 id='example' class='heading'>Example</h2>
+
+<p>Open <code>PrototyperExample.xcodeproj</code> under the Example directory to test the Prototyper framework. You can find <a href="https://ls1intum.github.io/Prototyper/docs/Classes">here</a> the list of globally available classes. To work on the framework, open the <code><a href="Enums/Prototyper.html">Prototyper</a></code> directory in xcode, which opens as a swift package. </p>
+<h2 id='requirements' class='heading'>Requirements</h2>
+
+<p>To use the Prototyper framework you need an account at the <a href="https://prototyper-bruegge.in.tum.de">Prototyper online service</a>.
+Your users can use the feedback button to give feedback and share the application with other users. The feedback will be displayed on the website of the <a href="https://prototyper-bruegge.in.tum.de">Prototyper service</a>.</p>
+<h2 id='installation' class='heading'>Installation</h2>
+
+<ol>
+<li><p>Add the Prototyper framework to your application as a swift package dependency. Follow the instructions specified <a href="https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app">here</a> and use <a href="https://github.com/ls1intum/Prototyper.git">https://github.com/ls1intum/Prototyper.git</a> as the package respository URL.</p></li>
+<li><p>Display the feedback button by using the <code>.prototyper(settings: PrototyperSettings)</code> modifier. If you add it to the <code>ContentView</code>, the button will be visible until you disable it. You can configure the <code><a href="Enums/Prototyper.html">Prototyper</a></code> framework using the <code><a href="Structs/PrototyperSettings.html">PrototyperSettings</a></code> struct.</p>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">SwiftUI</span>
+<span class="kd">import</span> <span class="kt">Prototyper</span>
+<span class="kd">@main</span>
+<span class="kd">struct</span> <span class="kt">ExampleApp</span><span class="p">:</span> <span class="kt">App</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="n">some</span> <span class="kt">Scene</span> <span class="p">{</span>
+        <span class="kt">WindowGroup</span> <span class="p">{</span>
+            <span class="kt">ContentView</span><span class="p">()</span>
+                <span class="o">.</span><span class="nf">prototyper</span><span class="p">(</span><span class="kt">PrototyperSettings</span><span class="o">.</span><span class="k">default</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></li>
+<li><p>Deploy your application e.g. using the <a href="https://prototyper.ase.in.tum.de">Prototyper service found at https://prototyper.ase.in.tum.de</a></p></li>
+</ol>
+<h2 id='authors' class='heading'>Authors</h2>
+
+<ul>
+<li>Paul Schmiedmayer, <a href="https://twitter.com/pschmiedmayer">@PSchmiedmayer</a></li>
+<li>Stefan Kofler, <a href="https://twitter.com/kofse">@kofse</a></li>
+<li>Raymond Pinto, <a href="https://twitter.com/RaymondPinto94">@RaymondPinto94</a></li>
+</ul>
+<h2 id='license' class='heading'>License</h2>
+
+<p>Prototyper is available under the MIT license. See the LICENSE file for more info.
+Prototyper wurde initital im Rahmen des vom BMBF geförderten Softwarecampus Projekt ProCeeD unter der Leitung von Dr. Lukas Alperowitz entwickelt.</p>
+
+          </div>
+        </section>
+
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2020 <a class="link" href="https://github.com/ls1intum" target="_blank" rel="external">TUM LS1</a>. All rights reserved. (Last updated: 2020-09-22)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
