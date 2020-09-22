@@ -9,6 +9,9 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v1
+    - uses: maxim-lobanov/setup-xcode@v1.1
+      with:
+        xcode-version: latest-stable
     - name: Check Xcode version
       run: xcodebuild -version
     - name: Check Swift version
