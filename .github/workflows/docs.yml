@@ -9,6 +9,12 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v1
+    - name: Check Xcode version
+      run: xcodebuild -version
+    - name: Check Swift version
+      run: swift --version
+    - name: Generate Xcode project
+      run: swift package generate-xcodeproj
     - name: Publish Jazzy Docs
       uses: steven0351/publish-jazzy-docs@v1
       with:
