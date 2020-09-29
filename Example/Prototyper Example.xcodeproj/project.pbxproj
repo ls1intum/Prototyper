@@ -62,7 +62,7 @@
 			children = (
 				65D4F37D24FE5467005F3716 /* .. */,
 				6577E66D24F423490055802C /* Prototyper Example */,
-				F485D4862523518D006EBBA1 /* Prototyper ExampleUITests */,
+				F485D4862523518D006EBBA1 /* PrototyperExample UITests */,
 				6577E66C24F423490055802C /* Products */,
 				6577E67E24F4237A0055802C /* Frameworks */,
 			);
@@ -104,13 +104,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F485D4862523518D006EBBA1 /* Prototyper ExampleUITests */ = {
+		F485D4862523518D006EBBA1 /* PrototyperExample UITests */ = {
 			isa = PBXGroup;
 			children = (
 				F4D8C79A2523630100159487 /* PrototyperContinueWithoutLoginTest.swift */,
 				F485D4892523518D006EBBA1 /* Info.plist */,
 			);
-			path = "Prototyper ExampleUITests";
+			path = "PrototyperExample UITests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
