@@ -22,6 +22,9 @@ struct ShareView: View {
     @State var showSendInviteView: Bool = false
     /// The State variable that holds the ShareRequest object.
     @State var shareRequest: ShareRequest?
+    /// Stores the old value set as a preference for `UITextView.appearance().backgroundColor` so we can show a placeholder behind the view
+    @State var oldTextViewColor: UIColor?
+    
     
     var body: some View {
         NavigationView {
@@ -30,18 +33,34 @@ struct ShareView: View {
                     Text("Send the invitation to test the app to:")
                     TextField("email@example.com", text: $inviteList)
                     Text("Invitation Text:")
-                    MultilineTextView(text: $inviteText, placeholderText: "This is the content of the invitation...").frame(numLines: 10)
+                    ZStack(alignment: .topLeading) {
+                        if inviteText.isEmpty {
+                            Text("This is the content of the invitation...")
+                                .foregroundColor(Color(.systemGray3))
+                                .padding(.top, 8)
+                                .padding(.leading, 4)
+                        }
+                        TextEditor(text: $inviteText)
+                            .onAppear {
+                                oldTextViewColor = UITextView.appearance().backgroundColor
+                                UITextView.appearance().backgroundColor = .clear
+                            }
+                            .onDisappear {
+                                UITextView.appearance().backgroundColor = oldTextViewColor
+                            }
+                            .border(Color(.systemGray6), width: 1)
+                    }
                     NavigationLink(destination: SendInviteView(showSendInviteView: $showSendInviteView,
                                                                shareRequest: $shareRequest),
                                    isActive: $showSendInviteView) {
                         Text("")
-                    }
+                    }.frame(height: 0)
                 }
                 Spacer()
-            }.padding(20)
-            .navigationBarTitle("Share App")
-            .navigationBarItems(leading: cancelButton, trailing: shareButton)
-        }
+            }.padding([.horizontal, .top], 20)
+                .navigationBarTitle("Share App")
+                .navigationBarItems(leading: cancelButton, trailing: shareButton)
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
     
     /// Holds the inviteList and the inviteText to be sent
@@ -88,6 +107,7 @@ struct ShareView: View {
         self.showSendInviteView = true
     }
 }
+
 
 // MARK: ShareView + Preview
 struct ShareView_Previews: PreviewProvider {

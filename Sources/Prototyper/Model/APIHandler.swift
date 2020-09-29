@@ -106,6 +106,8 @@ class APIHandler: ObservableObject {
     @Published var continueWithoutLogin: Bool = false
     /// This boolean variable is used to check if the user is logged in
     @Published var userIsLoggedIn: Bool = false
+    
+    
     /// The appID of the current Bundle
     var appId: String? {
         let readPrototyperAppId = Bundle.main.object(forInfoDictionaryKey: "PrototyperAppId") as? String
@@ -119,7 +121,7 @@ class APIHandler: ObservableObject {
     }
     
     
-    init(prototyperInstance: URL, state: PrototyperState) {
+    init(prototyperInstance: URL) {
         self.prototyperInstance = prototyperInstance
         tryToFetchReleaseInfos()
         tryToLogin()

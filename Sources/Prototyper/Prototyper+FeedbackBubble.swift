@@ -25,12 +25,10 @@ extension Prototyper {
     }
     
     
-    /// <#Description#>
     private static var stateObservingCancellable: AnyCancellable?
     /// The static instance of the feedback bubble.
     static var feedbackBubble: FeedbackBubble = {
-        let feedbackBubble = FeedbackBubble(target: Prototyper.self,
-                                            action: #selector(showActionSheet))
+        let feedbackBubble = FeedbackBubble(action: showActionSheet)
         
         feedbackBubble.layer.zPosition = 100
         
@@ -66,7 +64,7 @@ extension Prototyper {
     }
     
     /// Displays the actions that the framework can perform.
-    @objc private static func showActionSheet() {
+    private static func showActionSheet(_ action: UIAction) {
         let actionSheet = UIAlertController(title: Constants.FeedbackActionSheet.title,
                                             message: Constants.FeedbackActionSheet.text,
                                             preferredStyle: .actionSheet)

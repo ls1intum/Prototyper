@@ -17,7 +17,7 @@ class FeedbackBubble: UIView {
     private static var size = CGSize(width: 70, height: 70)
     
     
-    init(target: Any, action: Selector) {
+    init(action: @escaping (UIAction) -> Void) {
         super.init(frame: CGRect(x: -FeedbackBubble.size.width / 2,
                                  y: UIScreen.main.bounds.size.height / 2,
                                  width: FeedbackBubble.size.width,
@@ -26,7 +26,7 @@ class FeedbackBubble: UIView {
         let feedbackButton = UIButton(type: .custom)
         setBubbleImageToButton(button: feedbackButton)
         feedbackButton.frame = CGRect(x: 0, y: 0, width: FeedbackBubble.size.width, height: FeedbackBubble.size.height)
-        feedbackButton.addTarget(target, action: action, for: .touchUpInside)
+        feedbackButton.addAction(UIAction(handler: action), for: .touchUpInside)
         addShadow(view: feedbackButton)
         self.addSubview(feedbackButton)
         
@@ -60,9 +60,9 @@ class FeedbackBubble: UIView {
                            delay: 0,
                            options: .curveEaseInOut,
                            animations: {
-                self.frame.origin.x = endPositionX
-                self.frame.origin.y = endPositionY
-            }, completion: nil)
+                            self.frame.origin.x = endPositionX
+                            self.frame.origin.y = endPositionY
+                           }, completion: nil)
         }
     }
     

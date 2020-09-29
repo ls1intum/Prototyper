@@ -13,6 +13,7 @@ import SwiftUI
 struct SendFeedbackView: View {
     /// The instance of the Observable Object class named Model,  to share state data anywhere it’s needed.
     @EnvironmentObject var state: PrototyperState
+    
     /// Once the feedback is sent the View is dismissed by updating this variable.
     @Binding var showSendFeedbackView: Bool
     /// The variable holds the image and the feedback text to be sent, which is given by the FeedbackView.
@@ -22,12 +23,11 @@ struct SendFeedbackView: View {
     @State private var shouldAnimate = true
     /// This State variable is updated to true when sending feedback fails.
     @State private var showingAlert = false
-    
     @State private var showLoginView = false
-    
     @State private var finishLoggingIn = false
-    
     @State private var dismissView = false
+    
+    
     var body: some View {
         VStack {
             if !(state.apiHandler.userIsLoggedIn || state.apiHandler.continueWithoutLogin) {
@@ -47,7 +47,8 @@ struct SendFeedbackView: View {
                           })
                 }
             }
-        }.navigationTitle("Feedback")
+        }
+        .navigationTitle("Feedback")
     }
     
     

@@ -5,7 +5,6 @@
 //  Created by Simon Borowski on 18.08.20.
 //
 
-import Foundation
 import SwiftUI
 
 
@@ -13,9 +12,11 @@ import SwiftUI
 struct ProtoytperModifier: ViewModifier, LibraryContentProvider {
     var settings: PrototyperSettings
     
+    
     init(_ settings: PrototyperSettings) {
         self.settings = settings
     }
+    
     
     /// Function that initializes prototyper and returns an unchanged view
     /// - Parameter content: Current View
@@ -25,6 +26,7 @@ struct ProtoytperModifier: ViewModifier, LibraryContentProvider {
         }
     }
 }
+
 
 extension View {
     /// Function to wrap ´modifier(prototyperModifier)´
