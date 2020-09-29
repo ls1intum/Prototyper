@@ -12,7 +12,18 @@
 		6577E67324F423490055802C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6577E67224F423490055802C /* Assets.xcassets */; };
 		6577E67624F423490055802C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6577E67524F423490055802C /* Preview Assets.xcassets */; };
 		6577E68024F4237A0055802C /* Prototyper in Frameworks */ = {isa = PBXBuildFile; productRef = 6577E67F24F4237A0055802C /* Prototyper */; };
+		F4D8C79B2523630100159487 /* PrototyperContinueWithoutLoginTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D8C79A2523630100159487 /* PrototyperContinueWithoutLoginTest.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F485D48A2523518D006EBBA1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6577E66324F423490055802C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6577E66A24F423490055802C;
+			remoteInfo = "Prototyper Example";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		6577E66B24F423490055802C /* Prototyper Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Prototyper Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -22,6 +33,9 @@
 		6577E67524F423490055802C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6577E67724F423490055802C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65D4F37D24FE5467005F3716 /* .. */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ..; sourceTree = "<group>"; };
+		F485D4852523518D006EBBA1 /* Prototyper ExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Prototyper ExampleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F485D4892523518D006EBBA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4D8C79A2523630100159487 /* PrototyperContinueWithoutLoginTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrototyperContinueWithoutLoginTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +47,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F485D4822523518D006EBBA1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -41,6 +62,7 @@
 			children = (
 				65D4F37D24FE5467005F3716 /* .. */,
 				6577E66D24F423490055802C /* Prototyper Example */,
+				F485D4862523518D006EBBA1 /* PrototyperExample UITests */,
 				6577E66C24F423490055802C /* Products */,
 				6577E67E24F4237A0055802C /* Frameworks */,
 			);
@@ -50,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				6577E66B24F423490055802C /* Prototyper Example.app */,
+				F485D4852523518D006EBBA1 /* Prototyper ExampleUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -81,6 +104,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F485D4862523518D006EBBA1 /* PrototyperExample UITests */ = {
+			isa = PBXGroup;
+			children = (
+				F4D8C79A2523630100159487 /* PrototyperContinueWithoutLoginTest.swift */,
+				F485D4892523518D006EBBA1 /* Info.plist */,
+			);
+			path = "PrototyperExample UITests";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -104,6 +136,24 @@
 			productReference = 6577E66B24F423490055802C /* Prototyper Example.app */;
 			productType = "com.apple.product-type.application";
 		};
+		F485D4842523518D006EBBA1 /* Prototyper ExampleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F485D48E2523518D006EBBA1 /* Build configuration list for PBXNativeTarget "Prototyper ExampleUITests" */;
+			buildPhases = (
+				F485D4812523518D006EBBA1 /* Sources */,
+				F485D4822523518D006EBBA1 /* Frameworks */,
+				F485D4832523518D006EBBA1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F485D48B2523518D006EBBA1 /* PBXTargetDependency */,
+			);
+			name = "Prototyper ExampleUITests";
+			productName = "Prototyper ExampleUITests";
+			productReference = F485D4852523518D006EBBA1 /* Prototyper ExampleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -115,6 +165,10 @@
 				TargetAttributes = {
 					6577E66A24F423490055802C = {
 						CreatedOnToolsVersion = 12.0;
+					};
+					F485D4842523518D006EBBA1 = {
+						CreatedOnToolsVersion = 12.0;
+						TestTargetID = 6577E66A24F423490055802C;
 					};
 				};
 			};
@@ -132,6 +186,7 @@
 			projectRoot = "";
 			targets = (
 				6577E66A24F423490055802C /* Prototyper Example */,
+				F485D4842523518D006EBBA1 /* Prototyper ExampleUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -143,6 +198,13 @@
 			files = (
 				6577E67624F423490055802C /* Preview Assets.xcassets in Resources */,
 				6577E67324F423490055802C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F485D4832523518D006EBBA1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,7 +220,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F485D4812523518D006EBBA1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4D8C79B2523630100159487 /* PrototyperContinueWithoutLoginTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F485D48B2523518D006EBBA1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6577E66A24F423490055802C /* Prototyper Example */;
+			targetProxy = F485D48A2523518D006EBBA1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		6577E67824F423490055802C /* Debug */ = {
@@ -324,6 +402,44 @@
 			};
 			name = Release;
 		};
+		F485D48C2523518D006EBBA1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HWR6JN69ZN;
+				INFOPLIST_FILE = "Prototyper ExampleUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Test.Prototyper-ExampleUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Prototyper Example";
+			};
+			name = Debug;
+		};
+		F485D48D2523518D006EBBA1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HWR6JN69ZN;
+				INFOPLIST_FILE = "Prototyper ExampleUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Test.Prototyper-ExampleUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Prototyper Example";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -341,6 +457,15 @@
 			buildConfigurations = (
 				6577E67B24F423490055802C /* Debug */,
 				6577E67C24F423490055802C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F485D48E2523518D006EBBA1 /* Build configuration list for PBXNativeTarget "Prototyper ExampleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F485D48C2523518D006EBBA1 /* Debug */,
+				F485D48D2523518D006EBBA1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
