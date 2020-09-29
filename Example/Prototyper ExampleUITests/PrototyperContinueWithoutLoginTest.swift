@@ -7,6 +7,7 @@
 
 import XCTest
 
+//If this class confirms to XCTestCase, it will show up as executable test
 class PrototyperContinueWithoutLoginTest {
     
     func testViewSwitchAfterLoggingIn() throws {
