@@ -9,7 +9,6 @@ import XCTest
 
 //If this class confirms to XCTestCase, it will show up as executable test
 class PrototyperContinueWithoutLoginTest {
-    
     func testViewSwitchAfterLoggingIn() throws {
         //This test checks if the app changes the view after the user continues without login
         let app = XCUIApplication()

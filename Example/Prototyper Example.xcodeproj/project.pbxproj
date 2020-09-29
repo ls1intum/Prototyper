@@ -12,7 +12,7 @@
 		6577E67324F423490055802C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6577E67224F423490055802C /* Assets.xcassets */; };
 		6577E67624F423490055802C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6577E67524F423490055802C /* Preview Assets.xcassets */; };
 		6577E68024F4237A0055802C /* Prototyper in Frameworks */ = {isa = PBXBuildFile; productRef = 6577E67F24F4237A0055802C /* Prototyper */; };
-		F485D4882523518D006EBBA1 /* Prototyper_ExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F485D4872523518D006EBBA1 /* Prototyper_ExampleUITests.swift */; };
+		F485D4882523518D006EBBA1 /* PrototyperExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F485D4872523518D006EBBA1 /* PrototyperExampleUITests.swift */; };
 		F4D8C79B2523630100159487 /* PrototyperContinueWithoutLoginTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D8C79A2523630100159487 /* PrototyperContinueWithoutLoginTest.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,7 +35,7 @@
 		6577E67724F423490055802C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65D4F37D24FE5467005F3716 /* .. */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ..; sourceTree = "<group>"; };
 		F485D4852523518D006EBBA1 /* Prototyper ExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Prototyper ExampleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F485D4872523518D006EBBA1 /* Prototyper_ExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prototyper_ExampleUITests.swift; sourceTree = "<group>"; };
+		F485D4872523518D006EBBA1 /* PrototyperExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrototyperExampleUITests.swift; sourceTree = "<group>"; };
 		F485D4892523518D006EBBA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4D8C79A2523630100159487 /* PrototyperContinueWithoutLoginTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrototyperContinueWithoutLoginTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -110,7 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				F4D8C79A2523630100159487 /* PrototyperContinueWithoutLoginTest.swift */,
-				F485D4872523518D006EBBA1 /* Prototyper_ExampleUITests.swift */,
+				F485D4872523518D006EBBA1 /* PrototyperExampleUITests.swift */,
 				F485D4892523518D006EBBA1 /* Info.plist */,
 			);
 			path = "Prototyper ExampleUITests";
@@ -227,7 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F485D4882523518D006EBBA1 /* Prototyper_ExampleUITests.swift in Sources */,
+				F485D4882523518D006EBBA1 /* PrototyperExampleUITests.swift in Sources */,
 				F4D8C79B2523630100159487 /* PrototyperContinueWithoutLoginTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
