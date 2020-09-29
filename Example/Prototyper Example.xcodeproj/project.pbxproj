@@ -405,9 +405,10 @@
 		F485D48C2523518D006EBBA1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HWR6JN69ZN;
-				INFOPLIST_FILE = "Prototyper ExampleUITests/Info.plist";
+				DEVELOPMENT_TEAM = 7PLLZ436SG;
+				INFOPLIST_FILE = "PrototyperExample UITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -415,6 +416,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Test.Prototyper-ExampleUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "Prototyper Example";
@@ -424,9 +427,10 @@
 		F485D48D2523518D006EBBA1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HWR6JN69ZN;
-				INFOPLIST_FILE = "Prototyper ExampleUITests/Info.plist";
+				DEVELOPMENT_TEAM = 7PLLZ436SG;
+				INFOPLIST_FILE = "PrototyperExample UITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -434,6 +438,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Test.Prototyper-ExampleUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "Prototyper Example";
