@@ -83,9 +83,9 @@ struct LoginView: View {
     /// The text to be displayed on the Login button.
     var subButtonText: String {
         if continueWithoutLogin {
-            return LoginViewConstants.SubButtonText.withoutLoginText
-        } else {
             return LoginViewConstants.SubButtonText.withLoginText
+        } else {
+            return LoginViewConstants.SubButtonText.withoutLoginText
         }
     }
     
